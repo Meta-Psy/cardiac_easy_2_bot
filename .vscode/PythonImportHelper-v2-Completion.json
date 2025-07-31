@@ -1,0 +1,2196 @@
+[
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "Router",
+        "importPath": "aiogram",
+        "description": "aiogram",
+        "isExtraImport": true,
+        "detail": "aiogram",
+        "documentation": {}
+    },
+    {
+        "label": "F",
+        "importPath": "aiogram",
+        "description": "aiogram",
+        "isExtraImport": true,
+        "detail": "aiogram",
+        "documentation": {}
+    },
+    {
+        "label": "Bot",
+        "importPath": "aiogram",
+        "description": "aiogram",
+        "isExtraImport": true,
+        "detail": "aiogram",
+        "documentation": {}
+    },
+    {
+        "label": "Router",
+        "importPath": "aiogram",
+        "description": "aiogram",
+        "isExtraImport": true,
+        "detail": "aiogram",
+        "documentation": {}
+    },
+    {
+        "label": "F",
+        "importPath": "aiogram",
+        "description": "aiogram",
+        "isExtraImport": true,
+        "detail": "aiogram",
+        "documentation": {}
+    },
+    {
+        "label": "Bot",
+        "importPath": "aiogram",
+        "description": "aiogram",
+        "isExtraImport": true,
+        "detail": "aiogram",
+        "documentation": {}
+    },
+    {
+        "label": "Dispatcher",
+        "importPath": "aiogram",
+        "description": "aiogram",
+        "isExtraImport": true,
+        "detail": "aiogram",
+        "documentation": {}
+    },
+    {
+        "label": "Router",
+        "importPath": "aiogram",
+        "description": "aiogram",
+        "isExtraImport": true,
+        "detail": "aiogram",
+        "documentation": {}
+    },
+    {
+        "label": "F",
+        "importPath": "aiogram",
+        "description": "aiogram",
+        "isExtraImport": true,
+        "detail": "aiogram",
+        "documentation": {}
+    },
+    {
+        "label": "Message",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "CallbackQuery",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "FSInputFile",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "InlineKeyboardMarkup",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "InlineKeyboardButton",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "InlineKeyboardMarkup",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "InlineKeyboardButton",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "Message",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "CallbackQuery",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "ReplyKeyboardMarkup",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "KeyboardButton",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "ReplyKeyboardRemove",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "InlineKeyboardMarkup",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "InlineKeyboardButton",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "BotCommand",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "BotCommandScopeDefault",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "InlineKeyboardMarkup",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "InlineKeyboardButton",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "Message",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "CallbackQuery",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "InlineKeyboardMarkup",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "InlineKeyboardButton",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "Command",
+        "importPath": "aiogram.filters",
+        "description": "aiogram.filters",
+        "isExtraImport": true,
+        "detail": "aiogram.filters",
+        "documentation": {}
+    },
+    {
+        "label": "CommandStart",
+        "importPath": "aiogram.filters",
+        "description": "aiogram.filters",
+        "isExtraImport": true,
+        "detail": "aiogram.filters",
+        "documentation": {}
+    },
+    {
+        "label": "StateFilter",
+        "importPath": "aiogram.filters",
+        "description": "aiogram.filters",
+        "isExtraImport": true,
+        "detail": "aiogram.filters",
+        "documentation": {}
+    },
+    {
+        "label": "Command",
+        "importPath": "aiogram.filters",
+        "description": "aiogram.filters",
+        "isExtraImport": true,
+        "detail": "aiogram.filters",
+        "documentation": {}
+    },
+    {
+        "label": "Command",
+        "importPath": "aiogram.filters",
+        "description": "aiogram.filters",
+        "isExtraImport": true,
+        "detail": "aiogram.filters",
+        "documentation": {}
+    },
+    {
+        "label": "FSMContext",
+        "importPath": "aiogram.fsm.context",
+        "description": "aiogram.fsm.context",
+        "isExtraImport": true,
+        "detail": "aiogram.fsm.context",
+        "documentation": {}
+    },
+    {
+        "label": "FSMContext",
+        "importPath": "aiogram.fsm.context",
+        "description": "aiogram.fsm.context",
+        "isExtraImport": true,
+        "detail": "aiogram.fsm.context",
+        "documentation": {}
+    },
+    {
+        "label": "FSMContext",
+        "importPath": "aiogram.fsm.context",
+        "description": "aiogram.fsm.context",
+        "isExtraImport": true,
+        "detail": "aiogram.fsm.context",
+        "documentation": {}
+    },
+    {
+        "label": "State",
+        "importPath": "aiogram.fsm.state",
+        "description": "aiogram.fsm.state",
+        "isExtraImport": true,
+        "detail": "aiogram.fsm.state",
+        "documentation": {}
+    },
+    {
+        "label": "StatesGroup",
+        "importPath": "aiogram.fsm.state",
+        "description": "aiogram.fsm.state",
+        "isExtraImport": true,
+        "detail": "aiogram.fsm.state",
+        "documentation": {}
+    },
+    {
+        "label": "State",
+        "importPath": "aiogram.fsm.state",
+        "description": "aiogram.fsm.state",
+        "isExtraImport": true,
+        "detail": "aiogram.fsm.state",
+        "documentation": {}
+    },
+    {
+        "label": "StatesGroup",
+        "importPath": "aiogram.fsm.state",
+        "description": "aiogram.fsm.state",
+        "isExtraImport": true,
+        "detail": "aiogram.fsm.state",
+        "documentation": {}
+    },
+    {
+        "label": "State",
+        "importPath": "aiogram.fsm.state",
+        "description": "aiogram.fsm.state",
+        "isExtraImport": true,
+        "detail": "aiogram.fsm.state",
+        "documentation": {}
+    },
+    {
+        "label": "StatesGroup",
+        "importPath": "aiogram.fsm.state",
+        "description": "aiogram.fsm.state",
+        "isExtraImport": true,
+        "detail": "aiogram.fsm.state",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "pytz",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pytz",
+        "description": "pytz",
+        "detail": "pytz",
+        "documentation": {}
+    },
+    {
+        "label": "admin_export_data",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "admin_get_stats",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "clean_old_data",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "get_all_users",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "get_completed_users",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "get_uncompleted_users",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "log_broadcast",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "init_db",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "ensure_database_exists",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "fix_incomplete_records",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "validate_data_integrity",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "log_user_activity",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "get_db_sync",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "ActivityLog",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "asyncio",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "asyncio",
+        "description": "asyncio",
+        "detail": "asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "create_engine",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Integer",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "String",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "DateTime",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Text",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Boolean",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "ForeignKey",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Index",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "func",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "or_",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "and_",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "BigInteger",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "declarative_base",
+        "importPath": "sqlalchemy.ext.declarative",
+        "description": "sqlalchemy.ext.declarative",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.ext.declarative",
+        "documentation": {}
+    },
+    {
+        "label": "sessionmaker",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "relationship",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "score2_router",
+        "importPath": "score_2_handler",
+        "description": "score_2_handler",
+        "isExtraImport": true,
+        "detail": "score_2_handler",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "keyboards",
+        "description": "keyboards",
+        "isExtraImport": true,
+        "detail": "keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "surveys",
+        "description": "surveys",
+        "isExtraImport": true,
+        "detail": "surveys",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "DefaultBotProperties",
+        "importPath": "aiogram.client.default",
+        "description": "aiogram.client.default",
+        "isExtraImport": true,
+        "detail": "aiogram.client.default",
+        "documentation": {}
+    },
+    {
+        "label": "ParseMode",
+        "importPath": "aiogram.enums",
+        "description": "aiogram.enums",
+        "isExtraImport": true,
+        "detail": "aiogram.enums",
+        "documentation": {}
+    },
+    {
+        "label": "MemoryStorage",
+        "importPath": "aiogram.fsm.storage.memory",
+        "description": "aiogram.fsm.storage.memory",
+        "isExtraImport": true,
+        "detail": "aiogram.fsm.storage.memory",
+        "documentation": {}
+    },
+    {
+        "label": "AiohttpSession",
+        "importPath": "aiogram.client.session.aiohttp",
+        "description": "aiogram.client.session.aiohttp",
+        "isExtraImport": true,
+        "detail": "aiogram.client.session.aiohttp",
+        "documentation": {}
+    },
+    {
+        "label": "aiohttp",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "aiohttp",
+        "description": "aiohttp",
+        "detail": "aiohttp",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "importPath": "handlers",
+        "description": "handlers",
+        "isExtraImport": true,
+        "detail": "handlers",
+        "documentation": {}
+    },
+    {
+        "label": "state_protection",
+        "importPath": "handlers",
+        "description": "handlers",
+        "isExtraImport": true,
+        "detail": "handlers",
+        "documentation": {}
+    },
+    {
+        "label": "admin_router",
+        "importPath": "admin",
+        "description": "admin",
+        "isExtraImport": true,
+        "detail": "admin",
+        "documentation": {}
+    },
+    {
+        "label": "BroadcastScheduler",
+        "importPath": "broadcast",
+        "description": "broadcast",
+        "isExtraImport": true,
+        "detail": "broadcast",
+        "documentation": {}
+    },
+    {
+        "label": "get_db_sync",
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "isExtraImport": true,
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "isExtraImport": true,
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "Survey",
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "isExtraImport": true,
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "TestResult",
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "isExtraImport": true,
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "ActivityLog",
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "isExtraImport": true,
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "init_db",
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "isExtraImport": true,
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "ensure_database_exists",
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "isExtraImport": true,
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "AdminStates",
+        "kind": 6,
+        "importPath": "bot.admin",
+        "description": "bot.admin",
+        "peekOfCode": "class AdminStates(StatesGroup):\n    waiting_password = State()\n# Получаем пароль из переменных окружения\nADMIN_PASSWORD = os.getenv(\"ADMIN_PASSWORD\", \"\")\ndef get_admin_keyboard():\n    \"\"\"Клавиатура административной панели\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"📊 Статистика\", callback_data=\"admin_stats\")],\n        [InlineKeyboardButton(text=\"📥 Экспорт данных\", callback_data=\"admin_export\")],\n        [InlineKeyboardButton(text=\"🗑 Очистить старые данные\", callback_data=\"admin_clean\")],",
+        "detail": "bot.admin",
+        "documentation": {}
+    },
+    {
+        "label": "get_admin_keyboard",
+        "kind": 2,
+        "importPath": "bot.admin",
+        "description": "bot.admin",
+        "peekOfCode": "def get_admin_keyboard():\n    \"\"\"Клавиатура административной панели\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"📊 Статистика\", callback_data=\"admin_stats\")],\n        [InlineKeyboardButton(text=\"📥 Экспорт данных\", callback_data=\"admin_export\")],\n        [InlineKeyboardButton(text=\"🗑 Очистить старые данные\", callback_data=\"admin_clean\")],\n        [InlineKeyboardButton(text=\"🔄 Обновить статистику\", callback_data=\"admin_refresh_stats\")],\n        [InlineKeyboardButton(text=\"🚪 Выйти\", callback_data=\"admin_logout\")]\n    ])\n    return keyboard",
+        "detail": "bot.admin",
+        "documentation": {}
+    },
+    {
+        "label": "get_admin_keyboard",
+        "kind": 2,
+        "importPath": "bot.admin",
+        "description": "bot.admin",
+        "peekOfCode": "def get_admin_keyboard():\n    \"\"\"Клавиатура административной панели\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"📊 Статистика\", callback_data=\"admin_stats\")],\n        [InlineKeyboardButton(text=\"📥 Экспорт данных\", callback_data=\"admin_export\")],\n        [InlineKeyboardButton(text=\"🗑 Очистить старые данные\", callback_data=\"admin_clean\")],\n        [InlineKeyboardButton(text=\"🔄 Обновить статистику\", callback_data=\"admin_refresh_stats\")],\n        [InlineKeyboardButton(text=\"📡 Тест рассылок\", callback_data=\"admin_test_broadcast\")],  # НОВАЯ КНОПКА\n        [InlineKeyboardButton(text=\"🚪 Выйти\", callback_data=\"admin_logout\")]\n    ])",
+        "detail": "bot.admin",
+        "documentation": {}
+    },
+    {
+        "label": "admin_router",
+        "kind": 5,
+        "importPath": "bot.admin",
+        "description": "bot.admin",
+        "peekOfCode": "admin_router = Router()\nclass AdminStates(StatesGroup):\n    waiting_password = State()\n# Получаем пароль из переменных окружения\nADMIN_PASSWORD = os.getenv(\"ADMIN_PASSWORD\", \"\")\ndef get_admin_keyboard():\n    \"\"\"Клавиатура административной панели\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"📊 Статистика\", callback_data=\"admin_stats\")],\n        [InlineKeyboardButton(text=\"📥 Экспорт данных\", callback_data=\"admin_export\")],",
+        "detail": "bot.admin",
+        "documentation": {}
+    },
+    {
+        "label": "ADMIN_PASSWORD",
+        "kind": 5,
+        "importPath": "bot.admin",
+        "description": "bot.admin",
+        "peekOfCode": "ADMIN_PASSWORD = os.getenv(\"ADMIN_PASSWORD\", \"\")\ndef get_admin_keyboard():\n    \"\"\"Клавиатура административной панели\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"📊 Статистика\", callback_data=\"admin_stats\")],\n        [InlineKeyboardButton(text=\"📥 Экспорт данных\", callback_data=\"admin_export\")],\n        [InlineKeyboardButton(text=\"🗑 Очистить старые данные\", callback_data=\"admin_clean\")],\n        [InlineKeyboardButton(text=\"🔄 Обновить статистику\", callback_data=\"admin_refresh_stats\")],\n        [InlineKeyboardButton(text=\"🚪 Выйти\", callback_data=\"admin_logout\")]\n    ])",
+        "detail": "bot.admin",
+        "documentation": {}
+    },
+    {
+        "label": "BroadcastScheduler",
+        "kind": 6,
+        "importPath": "bot.broadcast",
+        "description": "bot.broadcast",
+        "peekOfCode": "class BroadcastScheduler:\n    def __init__(self, bot: Bot):\n        self.bot = bot\n        # Указываем время в московском часовом поясе\n        self.timezone = pytz.timezone('Europe/Moscow')\n        # Дата вебинара: 3 августа 2025, 12:00 МСК\n        self.webinar_date = self.timezone.localize(datetime(2025, 8, 3, 12, 0))\n        self.running = False\n        # Флаги отправленных рассылок (для предотвращения дублирования)\n        self.sent_broadcasts = set()",
+        "detail": "bot.broadcast",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "bot.broadcast",
+        "description": "bot.broadcast",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nclass BroadcastScheduler:\n    def __init__(self, bot: Bot):\n        self.bot = bot\n        # Указываем время в московском часовом поясе\n        self.timezone = pytz.timezone('Europe/Moscow')\n        # Дата вебинара: 3 августа 2025, 12:00 МСК\n        self.webinar_date = self.timezone.localize(datetime(2025, 8, 3, 12, 0))\n        self.running = False\n        # Флаги отправленных рассылок (для предотвращения дублирования)",
+        "detail": "bot.broadcast",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "kind": 6,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "class User(Base):\n    \"\"\"Модель пользователя с контактными данными\"\"\"\n    __tablename__ = 'users'\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    telegram_id = Column(BigInteger, unique=True, nullable=False, index=True)\n    name = Column(String(255), nullable=True)\n    email = Column(String(255), nullable=True)\n    phone = Column(String(50), nullable=True)\n    # Статусы прохождения\n    completed_diagnostic = Column(Boolean, default=False, nullable=False)",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "Survey",
+        "kind": 6,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "class Survey(Base):\n    \"\"\"Модель опроса о здоровье (18 вопросов)\"\"\"\n    __tablename__ = 'surveys'\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    telegram_id = Column(Integer, ForeignKey('users.telegram_id'), nullable=False, index=True)\n    # Демографические данные (вопросы 1-7)\n    age = Column(Integer, nullable=True)\n    gender = Column(String(50), nullable=True)\n    location = Column(String(255), nullable=True)\n    education = Column(String(255), nullable=True)",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "TestResult",
+        "kind": 6,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "class TestResult(Base):\n    \"\"\"Модель результатов психологических тестов\"\"\"\n    __tablename__ = 'test_results'\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    telegram_id = Column(Integer, ForeignKey('users.telegram_id'), nullable=False, index=True)\n    # HADS - Госпитальная шкала тревоги и депрессии\n    hads_anxiety_score = Column(Integer, nullable=True)  # 0-21\n    hads_depression_score = Column(Integer, nullable=True)  # 0-21\n    hads_total_score = Column(Integer, nullable=True)  # 0-42\n    hads_anxiety_level = Column(String(50), nullable=True)  # норма/субклин/клин",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "ActivityLog",
+        "kind": 6,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "class ActivityLog(Base):\n    \"\"\"Лог активности пользователей\"\"\"\n    __tablename__ = 'activity_logs'\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    telegram_id = Column(Integer, ForeignKey('users.telegram_id'), nullable=False, index=True)\n    # Тип активности\n    action = Column(String(100), nullable=False)  # start, survey_started, survey_completed, test_started, test_completed\n    details = Column(Text, nullable=True)  # JSON с дополнительными данными\n    step = Column(String(100), nullable=True)  # Конкретный шаг процесса\n    # Временные метки",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "BroadcastLog",
+        "kind": 6,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "class BroadcastLog(Base):\n    \"\"\"Лог рассылок\"\"\"\n    __tablename__ = 'broadcast_logs'\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    # Параметры рассылки\n    broadcast_type = Column(String(100), nullable=False)  # week, 3days, 1day, 3hours, etc.\n    message_text = Column(Text, nullable=False)\n    target_audience = Column(String(100), nullable=True)  # all, completed, uncompleted\n    # Статистика\n    total_users = Column(Integer, default=0, nullable=False)",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "SystemStats",
+        "kind": 6,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "class SystemStats(Base):\n    \"\"\"Системная статистика по дням\"\"\"\n    __tablename__ = 'system_stats'\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    date = Column(DateTime, nullable=False, unique=True, index=True)\n    # Статистика пользователей\n    total_users = Column(Integer, default=0, nullable=False)\n    new_users_today = Column(Integer, default=0, nullable=False)\n    active_users_today = Column(Integer, default=0, nullable=False)\n    # Статистика завершения",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "init_db",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def init_db():\n    \"\"\"Инициализация базы данных\"\"\"\n    try:\n        Base.metadata.create_all(bind=engine)\n        logger.info(\"✅ База данных успешно инициализирована\")\n        return True\n    except Exception as e:\n        logger.error(f\"❌ Ошибка инициализации базы данных: {e}\")\n        return False\ndef get_db():",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "get_db",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def get_db():\n    \"\"\"Получить сессию базы данных\"\"\"\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()\ndef get_db_sync():\n    \"\"\"Получить синхронную сессию базы данных\"\"\"\n    return SessionLocal()",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "get_db_sync",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def get_db_sync():\n    \"\"\"Получить синхронную сессию базы данных\"\"\"\n    return SessionLocal()\n# ============================================================================\n# ОСНОВНЫЕ ФУНКЦИИ РАБОТЫ С ПОЛЬЗОВАТЕЛЯМИ\n# ============================================================================\ndef find_existing_user(telegram_id: int, email: str = None, phone: str = None):\n    \"\"\"Поиск пользователя по всем возможным критериям с обновлением telegram_id\"\"\"\n    db = get_db_sync()\n    try:",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "find_existing_user",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def find_existing_user(telegram_id: int, email: str = None, phone: str = None):\n    \"\"\"Поиск пользователя по всем возможным критериям с обновлением telegram_id\"\"\"\n    db = get_db_sync()\n    try:\n        logger.info(f\"Ищу пользователя: telegram_id={telegram_id}, email={email}, phone={phone}\")\n        # 1. Поиск по telegram_id (приоритет)\n        user = db.query(User).filter(User.telegram_id == telegram_id).first()\n        if user:\n            logger.info(f\"✅ Найден пользователь по telegram_id: {user.id}\")\n            return user",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "merge_duplicate_users",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def merge_duplicate_users():\n    \"\"\"Объединение дублированных пользователей\"\"\"\n    db = get_db_sync()\n    try:\n        logger.info(\"=== НАЧАЛО ОБЪЕДИНЕНИЯ ДУБЛИКАТОВ ===\")\n        # Найти дубликаты по email\n        emails_query = db.query(User.email).filter(\n            User.email.isnot(None),\n            User.email != '',\n            ~User.email.like('%@bot.com')  # Исключаем автогенерированные email",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "find_existing_user_safe",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def find_existing_user_safe(telegram_id: int, email: str = None, phone: str = None):\n    \"\"\"ИСПРАВЛЕННАЯ функция поиска пользователя - НЕ МЕНЯЕТ telegram_id если он правильный\"\"\"\n    db = get_db_sync()\n    try:\n        logger.info(f\"🔍 ПОИСК пользователя: telegram_id={telegram_id}, email={email}, phone={phone}\")\n        # 1. СНАЧАЛА точный поиск по telegram_id - ПРИОРИТЕТ!\n        user = db.query(User).filter(User.telegram_id == telegram_id).first()\n        if user:\n            logger.info(f\"✅ НАЙДЕН точно по telegram_id: {user.id}\")\n            return user",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "check_user_completed",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def check_user_completed(telegram_id: int) -> bool:\n    \"\"\"Проверить, завершил ли пользователь диагностику\"\"\"\n    db = get_db_sync()\n    try:\n        user = db.query(User).filter(User.telegram_id == telegram_id).first()\n        return user.completed_diagnostic if user else False\n    finally:\n        db.close()\ndef get_user_data(telegram_id: int) -> Dict[str, Any]:\n    \"\"\"Получить полные данные пользователя\"\"\"",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "get_user_data",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def get_user_data(telegram_id: int) -> Dict[str, Any]:\n    \"\"\"Получить полные данные пользователя\"\"\"\n    db = get_db_sync()\n    try:\n        user = db.query(User).filter(User.telegram_id == telegram_id).first()\n        survey = db.query(Survey).filter(Survey.telegram_id == telegram_id).first()\n        tests = db.query(TestResult).filter(TestResult.telegram_id == telegram_id).first()\n        return {\n            'user': user,\n            'survey': survey,",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "get_user_stats",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def get_user_stats() -> Dict[str, int]:\n    \"\"\"Получить базовую статистику пользователей\"\"\"\n    db = get_db_sync()\n    try:\n        total_users = db.query(User).count()\n        completed_registration = db.query(User).filter(User.registration_completed == True).count()\n        completed_surveys = db.query(User).filter(User.survey_completed == True).count()\n        completed_tests = db.query(User).filter(User.tests_completed == True).count()\n        completed_diagnostic = db.query(User).filter(User.completed_diagnostic == True).count()\n        return {",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "get_detailed_stats",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def get_detailed_stats() -> Dict[str, Any]:\n    \"\"\"Получить детальную статистику\"\"\"\n    db = get_db_sync()\n    try:\n        # Базовая статистика\n        basic_stats = get_user_stats()\n        # Статистика рисков\n        risk_stats = db.query(TestResult.overall_cv_risk_level, \n                             func.count(TestResult.overall_cv_risk_level).label('count')\n                             ).group_by(TestResult.overall_cv_risk_level).all()",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "export_to_excel",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def export_to_excel(filename: str = \"cardio_bot_data.xlsx\") -> str:\n    \"\"\"Экспорт данных в Excel\"\"\"\n    db = get_db_sync()\n    try:\n        # Основной запрос с объединением таблиц\n        main_query = \"\"\"\n        SELECT \n            u.telegram_id,\n            u.name,\n            u.email,",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "update_daily_stats",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def update_daily_stats():\n    \"\"\"Обновить ежедневную статистику\"\"\"\n    db = get_db_sync()\n    try:\n        today = datetime.now().date()\n        yesterday = today - timedelta(days=1)\n        # Проверяем, есть ли уже запись за сегодня\n        existing_stats = db.query(SystemStats).filter(\n            func.date(SystemStats.date) == today\n        ).first()",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "get_daily_stats_range",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def get_daily_stats_range(start_date: datetime, end_date: datetime) -> List[SystemStats]:\n    \"\"\"Получить статистику за период\"\"\"\n    db = get_db_sync()\n    try:\n        return db.query(SystemStats).filter(\n            SystemStats.date >= start_date,\n            SystemStats.date <= end_date\n        ).order_by(SystemStats.date).all()\n    finally:\n        db.close()",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "backup_database",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def backup_database(backup_path: str = None) -> str:\n    \"\"\"Создание резервной копии базы данных\"\"\"\n    import shutil\n    if backup_path is None:\n        timestamp = datetime.now().strftime(\"%Y%m%d_%H%M%S\")\n        backup_path = f\"backup_cardio_bot_{timestamp}.db\"\n    try:\n        shutil.copy2(\"cardio_bot.db\", backup_path)\n        logger.info(f\"Создана резервная копия: {backup_path}\")\n        return backup_path",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "clean_old_data",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def clean_old_data(days: int = 30) -> Dict[str, int]:\n    \"\"\"Очистка старых данных\"\"\"\n    db = get_db_sync()\n    try:\n        cutoff_date = datetime.now() - timedelta(days=days)\n        # Удаляем старые логи активности (оставляем пользователей и основные данные)\n        old_activity_logs = db.query(ActivityLog).filter(\n            ActivityLog.timestamp < cutoff_date\n        ).count()\n        db.query(ActivityLog).filter(",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "get_database_info",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def get_database_info() -> Dict[str, Any]:\n    \"\"\"Получить информацию о базе данных\"\"\"\n    db = get_db_sync()\n    try:\n        info = {\n            'tables': {},\n            'total_records': 0,\n            'database_size_mb': 0\n        }\n        # Считаем записи по таблицам",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "validate_database_integrity",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def validate_database_integrity() -> Dict[str, Any]:\n    \"\"\"Проверка целостности базы данных\"\"\"\n    db = get_db_sync()\n    try:\n        issues = []\n        # Проверяем пользователей без обязательных данных\n        users_without_data = db.query(User).filter(\n            User.registration_completed == True,\n            db.or_(User.name == None, User.email == None, User.phone == None)\n        ).count()",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "ensure_database_exists",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def ensure_database_exists() -> bool:\n    \"\"\"Убедиться, что база данных существует и корректна\"\"\"\n    try:\n        init_db()\n        # Проверяем, что все таблицы созданы\n        db = get_db_sync()\n        # Пытаемся выполнить простой запрос к каждой таблице\n        db.query(User).first()\n        db.query(Survey).first()\n        db.query(TestResult).first()",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "setup_daily_stats_job",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def setup_daily_stats_job():\n    \"\"\"Настройка автоматического обновления статистики\"\"\"\n    try:\n        # Только пытаемся обновить статистику, если база уже инициализирована\n        if os.path.exists(\"cardio_bot.db\"):\n            update_daily_stats()\n        else:\n            logger.info(\"База данных еще не создана, пропускаем обновление статистики\")\n    except Exception as e:\n        logger.warning(f\"Ошибка при настройке ежедневной статистики: {e}\")",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "get_comprehensive_user_stats",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def get_comprehensive_user_stats() -> Dict[str, Any]:\n    \"\"\"Получить всестороннюю статистику пользователей\"\"\"\n    db = get_db_sync()\n    try:\n        # Базовая статистика\n        total_users = db.query(User).count()\n        completed_registration = db.query(User).filter(User.registration_completed == True).count()\n        completed_surveys = db.query(User).filter(User.survey_completed == True).count()\n        completed_tests = db.query(User).filter(User.tests_completed == True).count()\n        completed_diagnostic = db.query(User).filter(User.completed_diagnostic == True).count()",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "fix_incomplete_records",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def fix_incomplete_records():\n    \"\"\"Исправление неполных записей в базе данных\"\"\"\n    db = get_db_sync()\n    try:\n        fixed_count = 0\n        current_time = datetime.utcnow()\n        # Исправляем пользователей без временных меток\n        users_without_timestamps = db.query(User).filter(\n            or_(\n                User.created_at.is_(None),",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "validate_data_integrity",
+        "kind": 2,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "def validate_data_integrity():\n    \"\"\"Проверка целостности данных\"\"\"\n    db = get_db_sync()\n    try:\n        issues = []\n        # Пользователи с незавершенной регистрацией, но отмеченные как завершившие\n        inconsistent_registration = db.query(User).filter(\n            User.registration_completed == True,\n            or_(User.name.is_(None), User.email.is_(None), User.phone.is_(None))\n        ).count()",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "logger = logging.getLogger(__name__)\n# Создаем базу данных\nBase = declarative_base()\n# ============================================================================\n# МОДЕЛИ БАЗЫ ДАННЫХ\n# ============================================================================\nclass User(Base):\n    \"\"\"Модель пользователя с контактными данными\"\"\"\n    __tablename__ = 'users'\n    id = Column(Integer, primary_key=True, autoincrement=True)",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "kind": 5,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "Base = declarative_base()\n# ============================================================================\n# МОДЕЛИ БАЗЫ ДАННЫХ\n# ============================================================================\nclass User(Base):\n    \"\"\"Модель пользователя с контактными данными\"\"\"\n    __tablename__ = 'users'\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    telegram_id = Column(BigInteger, unique=True, nullable=False, index=True)\n    name = Column(String(255), nullable=True)",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "DATABASE_URL",
+        "kind": 5,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "DATABASE_URL = \"sqlite:///cardio_bot.db\"\nengine = create_engine(DATABASE_URL, echo=False, pool_pre_ping=True)\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\ndef init_db():\n    \"\"\"Инициализация базы данных\"\"\"\n    try:\n        Base.metadata.create_all(bind=engine)\n        logger.info(\"✅ База данных успешно инициализирована\")\n        return True\n    except Exception as e:",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "kind": 5,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "engine = create_engine(DATABASE_URL, echo=False, pool_pre_ping=True)\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\ndef init_db():\n    \"\"\"Инициализация базы данных\"\"\"\n    try:\n        Base.metadata.create_all(bind=engine)\n        logger.info(\"✅ База данных успешно инициализирована\")\n        return True\n    except Exception as e:\n        logger.error(f\"❌ Ошибка инициализации базы данных: {e}\")",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "SessionLocal",
+        "kind": 5,
+        "importPath": "bot.database",
+        "description": "bot.database",
+        "peekOfCode": "SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\ndef init_db():\n    \"\"\"Инициализация базы данных\"\"\"\n    try:\n        Base.metadata.create_all(bind=engine)\n        logger.info(\"✅ База данных успешно инициализирована\")\n        return True\n    except Exception as e:\n        logger.error(f\"❌ Ошибка инициализации базы данных: {e}\")\n        return False",
+        "detail": "bot.database",
+        "documentation": {}
+    },
+    {
+        "label": "StateProtectionMiddleware",
+        "kind": 6,
+        "importPath": "bot.handlers",
+        "description": "bot.handlers",
+        "peekOfCode": "class StateProtectionMiddleware:\n    \"\"\"Middleware для предотвращения дублирования состояний и зацикливания\"\"\"\n    def __init__(self):\n        self.processing_users = set()  # Множество пользователей в процессе обработки\n        self.user_last_action = {}     # Последние действия пользователей для дедупликации\n        self.action_timeouts = {}      # Тайм-ауты для пользователей\n    async def __call__(self, handler, event, data):\n        # Безопасная проверка наличия пользователя\n        if not hasattr(event, 'from_user') or not event.from_user:\n            return await handler(event, data)",
+        "detail": "bot.handlers",
+        "documentation": {}
+    },
+    {
+        "label": "DebugStateProtectionMiddleware",
+        "kind": 6,
+        "importPath": "bot.handlers",
+        "description": "bot.handlers",
+        "peekOfCode": "class DebugStateProtectionMiddleware:\n    \"\"\"Отладочная версия middleware\"\"\"\n    async def __call__(self, handler, event, data):\n        if hasattr(event, 'from_user') and event.from_user:\n            user_id = event.from_user.id\n            logger.info(f\"🔍 DEBUG: user_id={user_id}, event={type(event).__name__}\")\n        return await handler(event, data)\n# Создаем экземпляр отладочного middleware\nstate_protection = DebugStateProtectionMiddleware()\n# ============================================================================",
+        "detail": "bot.handlers",
+        "documentation": {}
+    },
+    {
+        "label": "UserStates",
+        "kind": 6,
+        "importPath": "bot.handlers",
+        "description": "bot.handlers",
+        "peekOfCode": "class UserStates(StatesGroup):\n    waiting_start = State()\n    waiting_name = State()\n    waiting_email = State()\n    waiting_phone = State()\n    # Опрос состояния\n    survey_age = State()\n    survey_gender = State()\n    survey_location = State()\n    survey_education = State()",
+        "detail": "bot.handlers",
+        "documentation": {}
+    },
+    {
+        "label": "get_risk_emoji",
+        "kind": 2,
+        "importPath": "bot.handlers",
+        "description": "bot.handlers",
+        "peekOfCode": "def get_risk_emoji(risk_level: str) -> str:\n    \"\"\"Получить эмодзи для уровня риска\"\"\"\n    risk_emojis = {\n        \"НИЗКИЙ\": \"🟢\",\n        \"УМЕРЕННЫЙ\": \"🟡\", \n        \"ВЫСОКИЙ\": \"🟠\",\n        \"ОЧЕНЬ ВЫСОКИЙ\": \"🔴\"\n    }\n    return risk_emojis.get(risk_level, \"⚪\")\ndef get_risk_explanation(risk_level: str) -> str:",
+        "detail": "bot.handlers",
+        "documentation": {}
+    },
+    {
+        "label": "get_risk_explanation",
+        "kind": 2,
+        "importPath": "bot.handlers",
+        "description": "bot.handlers",
+        "peekOfCode": "def get_risk_explanation(risk_level: str) -> str:\n    \"\"\"Получить объяснение уровня риска\"\"\"\n    explanations = {\n        \"НИЗКИЙ\": \"\"\"🟢 <b>Низкий риск</b> означает, что ваша вероятность развития сердечно-сосудистых заболеваний в ближайшие годы минимальна. Это отличный результат! Продолжайте следить за своим здоровьем.\"\"\",\n        \"УМЕРЕННЫЙ\": \"\"\"🟡 <b>Умеренный риск</b> говорит о том, что у вас есть несколько факторов, которые могут повлиять на здоровье сердца. Это сигнал для более внимательного отношения к профилактике.\"\"\",\n        \"ВЫСОКИЙ\": \"\"\"🟠 <b>Высокий риск</b> указывает на наличие значимых факторов, которые существенно повышают вероятность сердечно-сосудистых событий. Важно принять меры для снижения рисков.\"\"\",\n        \"ОЧЕНЬ ВЫСОКИЙ\": \"\"\"🔴 <b>Очень высокий риск</b> означает, что у вас есть множество факторов, серьезно влияющих на здоровье сердца и сосудов. Требуется комплексный подход к профилактике.\"\"\"\n    }\n    return explanations.get(risk_level, \"⚪ Уровень риска требует дополнительной оценки.\")\n@router.callback_query(F.data == \"continue_tests\")",
+        "detail": "bot.handlers",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "bot.handlers",
+        "description": "bot.handlers",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nrouter = Router()\n# ============================================================================\n# MIDDLEWARE ДЛЯ ЗАЩИТЫ ОТ ЗАЦИКЛИВАНИЯ СОСТОЯНИЙ\n# ============================================================================\nclass StateProtectionMiddleware:\n    \"\"\"Middleware для предотвращения дублирования состояний и зацикливания\"\"\"\n    def __init__(self):\n        self.processing_users = set()  # Множество пользователей в процессе обработки\n        self.user_last_action = {}     # Последние действия пользователей для дедупликации",
+        "detail": "bot.handlers",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "bot.handlers",
+        "description": "bot.handlers",
+        "peekOfCode": "router = Router()\n# ============================================================================\n# MIDDLEWARE ДЛЯ ЗАЩИТЫ ОТ ЗАЦИКЛИВАНИЯ СОСТОЯНИЙ\n# ============================================================================\nclass StateProtectionMiddleware:\n    \"\"\"Middleware для предотвращения дублирования состояний и зацикливания\"\"\"\n    def __init__(self):\n        self.processing_users = set()  # Множество пользователей в процессе обработки\n        self.user_last_action = {}     # Последние действия пользователей для дедупликации\n        self.action_timeouts = {}      # Тайм-ауты для пользователей",
+        "detail": "bot.handlers",
+        "documentation": {}
+    },
+    {
+        "label": "state_protection",
+        "kind": 5,
+        "importPath": "bot.handlers",
+        "description": "bot.handlers",
+        "peekOfCode": "state_protection = DebugStateProtectionMiddleware()\n# ============================================================================\n# СОСТОЯНИЯ FSM\n# ============================================================================\nclass UserStates(StatesGroup):\n    waiting_start = State()\n    waiting_name = State()\n    waiting_email = State()\n    waiting_phone = State()\n    # Опрос состояния",
+        "detail": "bot.handlers",
+        "documentation": {}
+    },
+    {
+        "label": "COMMANDS",
+        "kind": 5,
+        "importPath": "bot.handlers",
+        "description": "bot.handlers",
+        "peekOfCode": "COMMANDS = [\n    BotCommand(command=\"start\", description=\"🚀 Начать диагностику\"),\n    BotCommand(command=\"help\", description=\"❓ Помощь и инструкции\"),\n    BotCommand(command=\"status\", description=\"📊 Мой статус прохождения\"),\n    BotCommand(command=\"restart\", description=\"🔄 Начать заново\"),\n    BotCommand(command=\"score\", description=\"📈 SCORE2 калькулятор риска\"), \n]\nasync def setup_bot_commands(bot):\n    \"\"\"Установка команд бота в меню\"\"\"\n    await bot.set_my_commands(COMMANDS, BotCommandScopeDefault())",
+        "detail": "bot.handlers",
+        "documentation": {}
+    },
+    {
+        "label": "__all__",
+        "kind": 5,
+        "importPath": "bot.handlers",
+        "description": "bot.handlers",
+        "peekOfCode": "__all__ = ['state_protection', 'router', 'score2_router']",
+        "detail": "bot.handlers",
+        "documentation": {}
+    },
+    {
+        "label": "get_start_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_start_keyboard():\n    \"\"\"Клавиатура для начального сообщения\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Старт\", callback_data=\"start_bot\")]\n    ])\n    return keyboard\ndef get_gender_keyboard():\n    \"\"\"Клавиатура для выбора пола\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Женский\", callback_data=\"gender_female\")],",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_gender_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_gender_keyboard():\n    \"\"\"Клавиатура для выбора пола\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Женский\", callback_data=\"gender_female\")],\n        [InlineKeyboardButton(text=\"Мужской\", callback_data=\"gender_male\")]\n    ])\n    return keyboard\ndef get_location_keyboard():\n    \"\"\"Клавиатура для выбора места жительства\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_location_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_location_keyboard():\n    \"\"\"Клавиатура для выбора места жительства\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Город с населением >1 млн\", callback_data=\"location_big_city\")],\n        [InlineKeyboardButton(text=\"Город 500–999 тыс\", callback_data=\"location_medium_city\")],\n        [InlineKeyboardButton(text=\"Город с населением 100–500 тыс\", callback_data=\"location_small_city\")],\n        [InlineKeyboardButton(text=\"Город до 100 тыс\", callback_data=\"location_town\")],\n        [InlineKeyboardButton(text=\"Поселок / сельская местность\", callback_data=\"location_village\")]\n    ])\n    return keyboard",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_education_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_education_keyboard():\n    \"\"\"Клавиатура для выбора образования\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Среднее общее\", callback_data=\"education_secondary\")],\n        [InlineKeyboardButton(text=\"Средне-специальное\", callback_data=\"education_vocational\")],\n        [InlineKeyboardButton(text=\"Высшее (немедицинское)\", callback_data=\"education_higher\")],\n        [InlineKeyboardButton(text=\"Высшее медицинское\", callback_data=\"education_medical\")]\n    ])\n    return keyboard\ndef get_family_keyboard():",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_family_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_family_keyboard():\n    \"\"\"Клавиатура для выбора семейного положения\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Холост / не замужем\", callback_data=\"family_single\")],\n        [InlineKeyboardButton(text=\"В браке\", callback_data=\"family_married\")],\n        [InlineKeyboardButton(text=\"Разведён(а) / вдов(ец/а)\", callback_data=\"family_divorced\")]\n    ])\n    return keyboard\ndef get_children_keyboard():\n    \"\"\"Клавиатура для наличия детей\"\"\"",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_children_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_children_keyboard():\n    \"\"\"Клавиатура для наличия детей\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Нет\", callback_data=\"children_none\")],\n        [InlineKeyboardButton(text=\"Да, один\", callback_data=\"children_one\")],\n        [InlineKeyboardButton(text=\"Да, двое и более\", callback_data=\"children_multiple\")]\n    ])\n    return keyboard\ndef get_income_keyboard():\n    \"\"\"Клавиатура для выбора дохода\"\"\"",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_income_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_income_keyboard():\n    \"\"\"Клавиатура для выбора дохода\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"До 20 000 ₽\", callback_data=\"income_low\")],\n        [InlineKeyboardButton(text=\"20–40 тыс ₽\", callback_data=\"income_medium\")],\n        [InlineKeyboardButton(text=\"40–70 тыс ₽\", callback_data=\"income_high\")],\n        [InlineKeyboardButton(text=\"Более 70 тыс ₽\", callback_data=\"income_very_high\")],\n        [InlineKeyboardButton(text=\"Предпочитаю не указывать\", callback_data=\"income_no_answer\")]\n    ])\n    return keyboard",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_death_cause_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_death_cause_keyboard():\n    \"\"\"Клавиатура для причин смерти\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"1 Онкологические заболевания\", callback_data=\"death_cause_cancer\")],\n        [InlineKeyboardButton(text=\"2 Сердечно-сосудистые заболевания\", callback_data=\"death_cause_cardio\")],\n        [InlineKeyboardButton(text=\"3 Инфекции\", callback_data=\"death_cause_infections\")],\n        [InlineKeyboardButton(text=\"4 Болезни дыхательных путей\", callback_data=\"death_cause_respiratory\")],\n        [InlineKeyboardButton(text=\"5 Болезни желудочно-кишечного тракта\", callback_data=\"death_cause_digestive\")],\n        [InlineKeyboardButton(text=\"6 Внешние причины\", callback_data=\"death_cause_external\")]\n    ])",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_heart_disease_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_heart_disease_keyboard():\n    \"\"\"Клавиатура для заболеваний сердца\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Да\", callback_data=\"heart_disease_yes\")],\n        [InlineKeyboardButton(text=\"Нет\", callback_data=\"heart_disease_no\")],\n        [InlineKeyboardButton(text=\"Не знаю / не обследовался(ась)\", callback_data=\"heart_disease_unknown\")]\n    ])\n    return keyboard\ndef get_cv_risk_keyboard():\n    \"\"\"Клавиатура для сердечно-сосудистого риска\"\"\"",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_cv_risk_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_cv_risk_keyboard():\n    \"\"\"Клавиатура для сердечно-сосудистого риска\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"низкий/умеренный\", callback_data=\"cv_risk_low\")],\n        [InlineKeyboardButton(text=\"высокий\", callback_data=\"cv_risk_high\")],\n        [InlineKeyboardButton(text=\"очень высокий\", callback_data=\"cv_risk_very_high\")]\n    ])\n    return keyboard\ndef get_cv_knowledge_keyboard():\n    \"\"\"Клавиатура для знания о факторах риска\"\"\"",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_cv_knowledge_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_cv_knowledge_keyboard():\n    \"\"\"Клавиатура для знания о факторах риска\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Да, хорошо разбираюсь\", callback_data=\"cv_knowledge_good\")],\n        [InlineKeyboardButton(text=\"Да, но не до конца понимаю\", callback_data=\"cv_knowledge_some\")],\n        [InlineKeyboardButton(text=\"Нет / почти ничего не знаю\", callback_data=\"cv_knowledge_none\")]\n    ])\n    return keyboard\ndef get_heart_danger_keyboard(selected: List[str]):\n    \"\"\"Клавиатура для опасных факторов сердца (мультивыбор до 3)\"\"\"",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_heart_danger_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_heart_danger_keyboard(selected: List[str]):\n    \"\"\"Клавиатура для опасных факторов сердца (мультивыбор до 3)\"\"\"\n    options = [\n        (\"Возраст\", \"heart_danger_age\"),\n        (\"Мужской пол\", \"heart_danger_male\"),\n        (\"Семейный анамнез ранних сердечно-сосудистых заболеваний\", \"heart_danger_family\"),\n        (\"Повышенное артериальное давление\", \"heart_danger_pressure\"),\n        (\"Повышенный холестерин\", \"heart_danger_cholesterol\"),\n        (\"Повышение глюкозы в крови\", \"heart_danger_glucose\"),\n        (\"Избыточный вес\", \"heart_danger_weight\"),",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_health_importance_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_health_importance_keyboard():\n    \"\"\"Клавиатура для важности наблюдения за здоровьем сердца\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Это для пожилых / хронически больных, не про меня\", callback_data=\"health_importance_elderly\")],\n        [InlineKeyboardButton(text=\"Важно, но не на первом месте\", callback_data=\"health_importance_secondary\")],\n        [InlineKeyboardButton(text=\"Понимаю, что нужно, но раньше об этом не думал(а)\", callback_data=\"health_importance_understand\")],\n        [InlineKeyboardButton(text=\"Осознаю значимость — планирую действовать\", callback_data=\"health_importance_plan\")]\n    ])\n    return keyboard\ndef get_checkup_history_keyboard():",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_checkup_history_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_checkup_history_keyboard():\n    \"\"\"Клавиатура для истории кардиочекапов\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Да, в последние 12 месяцев\", callback_data=\"checkup_history_recent\")],\n        [InlineKeyboardButton(text=\"Да, более года назад\", callback_data=\"checkup_history_old\")],\n        [InlineKeyboardButton(text=\"Нет, никогда\", callback_data=\"checkup_history_never\")],\n        [InlineKeyboardButton(text=\"Не помню\", callback_data=\"checkup_history_forgot\")]\n    ])\n    return keyboard\ndef get_checkup_content_keyboard(selected: List[str]):",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_checkup_content_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_checkup_content_keyboard(selected: List[str]):\n    \"\"\"Клавиатура для содержимого кардиочекапа (мультивыбор) - ПОЛНОСТЬЮ ИСПРАВЛЕННАЯ\"\"\"\n    # ТОЧНЫЕ названия пунктов (как они будут сохраняться)\n    options = [\n        (\"Консультация и осмотр врача-кардиолога / терапевта\", \"checkup_content_consultation\"),\n        (\"Оценка факторов риска сердечно-сосудистых заболеваний\", \"checkup_content_risk_assessment\"),\n        (\"Определение уровня липидов крови\", \"checkup_content_lipids\"),\n        (\"Определение уровня глюкозы крови\", \"checkup_content_glucose\"),\n        (\"ЭКГ\", \"checkup_content_ecg\"),\n        (\"УЗИ сосудов (дуплексное сканирование)\", \"checkup_content_ultrasound\"),",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_prevention_barriers_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_prevention_barriers_keyboard(selected: List[str]):\n    \"\"\"Клавиатура для препятствий профилактического обследования (мультивыбор)\"\"\"\n    options = [\n        (\"Не вижу необходимости — нет симптомов\", \"prevention_barriers_no_symptoms\"),\n        (\"Страх услышать диагноз\", \"prevention_barriers_fear\"),\n        (\"Финансовые ограничения\", \"prevention_barriers_money\"),\n        (\"Нет времени\", \"prevention_barriers_time\"),\n        (\"Не знаю, с чего начать\", \"prevention_barriers_knowledge\"),\n        (\"Уже наблюдаюсь у врача\", \"prevention_barriers_doctor\"),\n        (\"Ничего не мешает\", \"prevention_barriers_nothing\")",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_health_advice_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_health_advice_keyboard(selected: List[str]):\n    \"\"\"Клавиатура для источников советов по здоровью (мультивыбор до 2)\"\"\"\n    options = [\n        (\"С врачом\", \"health_advice_doctor\"),\n        (\"С родственниками\", \"health_advice_relatives\"),  # Проверьте этот callback_data\n        (\"С коллегами\", \"health_advice_colleagues\"),\n        (\"Через интернет (статьи, форумы)\", \"health_advice_internet\"),\n        (\"С врачом-блогером в соцсетях\", \"health_advice_blogger\"),  # Проверьте этот callback_data\n        (\"Ни с кем\", \"health_advice_nobody\")\n    ]",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_test_selection_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_test_selection_keyboard(completed_data=None):\n    \"\"\"ОБНОВЛЕННАЯ клавиатура для выбора тестов - более либеральная логика завершения\"\"\"\n    if completed_data is None:\n        completed_data = {}\n    buttons = []\n    # Обязательные тесты\n    tests = [\n        (\"🟣 Тест HADS (тревога и депрессия)\", \"test_hads\", [\"hads_anxiety_score\", \"completed_hads\"]),\n        (\"🔵 Тест Бернса (эмоциональное выгорание)\", \"test_burns\", [\"burns_score\", \"completed_burns\"]),\n        (\"🌙 Тест ISI (качество сна)\", \"test_isi\", [\"isi_score\", \"completed_isi\"]),",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_question_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_question_keyboard(question, test_type):\n    \"\"\"Клавиатура для вопроса теста\"\"\"\n    buttons = []\n    for i, option in enumerate(question['options']):\n        text = option['text']\n        score = option['score']\n        buttons.append([InlineKeyboardButton(text=text, callback_data=f\"answer_{score}\")])\n    keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)\n    return keyboard\ndef get_continue_keyboard():",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_continue_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_continue_keyboard():\n    \"\"\"Клавиатура для продолжения после завершения теста\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Продолжить\", callback_data=\"continue_tests\")]\n    ])\n    return keyboard\ndef get_yes_no_keyboard(yes_callback, no_callback):\n    \"\"\"Универсальная клавиатура Да/Нет\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Да\", callback_data=yes_callback)],",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "get_yes_no_keyboard",
+        "kind": 2,
+        "importPath": "bot.keyboards",
+        "description": "bot.keyboards",
+        "peekOfCode": "def get_yes_no_keyboard(yes_callback, no_callback):\n    \"\"\"Универсальная клавиатура Да/Нет\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Да\", callback_data=yes_callback)],\n        [InlineKeyboardButton(text=\"Нет\", callback_data=no_callback)]\n    ])\n    return keyboard",
+        "detail": "bot.keyboards",
+        "documentation": {}
+    },
+    {
+        "label": "AdminMiddleware",
+        "kind": 6,
+        "importPath": "bot.main",
+        "description": "bot.main",
+        "peekOfCode": "class AdminMiddleware:\n    \"\"\"Middleware для проверки прав администратора\"\"\"\n    def __init__(self, admin_ids):\n        self.admin_ids = admin_ids\n    async def __call__(self, handler, event, data):\n        if hasattr(event, 'from_user') and event.from_user:\n            data['is_admin'] = event.from_user.id in self.admin_ids\n        else:\n            data['is_admin'] = False\n        return await handler(event, data)",
+        "detail": "bot.main",
+        "documentation": {}
+    },
+    {
+        "label": "setup_logging",
+        "kind": 2,
+        "importPath": "bot.main",
+        "description": "bot.main",
+        "peekOfCode": "def setup_logging():\n    \"\"\"Настройка логирования с учетом кодировки Windows\"\"\"\n    # Определяем формат без эмодзи\n    log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'\n    try:\n        # Настройка для файла с UTF-8\n        file_handler = logging.FileHandler('bot.log', encoding='utf-8')\n        file_handler.setLevel(logging.INFO)\n        file_handler.setFormatter(logging.Formatter(log_format))\n        # Настройка для консоли с безопасной кодировкой",
+        "detail": "bot.main",
+        "documentation": {}
+    },
+    {
+        "label": "check_environment",
+        "kind": 2,
+        "importPath": "bot.main",
+        "description": "bot.main",
+        "peekOfCode": "def check_environment():\n    \"\"\"Проверка окружения перед запуском\"\"\"\n    if not os.path.exists('.env'):\n        print(\"ОШИБКА: Файл .env не найден!\")\n        print(\"Создайте файл .env на основе .env.example\")\n        print(\"\\nПример содержимого .env:\")\n        print(\"BOT_TOKEN=your_bot_token_here\")\n        print(\"ADMIN_IDS=123456789\")\n        print(\"ADMIN_PASSWORD=your_password_here\")\n        return False",
+        "detail": "bot.main",
+        "documentation": {}
+    },
+    {
+        "label": "print_startup_banner",
+        "kind": 2,
+        "importPath": "bot.main",
+        "description": "bot.main",
+        "peekOfCode": "def print_startup_banner():\n    \"\"\"Упрощенный баннер без Unicode символов для совместимости с Windows\"\"\"\n    banner = \"\"\"\n====================================================================\n                   CARDIO CHECKUP BOT v2.0                       \n                  C ZASHCHITOY OT ZATSIKLIVANIYA                 \n====================================================================\n  * Middleware zashchity sostoyaniy                              \n  * Deduplikatsiya deystviy polzovateley                         \n  * Zashchita ot spama i perepolneniya                           ",
+        "detail": "bot.main",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "bot.main",
+        "description": "bot.main",
+        "peekOfCode": "logger = logging.getLogger(__name__)\n# Получаем переменные из .env\nBOT_TOKEN = os.getenv(\"BOT_TOKEN\")\nADMIN_PASSWORD = os.getenv(\"ADMIN_PASSWORD\")\nPROXY_URL = os.getenv(\"PROXY_URL\") \n# ID администраторов\nADMIN_IDS_STR = os.getenv(\"ADMIN_IDS\", \"\")\nADMIN_IDS = []\nif ADMIN_IDS_STR:\n    try:",
+        "detail": "bot.main",
+        "documentation": {}
+    },
+    {
+        "label": "BOT_TOKEN",
+        "kind": 5,
+        "importPath": "bot.main",
+        "description": "bot.main",
+        "peekOfCode": "BOT_TOKEN = os.getenv(\"BOT_TOKEN\")\nADMIN_PASSWORD = os.getenv(\"ADMIN_PASSWORD\")\nPROXY_URL = os.getenv(\"PROXY_URL\") \n# ID администраторов\nADMIN_IDS_STR = os.getenv(\"ADMIN_IDS\", \"\")\nADMIN_IDS = []\nif ADMIN_IDS_STR:\n    try:\n        ADMIN_IDS = [int(x.strip()) for x in ADMIN_IDS_STR.split(\",\") if x.strip()]\n    except ValueError:",
+        "detail": "bot.main",
+        "documentation": {}
+    },
+    {
+        "label": "ADMIN_PASSWORD",
+        "kind": 5,
+        "importPath": "bot.main",
+        "description": "bot.main",
+        "peekOfCode": "ADMIN_PASSWORD = os.getenv(\"ADMIN_PASSWORD\")\nPROXY_URL = os.getenv(\"PROXY_URL\") \n# ID администраторов\nADMIN_IDS_STR = os.getenv(\"ADMIN_IDS\", \"\")\nADMIN_IDS = []\nif ADMIN_IDS_STR:\n    try:\n        ADMIN_IDS = [int(x.strip()) for x in ADMIN_IDS_STR.split(\",\") if x.strip()]\n    except ValueError:\n        logger.warning(\"Некорректный формат ADMIN_IDS в .env файле\")",
+        "detail": "bot.main",
+        "documentation": {}
+    },
+    {
+        "label": "PROXY_URL",
+        "kind": 5,
+        "importPath": "bot.main",
+        "description": "bot.main",
+        "peekOfCode": "PROXY_URL = os.getenv(\"PROXY_URL\") \n# ID администраторов\nADMIN_IDS_STR = os.getenv(\"ADMIN_IDS\", \"\")\nADMIN_IDS = []\nif ADMIN_IDS_STR:\n    try:\n        ADMIN_IDS = [int(x.strip()) for x in ADMIN_IDS_STR.split(\",\") if x.strip()]\n    except ValueError:\n        logger.warning(\"Некорректный формат ADMIN_IDS в .env файле\")\nclass AdminMiddleware:",
+        "detail": "bot.main",
+        "documentation": {}
+    },
+    {
+        "label": "ADMIN_IDS_STR",
+        "kind": 5,
+        "importPath": "bot.main",
+        "description": "bot.main",
+        "peekOfCode": "ADMIN_IDS_STR = os.getenv(\"ADMIN_IDS\", \"\")\nADMIN_IDS = []\nif ADMIN_IDS_STR:\n    try:\n        ADMIN_IDS = [int(x.strip()) for x in ADMIN_IDS_STR.split(\",\") if x.strip()]\n    except ValueError:\n        logger.warning(\"Некорректный формат ADMIN_IDS в .env файле\")\nclass AdminMiddleware:\n    \"\"\"Middleware для проверки прав администратора\"\"\"\n    def __init__(self, admin_ids):",
+        "detail": "bot.main",
+        "documentation": {}
+    },
+    {
+        "label": "ADMIN_IDS",
+        "kind": 5,
+        "importPath": "bot.main",
+        "description": "bot.main",
+        "peekOfCode": "ADMIN_IDS = []\nif ADMIN_IDS_STR:\n    try:\n        ADMIN_IDS = [int(x.strip()) for x in ADMIN_IDS_STR.split(\",\") if x.strip()]\n    except ValueError:\n        logger.warning(\"Некорректный формат ADMIN_IDS в .env файле\")\nclass AdminMiddleware:\n    \"\"\"Middleware для проверки прав администратора\"\"\"\n    def __init__(self, admin_ids):\n        self.admin_ids = admin_ids",
+        "detail": "bot.main",
+        "documentation": {}
+    },
+    {
+        "label": "Score2States",
+        "kind": 6,
+        "importPath": "bot.score_2_handler",
+        "description": "bot.score_2_handler",
+        "peekOfCode": "class Score2States(StatesGroup):\n    \"\"\"Состояния для прохождения SCORE2 калькулятора\"\"\"\n    waiting_for_gender = State()\n    waiting_for_smoking = State()\n    waiting_for_age = State()\n    waiting_for_blood_pressure = State()\n    waiting_for_cholesterol_unit = State()\n    waiting_for_cholesterol_mmol = State()\n    waiting_for_cholesterol_mgdl = State()\n    showing_result = State()",
+        "detail": "bot.score_2_handler",
+        "documentation": {}
+    },
+    {
+        "label": "get_age_group",
+        "kind": 2,
+        "importPath": "bot.score_2_handler",
+        "description": "bot.score_2_handler",
+        "peekOfCode": "def get_age_group(age_choice: str) -> str:\n    \"\"\"Определение возрастной группы для таблицы SCORE2\"\"\"\n    age_mapping = {\n        \"менее_40\": \"40-44\",\n        \"40-44\": \"40-44\",\n        \"45-49\": \"45-49\", \n        \"50-54\": \"50-54\",\n        \"55-59\": \"55-59\",\n        \"60-64\": \"60-64\",\n        \"65-69\": \"65-69\",",
+        "detail": "bot.score_2_handler",
+        "documentation": {}
+    },
+    {
+        "label": "get_bp_group",
+        "kind": 2,
+        "importPath": "bot.score_2_handler",
+        "description": "bot.score_2_handler",
+        "peekOfCode": "def get_bp_group(bp_choice: str) -> str:\n    \"\"\"Определение группы АД для таблицы SCORE2\"\"\"\n    bp_mapping = {\n        \"менее_100\": \"100-119\",\n        \"100-119\": \"100-119\",\n        \"120-139\": \"120-139\",\n        \"140-159\": \"140-159\",\n        \"160-179\": \"160-179\",\n        \"более_180\": \"160-179\"\n    }",
+        "detail": "bot.score_2_handler",
+        "documentation": {}
+    },
+    {
+        "label": "get_cholesterol_group_mmol",
+        "kind": 2,
+        "importPath": "bot.score_2_handler",
+        "description": "bot.score_2_handler",
+        "peekOfCode": "def get_cholesterol_group_mmol(chol_choice: str) -> str:\n    \"\"\"Определение группы холестерина (ммоль/л) для таблицы SCORE2\"\"\"\n    chol_mapping = {\n        \"менее_3\": \"3.0-3.9\",\n        \"3.0-3.9\": \"3.0-3.9\",\n        \"4.0-4.9\": \"4.0-4.9\",\n        \"5.0-5.9\": \"5.0-5.9\",\n        \"6.0-6.9\": \"6.0-6.9\",\n        \"более_6.9\": \"6.0-6.9\"\n    }",
+        "detail": "bot.score_2_handler",
+        "documentation": {}
+    },
+    {
+        "label": "get_cholesterol_group_mgdl",
+        "kind": 2,
+        "importPath": "bot.score_2_handler",
+        "description": "bot.score_2_handler",
+        "peekOfCode": "def get_cholesterol_group_mgdl(chol_choice: str) -> str:\n    \"\"\"Определение группы холестерина (мг/дл) для таблицы SCORE2\"\"\"\n    chol_mapping = {\n        \"менее_150\": \"3.0-3.9\",\n        \"150-200\": \"4.0-4.9\", \n        \"200-250\": \"5.0-5.9\",\n        \"более_250\": \"6.0-6.9\"\n    }\n    return chol_mapping.get(chol_choice, \"4.0-4.9\")\ndef calculate_score2_risk(gender: str, smoking: str, age_group: str, bp_group: str, chol_group: str) -> int:",
+        "detail": "bot.score_2_handler",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_score2_risk",
+        "kind": 2,
+        "importPath": "bot.score_2_handler",
+        "description": "bot.score_2_handler",
+        "peekOfCode": "def calculate_score2_risk(gender: str, smoking: str, age_group: str, bp_group: str, chol_group: str) -> int:\n    \"\"\"Расчет риска по таблице SCORE2\"\"\"\n    try:\n        gender_key = \"female\" if gender == \"женский\" else \"male\"\n        smoking_key = \"smoking\" if smoking == \"курит\" else \"non_smoking\"\n        risk = SCORE2_TABLE[age_group][gender_key][smoking_key][bp_group][chol_group]\n        return risk\n    except KeyError:\n        logger.error(f\"Ошибка расчета SCORE2: {gender}, {smoking}, {age_group}, {bp_group}, {chol_group}\")\n        return 0",
+        "detail": "bot.score_2_handler",
+        "documentation": {}
+    },
+    {
+        "label": "get_risk_interpretation",
+        "kind": 2,
+        "importPath": "bot.score_2_handler",
+        "description": "bot.score_2_handler",
+        "peekOfCode": "def get_risk_interpretation(risk_score: int) -> Dict[str, str]:\n    \"\"\"Интерпретация результата SCORE2\"\"\"\n    if risk_score < 5:\n        return {\n            \"level\": \"НИЗКИЙ\",\n            \"color\": \"🟢\",\n            \"description\": \"Низкий риск сердечно-сосудистых заболеваний\",\n            \"recommendation\": \"Продолжайте поддерживать здоровый образ жизни. Рекомендуется регулярная профилактическая оценка факторов риска.\"\n        }\n    elif risk_score < 10:",
+        "detail": "bot.score_2_handler",
+        "documentation": {}
+    },
+    {
+        "label": "create_gender_keyboard",
+        "kind": 2,
+        "importPath": "bot.score_2_handler",
+        "description": "bot.score_2_handler",
+        "peekOfCode": "def create_gender_keyboard() -> InlineKeyboardMarkup:\n    \"\"\"Клавиатура выбора пола\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [\n            InlineKeyboardButton(text=\"👩 Женский\", callback_data=\"score2_gender_женский\"),\n            InlineKeyboardButton(text=\"👨 Мужской\", callback_data=\"score2_gender_мужской\")\n        ]\n    ])\n    return keyboard\ndef create_smoking_keyboard() -> InlineKeyboardMarkup:",
+        "detail": "bot.score_2_handler",
+        "documentation": {}
+    },
+    {
+        "label": "create_smoking_keyboard",
+        "kind": 2,
+        "importPath": "bot.score_2_handler",
+        "description": "bot.score_2_handler",
+        "peekOfCode": "def create_smoking_keyboard() -> InlineKeyboardMarkup:\n    \"\"\"Клавиатура выбора курения\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [\n            InlineKeyboardButton(text=\"🚭 Не курю\", callback_data=\"score2_smoking_не_курит\"),\n            InlineKeyboardButton(text=\"🚬 Курю\", callback_data=\"score2_smoking_курит\")\n        ]\n    ])\n    return keyboard\ndef create_age_keyboard() -> InlineKeyboardMarkup:",
+        "detail": "bot.score_2_handler",
+        "documentation": {}
+    },
+    {
+        "label": "create_age_keyboard",
+        "kind": 2,
+        "importPath": "bot.score_2_handler",
+        "description": "bot.score_2_handler",
+        "peekOfCode": "def create_age_keyboard() -> InlineKeyboardMarkup:\n    \"\"\"Клавиатура выбора возраста (в 2 ряда)\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [\n            InlineKeyboardButton(text=\"< 40\", callback_data=\"score2_age_менее_40\"),\n            InlineKeyboardButton(text=\"40-44\", callback_data=\"score2_age_40-44\"),\n            InlineKeyboardButton(text=\"45-49\", callback_data=\"score2_age_45-49\"),\n            InlineKeyboardButton(text=\"50-54\", callback_data=\"score2_age_50-54\")\n        ],\n        [",
+        "detail": "bot.score_2_handler",
+        "documentation": {}
+    },
+    {
+        "label": "create_bp_keyboard",
+        "kind": 2,
+        "importPath": "bot.score_2_handler",
+        "description": "bot.score_2_handler",
+        "peekOfCode": "def create_bp_keyboard() -> InlineKeyboardMarkup:\n    \"\"\"Клавиатура выбора артериального давления\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [\n            InlineKeyboardButton(text=\"< 100\", callback_data=\"score2_bp_менее_100\"),\n            InlineKeyboardButton(text=\"100-119\", callback_data=\"score2_bp_100-119\")\n        ],\n        [\n            InlineKeyboardButton(text=\"120-139\", callback_data=\"score2_bp_120-139\"),\n            InlineKeyboardButton(text=\"140-159\", callback_data=\"score2_bp_140-159\")",
+        "detail": "bot.score_2_handler",
+        "documentation": {}
+    },
+    {
+        "label": "create_cholesterol_unit_keyboard",
+        "kind": 2,
+        "importPath": "bot.score_2_handler",
+        "description": "bot.score_2_handler",
+        "peekOfCode": "def create_cholesterol_unit_keyboard() -> InlineKeyboardMarkup:\n    \"\"\"Клавиатура выбора единиц измерения холестерина\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [\n            InlineKeyboardButton(text=\"ммоль/л\", callback_data=\"score2_chol_unit_mmol\"),\n            InlineKeyboardButton(text=\"мг/дл\", callback_data=\"score2_chol_unit_mgdl\")\n        ]\n    ])\n    return keyboard\ndef create_cholesterol_mmol_keyboard() -> InlineKeyboardMarkup:",
+        "detail": "bot.score_2_handler",
+        "documentation": {}
+    },
+    {
+        "label": "create_cholesterol_mmol_keyboard",
+        "kind": 2,
+        "importPath": "bot.score_2_handler",
+        "description": "bot.score_2_handler",
+        "peekOfCode": "def create_cholesterol_mmol_keyboard() -> InlineKeyboardMarkup:\n    \"\"\"Клавиатура выбора холестерина в ммоль/л\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [\n            InlineKeyboardButton(text=\"< 3,0\", callback_data=\"score2_chol_mmol_менее_3\"),\n            InlineKeyboardButton(text=\"3,0-3,9\", callback_data=\"score2_chol_mmol_3.0-3.9\")\n        ],\n        [\n            InlineKeyboardButton(text=\"4,0-4,9\", callback_data=\"score2_chol_mmol_4.0-4.9\"),\n            InlineKeyboardButton(text=\"5,0-5,9\", callback_data=\"score2_chol_mmol_5.0-5.9\")",
+        "detail": "bot.score_2_handler",
+        "documentation": {}
+    },
+    {
+        "label": "create_cholesterol_mgdl_keyboard",
+        "kind": 2,
+        "importPath": "bot.score_2_handler",
+        "description": "bot.score_2_handler",
+        "peekOfCode": "def create_cholesterol_mgdl_keyboard() -> InlineKeyboardMarkup:\n    \"\"\"Клавиатура выбора холестерина в мг/дл\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [\n            InlineKeyboardButton(text=\"< 150\", callback_data=\"score2_chol_mgdl_менее_150\"),\n            InlineKeyboardButton(text=\"150-200\", callback_data=\"score2_chol_mgdl_150-200\")\n        ],\n        [\n            InlineKeyboardButton(text=\"200-250\", callback_data=\"score2_chol_mgdl_200-250\"),\n            InlineKeyboardButton(text=\"> 250\", callback_data=\"score2_chol_mgdl_более_250\")",
+        "detail": "bot.score_2_handler",
+        "documentation": {}
+    },
+    {
+        "label": "create_restart_keyboard",
+        "kind": 2,
+        "importPath": "bot.score_2_handler",
+        "description": "bot.score_2_handler",
+        "peekOfCode": "def create_restart_keyboard() -> InlineKeyboardMarkup:\n    \"\"\"Клавиатура для повторного прохождения\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [\n            InlineKeyboardButton(text=\"🔄 Пройти заново\", callback_data=\"score2_restart\"),\n            InlineKeyboardButton(text=\"📋 Главное меню\", callback_data=\"score2_main_menu\")\n        ]\n    ])\n    return keyboard\n# ============================================================================",
+        "detail": "bot.score_2_handler",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "bot.score_2_handler",
+        "description": "bot.score_2_handler",
+        "peekOfCode": "logger = logging.getLogger(__name__)\n# ============================================================================\n# СОСТОЯНИЯ ДЛЯ FSM\n# ============================================================================\nclass Score2States(StatesGroup):\n    \"\"\"Состояния для прохождения SCORE2 калькулятора\"\"\"\n    waiting_for_gender = State()\n    waiting_for_smoking = State()\n    waiting_for_age = State()\n    waiting_for_blood_pressure = State()",
+        "detail": "bot.score_2_handler",
+        "documentation": {}
+    },
+    {
+        "label": "SCORE2_TABLE",
+        "kind": 5,
+        "importPath": "bot.score_2_handler",
+        "description": "bot.score_2_handler",
+        "peekOfCode": "SCORE2_TABLE = {\n    \"40-44\": {\n        \"female\": {\n            \"non_smoking\": {\n                \"160-179\": {\"3.0-3.9\": 5, \"4.0-4.9\": 6, \"5.0-5.9\": 7, \"6.0-6.9\": 8},\n                \"140-159\": {\"3.0-3.9\": 4, \"4.0-4.9\": 4, \"5.0-5.9\": 5, \"6.0-6.9\": 6},\n                \"120-139\": {\"3.0-3.9\": 3, \"4.0-4.9\": 3, \"5.0-5.9\": 3, \"6.0-6.9\": 4},\n                \"100-119\": {\"3.0-3.9\": 2, \"4.0-4.9\": 2, \"5.0-5.9\": 2, \"6.0-6.9\": 3}\n            },\n            \"smoking\": {",
+        "detail": "bot.score_2_handler",
+        "documentation": {}
+    },
+    {
+        "label": "score2_router",
+        "kind": 5,
+        "importPath": "bot.score_2_handler",
+        "description": "bot.score_2_handler",
+        "peekOfCode": "score2_router = Router()\n@score2_router.message(Command(\"score\"))\nasync def cmd_score2_start(message: Message, state: FSMContext):\n    \"\"\"Начало прохождения SCORE2 калькулятора\"\"\"\n    user_id = message.from_user.id\n    try:\n        # Логируем начало SCORE2\n        await log_user_activity(\n            telegram_id=user_id,\n            action=\"score2_started\",",
+        "detail": "bot.score_2_handler",
+        "documentation": {}
+    },
+    {
+        "label": "get_hads_questions",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def get_hads_questions() -> List[Dict]:\n    \"\"\"HADS - Госпитальная шкала тревоги и депрессии\"\"\"\n    return [\n        {\n            \"id\": 1,\n            \"text\": \"Я испытываю напряженность, мне не по себе\",\n            \"type\": \"anxiety\",\n            \"options\": [\n                {\"text\": \"всё время\", \"score\": 3},\n                {\"text\": \"часто\", \"score\": 2},",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "get_burns_questions",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def get_burns_questions() -> List[Dict]:\n    \"\"\"Тест Бернса - Шкала депрессии\"\"\"\n    questions_text = [\n        \"Чувство грусти или подавленности\",\n        \"Чувство несчастья или хандры\", \n        \"Приступы плача или слезливость\",\n        \"Чувство обескураженности\",\n        \"Чувство безнадежности\",\n        \"Низкая самооценка\",\n        \"Чувство собственной никчемности или неполноценности\",",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "get_isi_questions",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def get_isi_questions() -> List[Dict]:\n    \"\"\"ISI - Индекс тяжести бессонницы\"\"\"\n    return [\n        {\n            \"id\": 1,\n            \"text\": \"Трудно заснуть\",\n            \"options\": [\n                {\"text\": \"Отсутствует\", \"score\": 0},\n                {\"text\": \"Легкая\", \"score\": 1},\n                {\"text\": \"Умеренная\", \"score\": 2},",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "get_stop_bang_questions",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def get_stop_bang_questions() -> List[Dict]:\n    \"\"\"STOP-BANG - Оценка риска апноэ сна\"\"\"\n    return [\n        {\n            \"id\": 1,\n            \"text\": \"Вы громко храпите? (То есть храп громче говорящего человека или слышен через закрытую дверь спальни)\",\n            \"options\": [\n                {\"text\": \"Да\", \"score\": 1},\n                {\"text\": \"Нет\", \"score\": 0}\n            ]",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "get_ess_questions",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def get_ess_questions() -> List[Dict]:\n    \"\"\"ESS - Шкала сонливости Эпворта\"\"\"\n    situations = [\n        \"Когда сижу и читаю\",\n        \"Когда смотрю телевизор\",\n        \"Когда пассивно сижу в кресле на публичном мероприятии (например, в театре, на собрании)\",\n        \"Когда еду в машине как пассажир в течение часа без остановок\",\n        \"Когда обстоятельства позволили прилечь отдохнуть в дневное время\",\n        \"Когда сижу и с кем-то разговариваю\",\n        \"Когда спокойно сижу после обеда (без употребления алкоголя)\",",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "get_fagerstrom_questions",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def get_fagerstrom_questions() -> List[Dict]:\n    \"\"\"Тест Фагерстрема - Никотиновая зависимость\"\"\"\n    return [\n        {\n            \"id\": 1,\n            \"text\": \"Как быстро вы закуриваете первую сигарету после пробуждения?\",\n            \"options\": [\n                {\"text\": \"В первые 5 минут\", \"score\": 3},\n                {\"text\": \"Через 6-30 минут\", \"score\": 2},\n                {\"text\": \"Через 31-60 минут\", \"score\": 1},",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "get_audit_questions",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def get_audit_questions() -> List[Dict]:\n    \"\"\"AUDIT - Тест на употребление алкоголя\"\"\"\n    return [\n        {\n            \"id\": 1,\n            \"text\": \"Как часто вы употребляете алкогольные напитки?\",\n            \"options\": [\n                {\"text\": \"Никогда\", \"score\": 0},\n                {\"text\": \"Раз в месяц или реже\", \"score\": 1},\n                {\"text\": \"2-4 раза в месяц\", \"score\": 2},",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_hads_scores",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def calculate_hads_scores(answers: List[int]) -> Tuple[int, int]:\n    \"\"\"Рассчитывает баллы тревоги и депрессии для HADS\"\"\"\n    questions = get_hads_questions()\n    anxiety_score = 0\n    depression_score = 0\n    for i, answer in enumerate(answers):\n        if i < len(questions):\n            if questions[i][\"type\"] == \"anxiety\":\n                anxiety_score += answer\n            else:",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "validate_test_scores",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def validate_test_scores(**scores) -> Dict[str, Any]:\n    \"\"\"Валидация результатов тестов\"\"\"\n    validation_rules = {\n        'hads_anxiety_score': (0, 21),\n        'hads_depression_score': (0, 21),\n        'burns_score': (0, 100),\n        'isi_score': (0, 28),\n        'stop_bang_score': (0, 8),\n        'ess_score': (0, 24),\n        'fagerstrom_score': (0, 10),",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "get_hads_interpretation",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def get_hads_interpretation(anxiety_score: int, depression_score: int) -> str:\n    \"\"\"Интерпретация результатов HADS\"\"\"\n    def get_level(score: int) -> str:\n        if score <= 7:\n            return \"норма\"\n        elif score <= 10:\n            return \"субклинически выраженные симптомы\"\n        else:\n            return \"клинически выраженные симптомы\"\n    anxiety_level = get_level(anxiety_score)",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "get_burns_interpretation",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def get_burns_interpretation(score: int) -> str:\n    \"\"\"Интерпретация результатов теста Бернса\"\"\"\n    if score <= 5:\n        level = \"минимальная депрессия\"\n        color = \"🟢\"\n        recommendation = \"✅ Ваше эмоциональное состояние в норме.\"\n    elif score <= 10:\n        level = \"легкая депрессия\"\n        color = \"🟡\"\n        recommendation = \"💡 Легкие признаки сниженного настроения. Обратите внимание на режим дня, физическую активность и качество сна.\"",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "get_isi_interpretation",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def get_isi_interpretation(score: int) -> str:\n    \"\"\"Интерпретация результатов теста ISI\"\"\"\n    if score <= 7:\n        level = \"отсутствие клинически значимой бессонницы\"\n        color = \"🟢\"\n        recommendation = \"✅ У вас хорошее качество сна.\"\n    elif score <= 14:\n        level = \"подпороговая бессонница\"\n        color = \"🟡\"\n        recommendation = \"💡 Легкие нарушения сна. Обратите внимание на гигиену сна: регулярный режим, комфортная обстановка в спальне.\"",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "get_stop_bang_interpretation",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def get_stop_bang_interpretation(score: int) -> str:\n    \"\"\"Интерпретация результатов теста STOP-BANG\"\"\"\n    if score <= 2:\n        risk = \"низкий риск\"\n        color = \"🟢\"\n        recommendation = \"✅ У вас низкий риск синдрома обструктивного апноэ сна.\"\n    elif score <= 4:\n        risk = \"умеренный риск\"\n        color = \"🟡\"\n        recommendation = \"⚠️ Умеренный риск апноэ сна. Рекомендуется обратиться к врачу для дополнительного обследования.\"",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "get_ess_interpretation",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def get_ess_interpretation(score: int) -> str:\n    \"\"\"Интерпретация результатов теста ESS\"\"\"\n    if score <= 10:\n        level = \"нормальная дневная сонливость\"\n        color = \"🟢\"\n        recommendation = \"✅ Уровень дневной сонливости в пределах нормы.\"\n    elif score <= 12:\n        level = \"легкая дневная сонливость\"\n        color = \"🟡\"\n        recommendation = \"💡 Легкая дневная сонливость. Обратите внимание на качество ночного сна и режим дня.\"",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "get_fagerstrom_interpretation",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def get_fagerstrom_interpretation(score: int) -> str:\n    \"\"\"Интерпретация результатов теста Фагерстрема\"\"\"\n    if score <= 2:\n        level = \"очень слабая зависимость\"\n        color = \"🟡\"\n        recommendation = \"💡 У вас минимальная никотиновая зависимость. Отличное время для отказа от курения!\"\n        success_rate = \"85-90%\"\n    elif score <= 4:\n        level = \"слабая зависимость\"\n        color = \"🟠\"",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "get_audit_interpretation",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def get_audit_interpretation(score: int) -> str:\n    \"\"\"Интерпретация результатов теста AUDIT\"\"\"\n    if score <= 7:\n        level = \"низкий риск\"\n        color = \"🟢\"\n        recommendation = \"✅ Ваше потребление алкоголя находится в безопасных пределах.\"\n    elif score <= 15:\n        level = \"опасное потребление\"\n        color = \"🟡\"\n        recommendation = \"⚠️ Опасное потребление алкоголя. Рекомендуется снизить употребление и обратиться к врачу за консультацией.\"",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_overall_cardiovascular_risk",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def calculate_overall_cardiovascular_risk(user_data: Dict, survey_data: Dict, test_data: Dict) -> Dict[str, Any]:\n    \"\"\"Расчет общего сердечно-сосудистого риска\"\"\"\n    risk_factors = []\n    risk_score = 0\n    # Демографические факторы риска\n    age = survey_data.get('age', 0)\n    if age > 45:\n        risk_factors.append(\"Возраст старше 45 лет\")\n        risk_score += 2\n    elif age > 35:",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "generate_personalized_recommendations",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def generate_personalized_recommendations(risk_assessment: Dict, test_data: Dict) -> str:\n    \"\"\"Генерация персональных рекомендаций\"\"\"\n    recommendations = []\n    # Базовые рекомендации\n    recommendations.append(\"🫀 <b>БАЗОВЫЕ РЕКОМЕНДАЦИИ ДЛЯ ЗДОРОВЬЯ СЕРДЦА:</b>\")\n    recommendations.append(\"• Регулярная физическая активность: минимум 150 минут в неделю\")\n    recommendations.append(\"• Средиземноморская диета: больше овощей, рыбы, оливкового масла\")\n    recommendations.append(\"• Контроль веса: ИМТ в пределах 18,5-24,9 кг/м²\")\n    recommendations.append(\"• Ограничение соли: не более 5г в день\")\n    recommendations.append(\"• Регулярное измерение артериального давления\")",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "create_comprehensive_report",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def create_comprehensive_report(user_data: Dict, survey_data: Dict, test_data: Dict) -> str:\n    \"\"\"Создание комплексного отчета по результатам диагностики\"\"\"\n    # Расчет общего риска\n    risk_assessment = calculate_overall_cardiovascular_risk(user_data, survey_data, test_data)\n    # Персональные рекомендации\n    recommendations = generate_personalized_recommendations(risk_assessment, test_data)\n    # Заголовок отчета\n    report = f\"\"\"📊 <b>ПЕРСОНАЛЬНЫЙ ОТЧЕТ ПО КАРДИОРИСКУ</b>\n👤 <b>Участник:</b> {user_data.get('name', 'Пользователь')}\n📅 <b>Дата:</b> {datetime.now().strftime('%d.%m.%Y')}",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "analyze_population_risk",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def analyze_population_risk(all_users_data: List[Dict]) -> str:\n    \"\"\"Анализ рисков на уровне популяции\"\"\"\n    total_users = len(all_users_data)\n    if total_users == 0:\n        return \"Нет данных для анализа\"\n    # Инициализация счетчиков\n    risk_distribution = {\"НИЗКИЙ\": 0, \"УМЕРЕННЫЙ\": 0, \"ВЫСОКИЙ\": 0, \"ОЧЕНЬ ВЫСОКИЙ\": 0}\n    age_groups = {\"18-30\": 0, \"31-45\": 0, \"46-60\": 0, \"60+\": 0}\n    gender_distribution = {\"Мужской\": 0, \"Женский\": 0}\n    common_factors = {}",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "get_test_norms",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def get_test_norms() -> Dict[str, Dict[str, Tuple[int, int]]]:\n    \"\"\"Получить нормативные значения всех тестов\"\"\"\n    return TEST_NORMS\ndef get_risk_category(test_name: str, score: int) -> str:\n    \"\"\"Определить категорию риска для конкретного теста\"\"\"\n    if test_name not in TEST_NORMS:\n        return \"неизвестно\"\n    norms = TEST_NORMS[test_name]\n    for category, (min_val, max_val) in norms.items():\n        if min_val <= score <= max_val:",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "get_risk_category",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def get_risk_category(test_name: str, score: int) -> str:\n    \"\"\"Определить категорию риска для конкретного теста\"\"\"\n    if test_name not in TEST_NORMS:\n        return \"неизвестно\"\n    norms = TEST_NORMS[test_name]\n    for category, (min_val, max_val) in norms.items():\n        if min_val <= score <= max_val:\n            return category\n    return \"вне нормы\"\ndef calculate_test_percentile(test_name: str, score: int, population_scores: List[int]) -> int:",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_test_percentile",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def calculate_test_percentile(test_name: str, score: int, population_scores: List[int]) -> int:\n    \"\"\"Рассчитать процентиль для результата теста\"\"\"\n    if not population_scores:\n        return 50\n    sorted_scores = sorted(population_scores)\n    position = sum(1 for s in sorted_scores if s <= score)\n    percentile = (position / len(sorted_scores)) * 100\n    return int(percentile)\ndef export_test_summary(user_data: Dict, survey_data: Dict, test_data: Dict) -> Dict[str, Any]:\n    \"\"\"Экспорт краткой сводки для внешних систем\"\"\"",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "export_test_summary",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def export_test_summary(user_data: Dict, survey_data: Dict, test_data: Dict) -> Dict[str, Any]:\n    \"\"\"Экспорт краткой сводки для внешних систем\"\"\"\n    risk_assessment = calculate_overall_cardiovascular_risk(user_data, survey_data, test_data)\n    return {\n        'user_id': user_data.get('telegram_id'),\n        'name': user_data.get('name'),\n        'assessment_date': datetime.now().isoformat(),\n        'overall_risk': {\n            'level': risk_assessment['risk_level'],\n            'score': risk_assessment['risk_score'],",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "get_risk_category",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def get_risk_category(test_type: str, score: int) -> str:\n    \"\"\"Определение категории риска по баллам теста\"\"\"\n    if test_type == 'hads_anxiety':\n        if score <= 7:\n            return 'норма'\n        elif score <= 10:\n            return 'субклиническая'\n        else:\n            return 'клиническая'\n    elif test_type == 'hads_depression':",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_overall_cardiovascular_risk",
+        "kind": 2,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "def calculate_overall_cardiovascular_risk(user_data: dict, survey_data: dict, test_data: dict) -> dict:\n    \"\"\"Расчет общего сердечно-сосудистого риска\"\"\"\n    risk_factors = []\n    risk_score = 0\n    # Демографические факторы риска\n    age = survey_data.get('age', 0)\n    if age > 45:\n        risk_factors.append(\"Возраст старше 45 лет\")\n        risk_score += 2\n    elif age > 35:",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "TEST_NORMS",
+        "kind": 5,
+        "importPath": "bot.surveys",
+        "description": "bot.surveys",
+        "peekOfCode": "TEST_NORMS = {\n    'hads_anxiety': {\n        'норма': (0, 7),\n        'субклиническая': (8, 10), \n        'клиническая': (11, 21)\n    },\n    'hads_depression': {\n        'норма': (0, 7),\n        'субклиническая': (8, 10),\n        'клиническая': (11, 21)",
+        "detail": "bot.surveys",
+        "documentation": {}
+    },
+    {
+        "label": "import_users_from_excel",
+        "kind": 2,
+        "importPath": "import_from_excel",
+        "description": "import_from_excel",
+        "peekOfCode": "def import_users_from_excel(excel_file: str):\n    \"\"\"Импорт пользователей из Excel файла\"\"\"\n    print(f\"Загружаю данные из {excel_file}...\")\n    try:\n        # Читаем Excel файл\n        df = pd.read_excel(excel_file, sheet_name=0)  # Первый лист\n        print(f\"Найдено строк в Excel: {len(df)}\")\n        # Показываем колонки\n        print(\"Колонки в файле:\")\n        for i, col in enumerate(df.columns):",
+        "detail": "import_from_excel",
+        "documentation": {}
+    },
+    {
+        "label": "import_survey_data",
+        "kind": 2,
+        "importPath": "import_from_excel",
+        "description": "import_from_excel",
+        "peekOfCode": "def import_survey_data(db, telegram_id: int, row) -> bool:\n    \"\"\"Импорт данных опроса\"\"\"\n    try:\n        # Основные демографические данные\n        age = int(row.get('age', 0)) if pd.notna(row.get('age')) else None\n        gender = str(row.get('gender', '')).strip() if pd.notna(row.get('gender')) else None\n        location = str(row.get('location', '')).strip() if pd.notna(row.get('location')) else None\n        education = str(row.get('education', '')).strip() if pd.notna(row.get('education')) else None\n        # Дополнительные поля опроса\n        family_status = str(row.get('family_status', '')).strip() if pd.notna(row.get('family_status')) else None",
+        "detail": "import_from_excel",
+        "documentation": {}
+    },
+    {
+        "label": "import_test_data",
+        "kind": 2,
+        "importPath": "import_from_excel",
+        "description": "import_from_excel",
+        "peekOfCode": "def import_test_data(db, telegram_id: int, row) -> bool:\n    \"\"\"Импорт результатов тестов\"\"\"\n    try:\n        # Извлекаем данные тестов\n        test_fields = {\n            'hads_anxiety_score': 'hads_anxiety',\n            'hads_depression_score': 'hads_depression', \n            'burns_score': 'burns_score',\n            'isi_score': 'isi_score',\n            'stop_bang_score': 'stop_bang_score',",
+        "detail": "import_from_excel",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "import_from_excel",
+        "description": "import_from_excel",
+        "peekOfCode": "def main():\n    \"\"\"Основная функция\"\"\"\n    if len(sys.argv) != 2:\n        print(\"Использование: python import_from_excel.py data.xlsx\")\n        return\n    excel_file = sys.argv[1]\n    if not os.path.exists(excel_file):\n        print(f\"Файл {excel_file} не найден!\")\n        return\n    # Инициализируем БД",
+        "detail": "import_from_excel",
+        "documentation": {}
+    }
+]
