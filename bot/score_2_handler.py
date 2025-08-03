@@ -413,28 +413,28 @@ def get_risk_interpretation(risk_score: int) -> Dict[str, str]:
             "level": "НИЗКИЙ",
             "color": "🟢",
             "description": "Низкий риск сердечно-сосудистых заболеваний",
-            "recommendation": "Продолжайте поддерживать здоровый образ жизни. Рекомендуется регулярная профилактическая оценка факторов риска."
+            "recommendation": "Здоровый образ жизни"
         }
     elif risk_score < 10:
         return {
             "level": "УМЕРЕННЫЙ", 
             "color": "🟡",
             "description": "Умеренный риск сердечно-сосудистых заболеваний",
-            "recommendation": "Рекомендуется консультация с врачом для оценки необходимости медикаментозной терапии и коррекции образа жизни."
+            "recommendation": "Здоровый образ жизни"
         }
     elif risk_score < 20:
         return {
             "level": "ВЫСОКИЙ",
             "color": "🟠", 
             "description": "Высокий риск сердечно-сосудистых заболеваний",
-            "recommendation": "Настоятельно рекомендуется консультация кардиолога. Необходима коррекция факторов риска и возможно медикаментозное лечение."
+            "recommendation": "Требуется консультация кардиолога. Необходима коррекция факторов риска."
         }
     else:
         return {
             "level": "ОЧЕНЬ ВЫСОКИЙ",
             "color": "🔴",
             "description": "Очень высокий риск сердечно-сосудистых заболеваний", 
-            "recommendation": "Требуется СРОЧНАЯ консультация кардиолога! Необходимо немедленное начало интенсивной терапии для снижения риска."
+            "recommendation": "Требуется консультация кардиолога. Необходима коррекция факторов риска."
         }
 
 # ============================================================================
@@ -583,7 +583,6 @@ async def cmd_score2_start(message: Message, state: FSMContext):
 📋 *Что вас ждет:*
 • 5 простых вопросов
 • Персональная оценка риска
-• Рекомендации по профилактике
 
 ⚕️ *Важно:* Результат носит информационный характер и не заменяет консультацию врача.
 
@@ -979,102 +978,98 @@ async def calculate_and_show_result(callback: CallbackQuery, state: FSMContext):
     """Расчет и отображение результата SCORE2"""
     user_id = callback.from_user.id
     
-    try:
-        data = await state.get_data()
-        
-        # Получаем все параметры
-        gender = data.get("gender")
-        smoking = data.get("smoking")
-        age = data.get("age")
-        bp = data.get("blood_pressure")
-        cholesterol = data.get("cholesterol")
-        cholesterol_unit = data.get("cholesterol_unit")
-        
-        # Преобразуем в группы для таблицы SCORE2
-        age_group = get_age_group(age)
-        bp_group = get_bp_group(bp)
-        
-        if cholesterol_unit == "mmol":
-            chol_group = get_cholesterol_group_mmol(cholesterol)
-        else:
-            chol_group = get_cholesterol_group_mgdl(cholesterol)
-        
-        # Рассчитываем риск
-        risk_score = calculate_score2_risk(gender, smoking, age_group, bp_group, chol_group)
-        risk_info = get_risk_interpretation(risk_score)
-        
-        # Логируем результат
-        await log_user_activity(
-            telegram_id=user_id,
-            action="score2_completed",
-            details={
-                "gender": gender,
-                "smoking": smoking,
-                "age": age,
-                "blood_pressure": bp,
-                "cholesterol": cholesterol,
-                "cholesterol_unit": cholesterol_unit,
-                "risk_score": risk_score,
-                "risk_level": risk_info["level"]
-            },
-            step="score2_result"
-        )
-        
-        # Сохраняем результат в базу данных (опционально)
-        await save_score2_result(user_id, data, risk_score, risk_info["level"])
-        
-        # Формируем текст результата
-        age_display_map = {
-            "менее_40": "Менее 40 лет",
-            "40-44": "40-44 года", 
-            "45-49": "45-49 лет",
-            "50-54": "50-54 года",
-            "55-59": "55-59 лет",
-            "60-64": "60-64 года",
-            "65-69": "65-69 лет",
-            "70-74": "70-74 года",
-            "75-79": "75-79 лет",
-            "80-84": "80-84 года",
-            "85-89": "85-89 лет",
-            "более_90": "Старше 90 лет"
-        }
-        
-        bp_display_map = {
-            "менее_100": "Менее 100",
-            "100-119": "100-119",
-            "120-139": "120-139",
-            "140-159": "140-159",
-            "160-179": "160-179",
-            "более_180": "Более 180"
-        }
-        
-        chol_display_map_mmol = {
-            "менее_3": "Менее 3,0",
-            "3.0-3.9": "3,0-3,9",
-            "4.0-4.9": "4,0-4,9",
-            "5.0-5.9": "5,0-5,9",
-            "6.0-6.9": "6,0-6,9",
-            "более_6.9": "Более 6,9"
-        }
-        
-        chol_display_map_mgdl = {
-            "менее_150": "Менее 150",
-            "150-200": "150-200",
-            "200-250": "200-250", 
-            "более_250": "Более 250"
-        }
-        
-        age_text = age_display_map.get(age, age)
-        bp_text = bp_display_map.get(bp, bp) + " мм рт. ст."
-        smoking_text = "Не курю" if smoking == "не_курит" else "Курю"
-        gender_text = "Женский" if gender == "женский" else "Мужской"
-        
-        if cholesterol_unit == "mmol":
-            chol_text = chol_display_map_mmol.get(cholesterol, cholesterol) + " ммоль/л"
-        else:
-            chol_text = chol_display_map_mgdl.get(cholesterol, cholesterol) + " мг/дл"
-        
-        result_text = f"""
+    data = await state.get_data()
+    
+    # Получаем все параметры
+    gender = data.get("gender")
+    smoking = data.get("smoking")
+    age = data.get("age")
+    bp = data.get("blood_pressure")
+    cholesterol = data.get("cholesterol")
+    cholesterol_unit = data.get("cholesterol_unit")
+    
+    # Преобразуем в группы для таблицы SCORE2
+    age_group = get_age_group(age)
+    bp_group = get_bp_group(bp)
+    
+    if cholesterol_unit == "mmol":
+        chol_group = get_cholesterol_group_mmol(cholesterol)
+    else:
+        chol_group = get_cholesterol_group_mgdl(cholesterol)
+    
+    # Рассчитываем риск
+    risk_score = calculate_score2_risk(gender, smoking, age_group, bp_group, chol_group)
+    risk_info = get_risk_interpretation(risk_score)
+    
+    # Логируем результат
+    await log_user_activity(
+        telegram_id=user_id,
+        action="score2_completed",
+        details={
+            "gender": gender,
+            "smoking": smoking,
+            "age": age,
+            "blood_pressure": bp,
+            "cholesterol": cholesterol,
+            "cholesterol_unit": cholesterol_unit,
+            "risk_score": risk_score,
+            "risk_level": risk_info["level"]
+        },
+        step="score2_result"
+    )
+    
+    # Формируем текст результата
+    age_display_map = {
+        "менее_40": "Менее 40 лет",
+        "40-44": "40-44 года", 
+        "45-49": "45-49 лет",
+        "50-54": "50-54 года",
+        "55-59": "55-59 лет",
+        "60-64": "60-64 года",
+        "65-69": "65-69 лет",
+        "70-74": "70-74 года",
+        "75-79": "75-79 лет",
+        "80-84": "80-84 года",
+        "85-89": "85-89 лет",
+        "более_90": "Старше 90 лет"
+    }
+    
+    bp_display_map = {
+        "менее_100": "Менее 100",
+        "100-119": "100-119",
+        "120-139": "120-139",
+        "140-159": "140-159",
+        "160-179": "160-179",
+        "более_180": "Более 180"
+    }
+    
+    chol_display_map_mmol = {
+        "менее_3": "Менее 3,0",
+        "3.0-3.9": "3,0-3,9",
+        "4.0-4.9": "4,0-4,9",
+        "5.0-5.9": "5,0-5,9",
+        "6.0-6.9": "6,0-6,9",
+        "более_6.9": "Более 6,9"
+    }
+    
+    chol_display_map_mgdl = {
+        "менее_150": "Менее 150",
+        "150-200": "150-200",
+        "200-250": "200-250", 
+        "более_250": "Более 250"
+    }
+    
+    age_text = age_display_map.get(age, age)
+    bp_text = bp_display_map.get(bp, bp) + " мм рт. ст."
+    smoking_text = "Не курю" if smoking == "не_курит" else "Курю"
+    gender_text = "Женский" if gender == "женский" else "Мужской"
+    
+    if cholesterol_unit == "mmol":
+        chol_text = chol_display_map_mmol.get(cholesterol, cholesterol) + " ммоль/л"
+    else:
+        chol_text = chol_display_map_mgdl.get(cholesterol, cholesterol) + " мг/дл"
+    
+    result_text = f"""
 🩺 *РЕЗУЛЬТАТ SCORE2*
 
 📊 **Ваши данные:**
@@ -1090,95 +1085,18 @@ async def calculate_and_show_result(callback: CallbackQuery, state: FSMContext):
 
 {risk_info["description"]}
 
-💡 **Рекомендации:**
-{risk_info["recommendation"]}
-
-⚠️ *Важно:* Результат носит информационный характер. Для точной оценки состояния здоровья обратитесь к врачу.
-
 📅 Дата расчета: {datetime.now().strftime("%d.%m.%Y")}
-        """
-        
-        await callback.message.edit_text(
-            text=result_text,
-            reply_markup=create_restart_keyboard(),
-            parse_mode="Markdown"
-        )
-        
-        await state.set_state(Score2States.showing_result)
-        await callback.answer()
-        
-    except Exception as e:
-        logger.error(f"Ошибка расчета результата для {user_id}: {e}")
-        await callback.answer("❌ Произошла ошибка при расчете")
-
-async def save_score2_result(user_id: int, data: Dict, risk_score: int, risk_level: str):
-    """Сохранение результата SCORE2 в базу данных"""
-    try:
-        def _save():
-            db = get_db_sync()
-            try:
-                current_time = datetime.now()
-                
-                # Создаем запись в логе активности с результатом
-                log_entry = ActivityLog(
-                    telegram_id=user_id,
-                    action="score2_result_saved",
-                    details=json.dumps({
-                        "score2_data": data,
-                        "risk_score": risk_score,
-                        "risk_level": risk_level,
-                        "calculated_at": current_time.isoformat()
-                    }, ensure_ascii=False),
-                    step="score2_result_save"
-                )
-                db.add(log_entry)
-                
-                # Обновляем последнюю активность пользователя
-                user = db.query(User).filter(User.telegram_id == user_id).first()
-                if user:
-                    user.last_activity = current_time
-                    user.updated_at = current_time
-                
-                db.commit()
-                logger.info(f"SCORE2 результат сохранен для пользователя {user_id}")
-                
-            except Exception as e:
-                db.rollback()
-                logger.error(f"Ошибка сохранения SCORE2 для {user_id}: {e}")
-                raise e
-            finally:
-                db.close()
-        
-        loop = asyncio.get_event_loop()
-        await loop.run_in_executor(None, _save)
-        
-    except Exception as e:
-        logger.error(f"Ошибка сохранения SCORE2 в БД для {user_id}: {e}")
-
-@score2_router.callback_query(F.data == "score2_restart")
-async def restart_score2(callback: CallbackQuery, state: FSMContext):
-    """Перезапуск SCORE2 калькулятора"""
-    user_id = callback.from_user.id
+    """
     
-    try:
-        await log_user_activity(
-            telegram_id=user_id,
-            action="score2_restarted",
-            details={"method": "restart_button"},
-            step="score2_restart"
-        )
+    await callback.message.edit_text(
+        text=result_text,
+        reply_markup=create_restart_keyboard(),
+        parse_mode="Markdown"
+    )
+    
+    await state.set_state(Score2States.showing_result)
+    await callback.answer()
         
-        # Очищаем состояние
-        await state.clear()
-        
-        # Начинаем заново
-        await cmd_score2_start(callback.message, state)
-        await callback.answer()
-        
-    except Exception as e:
-        logger.error(f"Ошибка перезапуска SCORE2 для {user_id}: {e}")
-        await callback.answer("❌ Произошла ошибка")
-
 @score2_router.callback_query(F.data == "score2_main_menu")
 async def back_to_main_menu(callback: CallbackQuery, state: FSMContext):
     """Возврат в главное меню"""
@@ -1220,11 +1138,51 @@ async def back_to_main_menu(callback: CallbackQuery, state: FSMContext):
         logger.error(f"Ошибка возврата в меню для {user_id}: {e}")
         await callback.answer("❌ Произошла ошибка")
 
-# ============================================================================
-# ЭКСПОРТ РОУТЕРА
-# ============================================================================
-
-# Этот роутер должен быть добавлен в main.py в диспетчер
-# dp.include_router(score2_router)
 
 logger.info("✅ SCORE2 Handler загружен успешно")
+
+@score2_router.callback_query(F.data == "score2_restart")
+async def restart_score2(callback: CallbackQuery, state: FSMContext):
+    """Перезапуск SCORE2 калькулятора"""
+    user_id = callback.from_user.id
+    
+    try:
+        await log_user_activity(
+            telegram_id=user_id,
+            action="score2_restarted",
+            details={"method": "restart_button"},
+            step="score2_restart"
+        )
+        
+        # Очищаем состояние
+        await state.clear()
+        
+        welcome_text = """
+🩺 *SCORE2 - Калькулятор сердечно-сосудистого риска*
+
+Этот научно обоснованный инструмент поможет оценить ваш 10-летний риск развития сердечно-сосудистых заболеваний.
+
+📋 *Что вас ждет:*
+• 5 простых вопросов
+• Персональная оценка риска
+• Рекомендации по профилактике
+
+⚕️ *Важно:* Результат носит информационный характер и не заменяет консультацию врача.
+
+*Начнем с первого вопроса:*
+
+👤 **Укажите ваш пол:**
+        """
+        
+        await callback.message.edit_text(
+            text=welcome_text,
+            reply_markup=create_gender_keyboard(),
+            parse_mode="Markdown"
+        )
+        
+        await state.set_state(Score2States.waiting_for_gender)
+        await callback.answer()
+        
+    except Exception as e:
+        logger.error(f"Ошибка перезапуска SCORE2 для {user_id}: {e}")
+        await callback.answer("❌ Произошла ошибка при перезапуске")

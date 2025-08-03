@@ -8,6 +8,7 @@ from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.client.session.aiohttp import AiohttpSession
 import aiohttp
+from score_2_handler import score2_router
 
 from handlers import router, state_protection
 from database import init_db, ensure_database_exists, fix_incomplete_records, validate_data_integrity
@@ -19,10 +20,18 @@ load_dotenv()
 
 # Настройка логирования без эмодзи для совместимости с Windows
 def setup_logging():
-    """Настройка логирования с учетом кодировки Windows"""
-    
-    # Определяем формат без эмодзи
     log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    file_handler = logging.FileHandler('bot.log', encoding='utf-8')
+    console_handler = logging.StreamHandler(sys.stdout)
+
+    formatter = logging.Formatter(log_format)
+    file_handler.setFormatter(formatter)
+    console_handler.setFormatter(formatter)
+
+    root = logging.getLogger()
+    root.setLevel(logging.INFO)
+    root.addHandler(file_handler)
+    root.addHandler(console_handler)
     
     try:
         # Настройка для файла с UTF-8
@@ -171,8 +180,8 @@ async def setup_commands(bot):
         
         commands = [
             BotCommand(command="start", description="🚀 Начать диагностику"),
+            BotCommand(command="score", description="🚀 Пройти тест SCORE"),
             BotCommand(command="help", description="❓ Помощь и инструкции"),
-            BotCommand(command="status", description="📊 Мой статус прохождения"),
             BotCommand(command="restart", description="🔄 Начать заново"),
         ]
         
@@ -322,7 +331,9 @@ async def main():
         if ADMIN_IDS:
             dp.include_router(admin_router)  # ПЕРВЫМ - админский роутер
             logger.info("УСПЕХ: Административный роутер подключен")
-        
+            
+        dp.include_router(score2_router)
+
         dp.include_router(router)  # ВТОРЫМ - основной роутер
         
         logger.info("УСПЕХ: Диспетчер настроен с защитой состояний")

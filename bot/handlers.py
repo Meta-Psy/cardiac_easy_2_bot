@@ -5,7 +5,6 @@ from aiogram.types import Message, CallbackQuery, ReplyKeyboardMarkup, KeyboardB
 from aiogram.filters import CommandStart, StateFilter, Command
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
-from score_2_handler import score2_router
 
 
 from keyboards import *
@@ -872,7 +871,8 @@ async def handle_email(message: Message, state: FSMContext):
     
     await message.answer(text, parse_mode="HTML", reply_markup=keyboard)
     await state.set_state(UserStates.waiting_phone)
-
+    
+@router.message(StateFilter(UserStates.waiting_phone))
 async def handle_phone(message: Message, state: FSMContext):
     """ИСПРАВЛЕННЫЙ обработчик телефона с правильным telegram_id"""
     
@@ -2771,26 +2771,10 @@ async def handle_unknown_message(message: Message, state: FSMContext):
 
 🗓 <b>Напоминание:</b> Вебинар 3 августа в 12:00 МСК"""
         
-    else:
-        # Пользователь еще не начал или не завершил
-        text = f"""👋 Привет! Я вижу, вы написали: "{message.text}"
-
-🤖 Я бот для подготовки к вебинару <b>"Умный кардиочекап"</b>.
-
-🚀 <b>Чтобы начать диагностику:</b>
-/start - Начать диагностику
-
-📋 <b>Другие команды:</b>
-/help - Подробная помощь
-/status - Проверить прогресс
-
-💡 Диагностика займет всего 15-20 минут и поможет получить максимум пользы от вебинара!"""
-    
-    await message.answer(text, parse_mode="HTML")
 
 # ============================================================================
 # ЭКСПОРТ MIDDLEWARE И РОУТЕРА
 # ============================================================================
 
 # Экспортируем middleware для использования в main.py
-__all__ = ['state_protection', 'router', 'score2_router']
+__all__ = ['state_protection', 'router']
