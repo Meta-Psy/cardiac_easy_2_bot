@@ -211,7 +211,7 @@ class BroadcastScheduler:
 
 🕛 **Начало — через час, в 12:00 МСК**
 
-🔗 **Ссылка на эфир:** https://your-webinar-link.com"""
+🔗 **Ссылка на эфир:** https://start.bizon365.ru/room/132096/kardiochekup"""
         
         await self.broadcast_to_users(text, target_audience="all", broadcast_type="one_hour")
     
@@ -221,7 +221,7 @@ class BroadcastScheduler:
 
 Вебинар «Умный Кардиочекап» начинается в ровно в **12:00 МСК**
 
-🔗 **Присоединиться:** https://your-webinar-link.com"""
+🔗 **Присоединиться:** https://start.bizon365.ru/room/132096/kardiochekup"""
         
         await self.broadcast_to_users(text, target_audience="all", broadcast_type="fifteen_minutes")
     
@@ -231,7 +231,7 @@ class BroadcastScheduler:
 
 Вебинар в прямом эфире. Подключайтесь сейчас — идёт обсуждение ключевых тем:
 
-🔗 **Ссылка на эфир:** https://your-webinar-link.com
+🔗 **Ссылка на эфир:** https://start.bizon365.ru/room/132096/kardiochekup
 
 **Сегодня вы:**
 ✔️ Рассчитаете риски сердечно-сосудистых заболеваний и вероятность преждевременных инфарктов и инсультов
