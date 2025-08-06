@@ -1075,7 +1075,7 @@
         "kind": 6,
         "importPath": "bot.broadcast",
         "description": "bot.broadcast",
-        "peekOfCode": "class BroadcastScheduler:\n    def __init__(self, bot: Bot):\n        self.bot = bot\n        # Указываем время в московском часовом поясе\n        self.timezone = pytz.timezone('Europe/Moscow')\n        # Дата вебинара: 3 августа 2025, 12:00 МСК\n        self.webinar_date = self.timezone.localize(datetime(2025, 8, 3, 12, 0))\n        # Дата рассылки записи: 6 августа 2025, 13:35 МСК\n        self.recording_date = self.timezone.localize(datetime(2025, 8, 6, 13, 35))\n        self.running = False",
+        "peekOfCode": "class BroadcastScheduler:\n    def __init__(self, bot: Bot):\n        self.bot = bot\n        # Указываем время в московском часовом поясе\n        self.timezone = pytz.timezone('Europe/Moscow')\n        # Дата вебинара: 3 августа 2025, 12:00 МСК\n        self.webinar_date = self.timezone.localize(datetime(2025, 8, 3, 12, 0))\n        # Дата рассылки записи: 6 августа 2025, 13:35 МСК\n        self.recording_date = self.timezone.localize(datetime(2025, 8, 6, 14, 25))\n        self.running = False",
         "detail": "bot.broadcast",
         "documentation": {}
     },
@@ -1084,7 +1084,7 @@
         "kind": 5,
         "importPath": "bot.broadcast",
         "description": "bot.broadcast",
-        "peekOfCode": "logger = logging.getLogger(__name__)\nclass BroadcastScheduler:\n    def __init__(self, bot: Bot):\n        self.bot = bot\n        # Указываем время в московском часовом поясе\n        self.timezone = pytz.timezone('Europe/Moscow')\n        # Дата вебинара: 3 августа 2025, 12:00 МСК\n        self.webinar_date = self.timezone.localize(datetime(2025, 8, 3, 12, 0))\n        # Дата рассылки записи: 6 августа 2025, 13:35 МСК\n        self.recording_date = self.timezone.localize(datetime(2025, 8, 6, 13, 35))",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nclass BroadcastScheduler:\n    def __init__(self, bot: Bot):\n        self.bot = bot\n        # Указываем время в московском часовом поясе\n        self.timezone = pytz.timezone('Europe/Moscow')\n        # Дата вебинара: 3 августа 2025, 12:00 МСК\n        self.webinar_date = self.timezone.localize(datetime(2025, 8, 3, 12, 0))\n        # Дата рассылки записи: 6 августа 2025, 13:35 МСК\n        self.recording_date = self.timezone.localize(datetime(2025, 8, 6, 14, 25))",
         "detail": "bot.broadcast",
         "documentation": {}
     },

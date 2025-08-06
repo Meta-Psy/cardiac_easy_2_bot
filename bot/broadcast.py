@@ -22,7 +22,7 @@ class BroadcastScheduler:
         # Дата вебинара: 3 августа 2025, 12:00 МСК
         self.webinar_date = self.timezone.localize(datetime(2025, 8, 3, 12, 0))
         # Дата рассылки записи: 6 августа 2025, 13:35 МСК
-        self.recording_date = self.timezone.localize(datetime(2025, 8, 6, 13, 35))
+        self.recording_date = self.timezone.localize(datetime(2025, 8, 6, 14, 25))
         self.running = False
         
         # Флаги отправленных рассылок (для предотвращения дублирования)
