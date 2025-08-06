@@ -21,12 +21,15 @@ class BroadcastScheduler:
         self.timezone = pytz.timezone('Europe/Moscow')
         # Дата вебинара: 3 августа 2025, 12:00 МСК
         self.webinar_date = self.timezone.localize(datetime(2025, 8, 3, 12, 0))
+        # Дата рассылки записи: 6 августа 2025, 13:35 МСК
+        self.recording_date = self.timezone.localize(datetime(2025, 8, 6, 13, 35))
         self.running = False
         
         # Флаги отправленных рассылок (для предотвращения дублирования)
         self.sent_broadcasts = set()
         
         logger.info(f"📅 Вебинар запланирован на: {self.webinar_date}")
+        logger.info(f"📹 Рассылка записи запланирована на: {self.recording_date}")
     
     async def start_scheduler(self):
         """Запуск планировщика рассылок"""
@@ -70,6 +73,8 @@ class BroadcastScheduler:
             'one_hour': self.webinar_date - timedelta(hours=1),
             'fifteen_minutes': self.webinar_date - timedelta(minutes=15),
             'webinar_start': self.webinar_date,
+            # Рассылка записи
+            'recording_available': self.recording_date,
         }
         
         # Проверяем каждое время рассылки
@@ -93,6 +98,7 @@ class BroadcastScheduler:
             'one_hour': self.send_hour_reminder,
             'fifteen_minutes': self.send_fifteen_minutes_reminder,
             'webinar_start': self.send_start_reminder,
+            'recording_available': self.send_recording_available,
         }
         
         function = broadcast_functions.get(broadcast_type)
@@ -106,6 +112,13 @@ class BroadcastScheduler:
         return InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text="✍️ Пройти диагностику", callback_data="start_diagnostic")],
             [InlineKeyboardButton(text="✅ Уже пройдено", callback_data="already_completed")]
+        ])
+    
+    def get_recording_keyboard(self):
+        """Клавиатура для просмотра записи"""
+        return InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="▶️ Смотреть запись вебинара", url="https://novikova-diana.ru/kardiochekup_record")],
+            [InlineKeyboardButton(text="📚 Перейти на платформу", url="https://novikova-diana.ru/members/courses/course383510150652")]
         ])
     
     async def send_week_reminder(self):
@@ -239,6 +252,30 @@ class BroadcastScheduler:
 ✔️ Получите важную информацию для выстраивания пошаговой стратегии сохранения здоровья сердца"""
         
         await self.broadcast_to_users(text, target_audience="all", broadcast_type="webinar_start")
+    
+    async def send_recording_available(self):
+        """Рассылка о доступности записи"""
+        text = """🎥 **Запись вебинара «Умный кардиочекап» — уже доступна**
+
+Здравствуйте!
+
+Спасибо, что были с нами на вебинаре **«Умный кардиочекап»** — мы искренне надеемся, что для вас он стал важной точкой опоры в заботе о здоровье сердца и сосудов.
+
+📌 Если вы не успели посмотреть в прямом эфире — не переживайте. **Запись уже доступна на 1 год.**
+
+▶️ **Смотреть запись вебинара:** 👉 https://novikova-diana.ru/kardiochekup_record
+
+📚 **Доступ ко всем материалам на платформе:** 👉 https://novikova-diana.ru/members/courses/course383510150652
+
+💬 В ближайшее время в Telegram-боте появится короткий опрос. Он займёт пару минут — и **за его прохождение вы получите дополнительный бонусный материал.**
+
+✅ **Памятка «Тревожные звоночки: как проявляются инфаркт и инсульт у женщин и мужчин — типичные и неожиданные симптомы»**
+
+Узнаете отличительные признаки проблем с сердцем в зависимости от пола, сможете отслеживать «тревожные звоночки» у себя и близких и вовремя начать действовать.
+
+🛎️ **Напоминание:** бот также будет доступен для вас, чтобы возвращаться к полезным инструментам — калькуляторам, памяткам и подсказкам."""
+        
+        await self.broadcast_to_users(text, self.get_recording_keyboard(), "recording_available")
     
     async def broadcast_to_users(self, text: str, keyboard: Optional[InlineKeyboardMarkup] = None, 
                                 target_audience: str = "all", broadcast_type: str = ""):
