@@ -764,20 +764,50 @@ async def handle_test_complete_button(callback: CallbackQuery, state: FSMContext
 
 @router.callback_query(F.data == "test_check_completion")
 async def check_test_completion(callback: CallbackQuery, state: FSMContext):
-    """УПРОЩЕННАЯ проверка - всегда разрешаем завершать"""
+    """ИСПРАВЛЕННАЯ проверка - требуем минимум 5 тестов"""
     await safe_answer_callback(callback)
     await log_user_interaction(callback.from_user.id, "test_completion_check")
     
-    text = """✅ <b>ТЕСТЫ МОЖНО ЗАВЕРШИТЬ</b>
-
-Вы можете завершить диагностику и перейти к результатам.
-
-❓ Хотите завершить тестирование?"""
+    data = await state.get_data()
     
-    keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="✅ Да, завершить", callback_data="test_complete")],
-        [InlineKeyboardButton(text="🔙 Продолжить тесты", callback_data="continue_tests")]
-    ])
+    # Подсчитываем завершенные обязательные тесты
+    completed_tests = []
+    if data.get('hads_anxiety_score') is not None or data.get('completed_hads'):
+        completed_tests.append("HADS")
+    if data.get('burns_score') is not None or data.get('completed_burns'):
+        completed_tests.append("Бернса")
+    if data.get('isi_score') is not None or data.get('completed_isi'):
+        completed_tests.append("ISI")
+    if data.get('stop_bang_score') is not None or data.get('completed_stop_bang'):
+        completed_tests.append("STOP-BANG")
+    if data.get('ess_score') is not None or data.get('completed_ess'):
+        completed_tests.append("ESS")
+    
+    completed_count = len(completed_tests)
+    
+    if completed_count >= 5:
+        text = """✅ <b>ТЕСТЫ МОЖНО ЗАВЕРШИТЬ</b>
+
+Вы прошли все 5 обязательных тестов!
+
+❓ Хотите завершить тестирование и получить материалы?"""
+        
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="🎯 Да, завершить и получить материалы", callback_data="test_complete")],
+            [InlineKeyboardButton(text="🔙 Продолжить тесты", callback_data="continue_tests")]
+        ])
+    else:
+        missing_count = 5 - completed_count
+        text = f"""⚠️ <b>НУЖНО ПРОЙТИ ЕЩЕ ТЕСТЫ</b>
+
+Завершено: {completed_count} из 5 обязательных тестов
+Осталось: {missing_count} тестов
+
+Для получения материалов нужно пройти все 5 обязательных тестов (кроме Фагерстрема и AUDIT)."""
+        
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="📝 Продолжить тестирование", callback_data="continue_tests")]
+        ])
     
     await safe_edit_message(callback.message, text, reply_markup=keyboard)
 

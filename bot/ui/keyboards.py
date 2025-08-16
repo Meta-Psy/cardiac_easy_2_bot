@@ -284,13 +284,13 @@ def get_test_selection_keyboard(completed_data=None):
         buttons.append([InlineKeyboardButton(text="⭕ 🍷 Тест AUDIT (употребление алкоголя)", callback_data="test_audit")])
         buttons.append([InlineKeyboardButton(text="⏭ Я не употребляю алкоголь", callback_data="test_audit_skip")])
     
-    # УПРОЩЕННАЯ логика кнопок завершения
+    # ИСПРАВЛЕННАЯ логика кнопок завершения - минимум 5 тестов
     if completed_count >= 5:  # Все 5 обязательных тестов пройдены
         buttons.append([InlineKeyboardButton(text="🎯 Завершить и получить материалы", callback_data="test_complete")])
-    elif completed_count >= 3:  # Минимум 3 теста пройдено
-        buttons.append([InlineKeyboardButton(text="✅ Завершить тестирование", callback_data="test_complete")])
-        buttons.append([InlineKeyboardButton(text="📝 Пройти еще тесты", callback_data="test_check_completion")])
-    elif completed_count >= 1:  # Хотя бы 1 тест пройден
+    elif completed_count >= 3:  # 3-4 теста пройдено - еще нужно
+        buttons.append([InlineKeyboardButton(text="📝 Пройти еще тесты (минимум 5)", callback_data="continue_tests")])
+        buttons.append([InlineKeyboardButton(text="🔄 Проверить готовность", callback_data="test_check_completion")])
+    elif completed_count >= 1:  # 1-2 теста пройдено
         buttons.append([InlineKeyboardButton(text="🔄 Проверить готовность", callback_data="test_check_completion")])
     
     keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)

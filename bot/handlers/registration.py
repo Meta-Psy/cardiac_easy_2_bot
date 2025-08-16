@@ -176,21 +176,32 @@ async def handle_phone(message: Message, state: FSMContext):
 # ============================================================================
 
 async def start_survey(message: Message, state: FSMContext):
-    """Начало опроса с удалением предыдущих сообщений"""
+    """НОВЫЙ переход к опросу согласно ТЗ"""
     await log_user_interaction(message.from_user.id, "survey_started")
     
-    # Удаляем предыдущие сообщения
-    if hasattr(message, 'message_id') and message.message_id > 1:
-        # Пытаемся удалить последние несколько сообщений
-        for i in range(max(1, message.message_id - 10), message.message_id):
-            try:
-                await message.bot.delete_message(chat_id=message.chat.id, message_id=i)
-            except:
-                pass  # Игнорируем ошибки удаления
+    # Сообщение о готовности к опросу
+    text1 = """✅ Спасибо! Всё готово.
 
-    text = """<b>❓ Вопрос 1</b>
+Совсем скоро мы пришлем бонусы и список базовых анализов для подготовки.
+
+📋 Прежде чем мы пришлём материалы, небольшая просьба ― пройдите, пожалуйста, опрос. Это небольшая предварительная диагностика — важная часть нашей с вами совместной работы.
+
+Ведь мы с вами — одна команда 🦸‍♂️
+
+Вы проходите диагностику, чтобы лучше понять, на что обратить внимание и как извлечь максимум пользы из вебинара.
+
+А мы детально изучим ваши анкеты, чтобы на основании ваших ответов расставить акценты на языке фактов — и менять подход к профилактике и лечению сердечно-сосудистых заболеваний в масштабах страны."""
+    
+    await message.answer(text1, parse_mode="HTML")
+    
+    # Задержка 20 секунд
+    import asyncio
+    await asyncio.sleep(20)
+    
+    # Начинаем опрос
+    text2 = """<b>❓ Вопрос 1</b>
 Сколько вам лет?
 (введите число)"""
     
-    await message.answer(text, parse_mode="HTML")
+    await message.answer(text2, parse_mode="HTML")
     await state.set_state(UserStates.survey_age)

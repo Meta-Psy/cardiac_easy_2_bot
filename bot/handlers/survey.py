@@ -694,18 +694,77 @@ async def handle_health_advice(callback: CallbackQuery, state: FSMContext):
                 logger.error(f"❌ ПОПЫТКА 2 провалилась: {e2}")
                 error_details += f"User creation error: {str(e2)[:100]}; "
         
-        # ВСЕГДА показываем успех пользователю
-        text = """✅ Спасибо за помощь! 
+        # ФОРМИРУЕМ ПОДРОБНЫЕ РЕЗУЛЬТАТЫ ОПРОСА
+        survey_data = await state.get_data()
+        
+        # Собираем ключевые результаты
+        age = survey_data.get('age', 'не указан')
+        gender = survey_data.get('gender', 'не указан')
+        location = survey_data.get('location', 'не указано')
+        education = survey_data.get('education', 'не указано')
+        family_status = survey_data.get('family_status', 'не указано')
+        children = survey_data.get('children', 'не указано')
+        income = survey_data.get('income', 'не указан')
+        health_rating = survey_data.get('health_rating', 'не указана')
+        death_cause = survey_data.get('death_cause', 'не указана')
+        heart_disease = survey_data.get('heart_disease', 'не указано')
+        cv_risk = survey_data.get('cv_risk', 'не указан')
+        cv_knowledge = survey_data.get('cv_knowledge', 'не указано')
+        heart_danger = survey_data.get('heart_danger', [])
+        health_importance = survey_data.get('health_importance', 'не указана')
+        checkup_history = survey_data.get('checkup_history', 'не указана')
+        checkup_content = survey_data.get('checkup_content', [])
+        prevention_barriers = survey_data.get('prevention_barriers', [])
+        health_advice = survey_data.get('health_advice', [])
+        
+        # Форматируем списки
+        heart_danger_text = ', '.join(heart_danger) if isinstance(heart_danger, list) and heart_danger else 'не выбрано'
+        checkup_content_text = ', '.join(checkup_content) if isinstance(checkup_content, list) and checkup_content else 'не выбрано'
+        prevention_barriers_text = ', '.join(prevention_barriers) if isinstance(prevention_barriers, list) and prevention_barriers else 'не выбрано'
+        health_advice_text = ', '.join(health_advice) if isinstance(health_advice, list) and health_advice else 'не выбрано'
+        
+        # ДЕТАЛЬНЫЕ РЕЗУЛЬТАТЫ ОПРОСА
+        results_text = f"""📊 <b>РЕЗУЛЬТАТЫ ВАШЕГО ОПРОСА</b>
+
+<b>👤 Личные данные:</b>
+• Возраст: {age}
+• Пол: {gender}
+• Место жительства: {location}
+• Образование: {education}
+• Семейное положение: {family_status}
+• Дети: {children}
+• Доход: {income}
+
+<b>🫀 Здоровье и риски:</b>
+• Самооценка здоровья: {health_rating}/10
+• Главная причина смерти: {death_cause}
+• Заболевания сердца: {heart_disease}
+• Сердечно-сосудистый риск: {cv_risk}
+• Знания о факторах риска: {cv_knowledge}
+
+<b>⚠️ Опасные факторы для сердца:</b>
+{heart_danger_text}
+
+<b>💡 Отношение к здоровью:</b>
+• Важность наблюдения: {health_importance}
+• Опыт кардиочекапа: {checkup_history}
+
+<b>🔬 Желаемый кардиочекап:</b>
+{checkup_content_text}
+
+<b>🚧 Препятствия для обследований:</b>
+{prevention_barriers_text}
+
+<b>💬 Обсуждение здоровья:</b>
+{health_advice_text}
+
+✅ <b>Спасибо за помощь!</b> 
 
 Мы подходим к следующему этапу — диагностике скрытых факторов риска, которые часто остаются вне фокуса, но напрямую влияют на здоровье сердца и сосудов.
 
-На вебинаре эти тесты помогут более точно рассчитать ваш суммарный риск с учетом не только анализов, но и качества сна, уровня тревоги, депрессии, вредных привычек и др.
-
-Пожалуйста, пройдите их до вебинара — так вы извлечете гораздо больше пользы и сможете применить полученные рекомендации к своему случаю. 
-
-👉 После этого я пришлю вам список базовых анализов и чек-лист подготовки к вебинару."""
+👉 После тестов я пришлю вам список базовых анализов и чек-лист подготовки к вебинару."""
         
-        await safe_edit_message(callback.message, text)
+        await safe_edit_message(callback.message, results_text)
         
         if survey_success:
             logger.info(f"✅ ОПРОС {callback.from_user.id} СОХРАНЕН УСПЕШНО")

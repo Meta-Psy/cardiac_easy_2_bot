@@ -267,9 +267,33 @@ async def show_completed_user_info(message: Message, state: FSMContext):
         await message.answer("❌ Ошибка получения данных. Попробуйте /status для проверки статуса.")
 
 async def show_start_message(message: Message, state: FSMContext):
-    """Показать полное стартовое приветствие с информацией о вебинаре"""
+    """НОВОЕ стартовое приветствие согласно ТЗ"""
     
-    # Первое сообщение - приветствие
+    # Сообщение 0: вводное - что умеет этот бот
+    text0 = """🤖 Приветствую! Я — бот-помощник Дианы Новиковой и Елены Удачкиной, авторов вебинара «Умный кардиочекап». 
+
+❣️ Помогу вам подготовиться к вебинару, пройти мини-диагностику, получить бонусы, список анализов, нужные ссылки и материалы.
+
+👉 Нажмите «Старт», чтобы включить меня и начать подготовку к самому важному вебинару этого лета."""
+    
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="🚀 Старт", callback_data="start_welcome_flow")]
+    ])
+    
+    await message.answer(text0, parse_mode="HTML", reply_markup=keyboard)
+    await state.set_state(UserStates.waiting_start)
+
+# ============================================================================
+# НОВЫЙ WELCOME FLOW СОГЛАСНО ТЗ
+# ============================================================================
+
+@router.callback_query(F.data == "start_welcome_flow")
+async def start_welcome_flow(callback: CallbackQuery, state: FSMContext):
+    """Запуск нового welcome flow"""
+    await safe_answer_callback(callback)
+    await log_user_interaction(callback.from_user.id, "start_welcome_flow")
+    
+    # Сообщение 1: Приветствие + ценность + подводка к следующему шагу
     text1 = """👋 Здравствуйте!
 Вы зарегистрированы на вебинар «Умный Кардиочекап» с врачами-кардиологами Дианой Новиковой и Еленой Удачкиной.
 
@@ -278,22 +302,22 @@ async def show_start_message(message: Message, state: FSMContext):
 🗓 Дата и время проведения: 3 августа в 12:00 по МСК (запись будет)
 
 📍 Здесь, в боте, вы получите:
-— ссылку на вебинар и его запись
-— список базовых анализов
-— чек-листы
-— бонусные материалы от врачей
-
+ — ссылку на вебинар и его запись
+ — список базовых анализов
+ — чек-листы
+ — бонусные материалы от врачей
 Мы уже всё приготовили 👌 Но сначала ― очень важный шаг, к которому мы просим отнестись серьёзно: без него вы не сможете получить максимум пользы от вебинара.
+
 
 Сейчас расскажу 👇"""
     
-    await message.answer(text1, parse_mode="HTML")
+    await safe_edit_message(callback.message, text1)
     
-    # Пауза 10 секунд для чтения
+    # Задержка 15 секунд
     import asyncio
-    await asyncio.sleep(10)
+    await asyncio.sleep(15)
     
-    # Второе сообщение - организационный момент
+    # Начинаем сбор контактных данных
     text2 = """‼️ Небольшой организационный момент
 
 Чтобы вы получили всё без сбоев:
@@ -309,7 +333,7 @@ async def show_start_message(message: Message, state: FSMContext):
 
 ✍️ Введите ваше имя"""
     
-    await message.answer(text2, parse_mode="HTML")
+    await callback.message.answer(text2, parse_mode="HTML")
     await state.set_state(UserStates.waiting_name)
 
 # ============================================================================
