@@ -567,7 +567,7 @@ async def confirm_webinar_broadcast(callback: CallbackQuery, state: FSMContext, 
 • Всего пользователей: {result['total']}
 • Успешно отправлено: {result['sent']}
 • Ошибок отправки: {result['failed']}
-• Успешность: {(result['sent']/result['total']*100):.1f if result['total'] > 0 else 0}%
+• Успешность: {(result['sent']/result['total']*100 if result['total'] > 0 else 0):.1f}%
 
 🚀 <b>Что будет дальше:</b>
 • Пользователи получат сообщение с кнопками
@@ -1547,7 +1547,7 @@ async def emergency_broadcast(message: Message, state: FSMContext, is_admin: boo
 • Получателей: {result['total']}
 • Отправлено: {result['sent']}
 • Ошибок: {result['errors']}
-• Успешность: {(result['sent']/result['total']*100):.1f}%
+• Успешность: {(result['sent']/result['total']*100 if result['total'] > 0 else 0):.1f}%
 
 🕐 {datetime.now().strftime('%H:%M:%S')}"""
         
@@ -1608,7 +1608,7 @@ async def db_broadcast_command(message: Message, state: FSMContext, is_admin: bo
 <b>Получателей:</b> {result['total']}
 <b>Отправлено:</b> {result['sent']}
 <b>Ошибок:</b> {result['errors']}
-<b>Успешность:</b> {(result['sent']/result['total']*100):.1f}%
+<b>Успешность:</b> {(result['sent']/result['total']*100 if result['total'] > 0 else 0):.1f}%
 
 🕐 {datetime.now().strftime('%H:%M:%S')}"""
         
