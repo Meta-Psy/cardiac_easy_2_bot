@@ -207,7 +207,7 @@ def calculate_risk_level(test_results: dict) -> str:
 async def mark_diagnostic_completed(telegram_id: int) -> bool:
     """Отметка завершения диагностики"""
     try:
-        result = mark_user_completed(telegram_id)
+        result = await mark_user_completed(telegram_id)
         logger.info(f"✅ Диагностика завершена для пользователя {telegram_id}")
         return result
     except Exception as e:
@@ -640,7 +640,8 @@ async def complete_all_tests(message: Message, state: FSMContext):
     
     # Собираем результаты всех тестов
     test_results = {
-        'hads_score': data.get('hads_score'),
+        'hads_anxiety_score': data.get('hads_anxiety_score'),
+        'hads_depression_score': data.get('hads_depression_score'),
         'burns_score': data.get('burns_score'),
         'isi_score': data.get('isi_score'),
         'stop_bang_score': data.get('stop_bang_score'),
@@ -653,11 +654,11 @@ async def complete_all_tests(message: Message, state: FSMContext):
     
     # Сохраняем результаты в базе данных
     try:
-        save_success = await save_test_results(message.from_user.id, test_results)
+        save_success = await save_test_results(message.chat.id, test_results)
         if save_success:
-            logger.info(f"✅ Результаты тестов сохранены для пользователя {message.from_user.id}")
+            logger.info(f"✅ Результаты тестов сохранены для пользователя {message.chat.id}")
         else:
-            logger.error(f"❌ Ошибка сохранения результатов тестов для пользователя {message.from_user.id}")
+            logger.error(f"❌ Ошибка сохранения результатов тестов для пользователя {message.chat.id}")
     except Exception as e:
         logger.error(f"❌ Исключение при сохранении результатов тестов: {e}")
     
@@ -706,7 +707,7 @@ async def complete_all_tests(message: Message, state: FSMContext):
                 document=analyses_input,
                 caption="📌 Список базовых анализов для подготовки к вебинару"
             )
-            logger.info(f"✅ Отправлен список анализов пользователю {message.from_user.id}")
+            logger.info(f"✅ Отправлен список анализов пользователю {message.chat.id}")
         
         # Отправляем бонус чек-лист
         bonus_file = os.path.join(materials_path, 'webinar_preparation.png')
@@ -717,14 +718,14 @@ async def complete_all_tests(message: Message, state: FSMContext):
                 photo=bonus_input,
                 caption="📌 Бонус: чек-лист «Препараты и методики, которые не лечат сердце и сосуды»"
             )
-            logger.info(f"✅ Отправлен бонус чек-лист пользователю {message.from_user.id}")
+            logger.info(f"✅ Отправлен бонус чек-лист пользователю {message.chat.id}")
             
     except Exception as e:
         logger.error(f"❌ Ошибка отправки бонусных материалов: {e}")
     
     # Отмечаем диагностику как завершенную
     try:
-        await mark_diagnostic_completed(message.from_user.id)
+        await mark_diagnostic_completed(message.chat.id)
     except Exception as e:
         logger.error(f"Ошибка отметки завершения диагностики: {e}")
 
