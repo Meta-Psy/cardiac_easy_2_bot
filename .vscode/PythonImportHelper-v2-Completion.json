@@ -819,6 +819,14 @@
         "documentation": {}
     },
     {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
         "label": "timedelta",
         "importPath": "datetime",
         "description": "datetime",
@@ -1616,6 +1624,14 @@
     },
     {
         "label": "mark_user_completed",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "User",
         "importPath": "database",
         "description": "database",
         "isExtraImport": true,
@@ -2988,7 +3004,97 @@
         "kind": 2,
         "importPath": "bot.handlers.tests",
         "description": "bot.handlers.tests",
-        "peekOfCode": "def get_risk_explanation(risk_level: str) -> str:\n    \"\"\"Получить объяснение уровня риска\"\"\"\n    explanations = {\n        \"Низкий\": \"Отличная работа! Продолжайте в том же духе.\",\n        \"Умеренный\": \"Есть возможности для улучшения здоровья.\",\n        \"Высокий\": \"Рекомендуется обратить внимание на факторы риска.\",\n        \"Очень высокий\": \"Важно принять меры для снижения рисков.\"\n    }\n    return explanations.get(risk_level, \"Проконсультируйтесь с врачом.\")",
+        "peekOfCode": "def get_risk_explanation(risk_level: str) -> str:\n    \"\"\"Получить объяснение уровня риска\"\"\"\n    explanations = {\n        \"Низкий\": \"Отличная работа! Продолжайте в том же духе.\",\n        \"Умеренный\": \"Есть возможности для улучшения здоровья.\",\n        \"Высокий\": \"Рекомендуется обратить внимание на факторы риска.\",\n        \"Очень высокий\": \"Важно принять меры для снижения рисков.\"\n    }\n    return explanations.get(risk_level, \"Проконсультируйтесь с врачом.\")\n# ============================================================================",
+        "detail": "bot.handlers.tests",
+        "documentation": {}
+    },
+    {
+        "label": "get_hads_anxiety_level",
+        "kind": 2,
+        "importPath": "bot.handlers.tests",
+        "description": "bot.handlers.tests",
+        "peekOfCode": "def get_hads_anxiety_level(score: int) -> str:\n    \"\"\"Определить уровень тревоги HADS\"\"\"\n    if score <= 7:\n        return \"норма\"\n    elif score <= 10:\n        return \"субклинический\"\n    else:\n        return \"клинический\"\ndef get_hads_depression_level(score: int) -> str:\n    \"\"\"Определить уровень депрессии HADS\"\"\"",
+        "detail": "bot.handlers.tests",
+        "documentation": {}
+    },
+    {
+        "label": "get_hads_depression_level",
+        "kind": 2,
+        "importPath": "bot.handlers.tests",
+        "description": "bot.handlers.tests",
+        "peekOfCode": "def get_hads_depression_level(score: int) -> str:\n    \"\"\"Определить уровень депрессии HADS\"\"\"\n    if score <= 7:\n        return \"норма\"\n    elif score <= 10:\n        return \"субклинический\"\n    else:\n        return \"клинический\"\ndef get_burns_level(score: int) -> str:\n    \"\"\"Определить уровень выгорания Бернса\"\"\"",
+        "detail": "bot.handlers.tests",
+        "documentation": {}
+    },
+    {
+        "label": "get_burns_level",
+        "kind": 2,
+        "importPath": "bot.handlers.tests",
+        "description": "bot.handlers.tests",
+        "peekOfCode": "def get_burns_level(score: int) -> str:\n    \"\"\"Определить уровень выгорания Бернса\"\"\"\n    if score <= 25:\n        return \"низкий\"\n    elif score <= 50:\n        return \"умеренный\"\n    else:\n        return \"высокий\"\ndef get_isi_level(score: int) -> str:\n    \"\"\"Определить уровень нарушений сна ISI\"\"\"",
+        "detail": "bot.handlers.tests",
+        "documentation": {}
+    },
+    {
+        "label": "get_isi_level",
+        "kind": 2,
+        "importPath": "bot.handlers.tests",
+        "description": "bot.handlers.tests",
+        "peekOfCode": "def get_isi_level(score: int) -> str:\n    \"\"\"Определить уровень нарушений сна ISI\"\"\"\n    if score <= 7:\n        return \"норма\"\n    elif score <= 14:\n        return \"легкие нарушения\"\n    elif score <= 21:\n        return \"умеренные нарушения\"\n    else:\n        return \"тяжелые нарушения\"",
+        "detail": "bot.handlers.tests",
+        "documentation": {}
+    },
+    {
+        "label": "get_stop_bang_risk",
+        "kind": 2,
+        "importPath": "bot.handlers.tests",
+        "description": "bot.handlers.tests",
+        "peekOfCode": "def get_stop_bang_risk(score: int) -> str:\n    \"\"\"Определить риск апноэ STOP-BANG\"\"\"\n    if score <= 2:\n        return \"низкий риск\"\n    elif score <= 4:\n        return \"средний риск\"\n    else:\n        return \"высокий риск\"\ndef get_ess_level(score: int) -> str:\n    \"\"\"Определить уровень дневной сонливости ESS\"\"\"",
+        "detail": "bot.handlers.tests",
+        "documentation": {}
+    },
+    {
+        "label": "get_ess_level",
+        "kind": 2,
+        "importPath": "bot.handlers.tests",
+        "description": "bot.handlers.tests",
+        "peekOfCode": "def get_ess_level(score: int) -> str:\n    \"\"\"Определить уровень дневной сонливости ESS\"\"\"\n    if score <= 10:\n        return \"норма\"\n    else:\n        return \"повышенная сонливость\"\ndef get_fagerstrom_level(score: int) -> str:\n    \"\"\"Определить уровень никотиновой зависимости\"\"\"\n    if score <= 2:\n        return \"очень слабая\"",
+        "detail": "bot.handlers.tests",
+        "documentation": {}
+    },
+    {
+        "label": "get_fagerstrom_level",
+        "kind": 2,
+        "importPath": "bot.handlers.tests",
+        "description": "bot.handlers.tests",
+        "peekOfCode": "def get_fagerstrom_level(score: int) -> str:\n    \"\"\"Определить уровень никотиновой зависимости\"\"\"\n    if score <= 2:\n        return \"очень слабая\"\n    elif score <= 4:\n        return \"слабая\"\n    elif score <= 6:\n        return \"средняя\"\n    elif score <= 8:\n        return \"сильная\"",
+        "detail": "bot.handlers.tests",
+        "documentation": {}
+    },
+    {
+        "label": "get_audit_level",
+        "kind": 2,
+        "importPath": "bot.handlers.tests",
+        "description": "bot.handlers.tests",
+        "peekOfCode": "def get_audit_level(score: int) -> str:\n    \"\"\"Определить уровень проблем с алкоголем AUDIT\"\"\"\n    if score <= 7:\n        return \"низкий риск\"\n    elif score <= 15:\n        return \"опасное потребление\"\n    elif score <= 19:\n        return \"вредное потребление\"\n    else:\n        return \"возможная зависимость\"",
+        "detail": "bot.handlers.tests",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_cv_risk_score",
+        "kind": 2,
+        "importPath": "bot.handlers.tests",
+        "description": "bot.handlers.tests",
+        "peekOfCode": "def calculate_cv_risk_score(test_results: dict) -> int:\n    \"\"\"Рассчитать общий балл CV риска на основе тестов\"\"\"\n    total_score = 0\n    # HADS (тревога + депрессия)\n    if test_results.get('hads_anxiety_score'):\n        total_score += test_results['hads_anxiety_score']\n    if test_results.get('hads_depression_score'):\n        total_score += test_results['hads_depression_score']\n    # Другие тесты - нормализуем к шкале 0-10\n    if test_results.get('burns_score'):",
+        "detail": "bot.handlers.tests",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_risk_factors_count",
+        "kind": 2,
+        "importPath": "bot.handlers.tests",
+        "description": "bot.handlers.tests",
+        "peekOfCode": "def calculate_risk_factors_count(test_results: dict) -> int:\n    \"\"\"Подсчитать количество факторов риска\"\"\"\n    count = 0\n    # Тревога (HADS)\n    if test_results.get('hads_anxiety_score', 0) > 7:\n        count += 1\n    # Депрессия (HADS)  \n    if test_results.get('hads_depression_score', 0) > 7:\n        count += 1\n    # Выгорание (Бернс)",
         "detail": "bot.handlers.tests",
         "documentation": {}
     },

@@ -1,5 +1,6 @@
 import asyncio
 import logging
+from datetime import datetime
 from aiogram import Router, F
 from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.filters import StateFilter
@@ -82,7 +83,8 @@ def get_audit_interpretation(score: int) -> str:
         recommendation = "🔴 <b>Рекомендация:</b> Возможная алкогольная зависимость. Требуется направление к специалисту для диагностического обследования и лечения."
     
     return f"<b>AUDIT (Употребление алкоголя):</b> {score} баллов - {level}\n\n{recommendation}"
-from database import safe_save_user_data, get_db_sync, TestResult, mark_user_completed
+
+from database import safe_save_user_data, get_db_sync, TestResult, mark_user_completed, User
 import json
 
 # Настройка логирования
@@ -127,22 +129,57 @@ async def save_test_results(telegram_id: int, test_results: dict) -> bool:
                 setattr(test_result, key, value)
                 logger.info(f"Сохранен {key} = {value} для пользователя {telegram_id}")
         
-        # Сохраняем интерпретации
+        # Сохраняем интерпретации и уровни
         if 'hads_anxiety_score' in test_results and 'hads_depression_score' in test_results:
             interpretation = get_hads_interpretation(
                 test_results['hads_anxiety_score'], 
                 test_results['hads_depression_score']
             )
             test_result.hads_interpretation = interpretation
+            # Добавляем уровни HADS
+            test_result.hads_anxiety_level = get_hads_anxiety_level(test_results['hads_anxiety_score'])
+            test_result.hads_depression_level = get_hads_depression_level(test_results['hads_depression_score'])
+            test_result.hads_total_score = test_results['hads_anxiety_score'] + test_results['hads_depression_score']
         
         if 'burns_score' in test_results:
             test_result.burns_interpretation = get_burns_interpretation(test_results['burns_score'])
+            test_result.burns_level = get_burns_level(test_results['burns_score'])
         
         if 'isi_score' in test_results:
             test_result.isi_interpretation = get_isi_interpretation(test_results['isi_score'])
+            test_result.isi_level = get_isi_level(test_results['isi_score'])
+        
+        if 'stop_bang_score' in test_results:
+            test_result.stop_bang_risk = get_stop_bang_risk(test_results['stop_bang_score'])
+            
+        if 'ess_score' in test_results:
+            test_result.ess_level = get_ess_level(test_results['ess_score'])
+            
+        if 'fagerstrom_score' in test_results:
+            test_result.fagerstrom_level = get_fagerstrom_level(test_results['fagerstrom_score'])
+            
+        if 'audit_score' in test_results:
+            test_result.audit_level = get_audit_level(test_results['audit_score'])
         
         if 'stop_bang_score' in test_results:
             test_result.stop_bang_interpretation = get_stop_bang_interpretation(test_results['stop_bang_score'])
+        
+        # Рассчитываем общий CV риск и количество факторов риска
+        risk_factors_count = calculate_risk_factors_count(test_results)
+        overall_risk = calculate_risk_level(test_results)
+        
+        test_result.risk_factors_count = risk_factors_count
+        test_result.overall_cv_risk_level = overall_risk
+        test_result.overall_cv_risk_score = calculate_cv_risk_score(test_results)
+        
+        # Устанавливаем время завершения тестов
+        test_result.completed_at = datetime.now()
+        
+        # Отмечаем пользователя как завершившего тесты
+        user = db.query(User).filter(User.telegram_id == telegram_id).first()
+        if user:
+            user.tests_completed = True
+            user.last_activity = datetime.now()
         
         db.commit()
         logger.info(f"✅ Результаты тестов сохранены для пользователя {telegram_id}")
@@ -850,3 +887,148 @@ def get_risk_explanation(risk_level: str) -> str:
         "Очень высокий": "Важно принять меры для снижения рисков."
     }
     return explanations.get(risk_level, "Проконсультируйтесь с врачом.")
+
+# ============================================================================
+# ФУНКЦИИ ДЛЯ ОПРЕДЕЛЕНИЯ УРОВНЕЙ ТЕСТОВ
+# ============================================================================
+
+def get_hads_anxiety_level(score: int) -> str:
+    """Определить уровень тревоги HADS"""
+    if score <= 7:
+        return "норма"
+    elif score <= 10:
+        return "субклинический"
+    else:
+        return "клинический"
+
+def get_hads_depression_level(score: int) -> str:
+    """Определить уровень депрессии HADS"""
+    if score <= 7:
+        return "норма"
+    elif score <= 10:
+        return "субклинический"
+    else:
+        return "клинический"
+
+def get_burns_level(score: int) -> str:
+    """Определить уровень выгорания Бернса"""
+    if score <= 25:
+        return "низкий"
+    elif score <= 50:
+        return "умеренный"
+    else:
+        return "высокий"
+
+def get_isi_level(score: int) -> str:
+    """Определить уровень нарушений сна ISI"""
+    if score <= 7:
+        return "норма"
+    elif score <= 14:
+        return "легкие нарушения"
+    elif score <= 21:
+        return "умеренные нарушения"
+    else:
+        return "тяжелые нарушения"
+
+def get_stop_bang_risk(score: int) -> str:
+    """Определить риск апноэ STOP-BANG"""
+    if score <= 2:
+        return "низкий риск"
+    elif score <= 4:
+        return "средний риск"
+    else:
+        return "высокий риск"
+
+def get_ess_level(score: int) -> str:
+    """Определить уровень дневной сонливости ESS"""
+    if score <= 10:
+        return "норма"
+    else:
+        return "повышенная сонливость"
+
+def get_fagerstrom_level(score: int) -> str:
+    """Определить уровень никотиновой зависимости"""
+    if score <= 2:
+        return "очень слабая"
+    elif score <= 4:
+        return "слабая"
+    elif score <= 6:
+        return "средняя"
+    elif score <= 8:
+        return "сильная"
+    else:
+        return "очень сильная"
+
+def get_audit_level(score: int) -> str:
+    """Определить уровень проблем с алкоголем AUDIT"""
+    if score <= 7:
+        return "низкий риск"
+    elif score <= 15:
+        return "опасное потребление"
+    elif score <= 19:
+        return "вредное потребление"
+    else:
+        return "возможная зависимость"
+
+def calculate_cv_risk_score(test_results: dict) -> int:
+    """Рассчитать общий балл CV риска на основе тестов"""
+    total_score = 0
+    
+    # HADS (тревога + депрессия)
+    if test_results.get('hads_anxiety_score'):
+        total_score += test_results['hads_anxiety_score']
+    if test_results.get('hads_depression_score'):
+        total_score += test_results['hads_depression_score']
+    
+    # Другие тесты - нормализуем к шкале 0-10
+    if test_results.get('burns_score'):
+        total_score += min(10, test_results['burns_score'] // 5)  # 0-50 -> 0-10
+    
+    if test_results.get('isi_score'):
+        total_score += min(10, test_results['isi_score'] // 3)  # 0-28 -> 0-10
+        
+    if test_results.get('stop_bang_score'):
+        total_score += test_results['stop_bang_score']  # 0-8
+        
+    if test_results.get('ess_score'):
+        total_score += min(10, test_results['ess_score'] // 2)  # 0-24 -> 0-10
+    
+    return total_score
+
+def calculate_risk_factors_count(test_results: dict) -> int:
+    """Подсчитать количество факторов риска"""
+    count = 0
+    
+    # Тревога (HADS)
+    if test_results.get('hads_anxiety_score', 0) > 7:
+        count += 1
+        
+    # Депрессия (HADS)  
+    if test_results.get('hads_depression_score', 0) > 7:
+        count += 1
+        
+    # Выгорание (Бернс)
+    if test_results.get('burns_score', 0) > 25:
+        count += 1
+        
+    # Нарушения сна (ISI)
+    if test_results.get('isi_score', 0) > 7:
+        count += 1
+        
+    # Апноэ сна (STOP-BANG)
+    if test_results.get('stop_bang_score', 0) > 2:
+        count += 1
+        
+    # Дневная сонливость (ESS)
+    if test_results.get('ess_score', 0) > 10:
+        count += 1
+        
+    # Курение (Фагерстрем)
+    if test_results.get('fagerstrom_score', 0) > 0 and not test_results.get('fagerstrom_skipped'):
+        count += 1
+        
+    # Алкоголь (AUDIT)
+    if test_results.get('audit_score', 0) > 7 and not test_results.get('audit_skipped'):
+        count += 1
+    
+    return count

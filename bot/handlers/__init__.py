@@ -8,10 +8,11 @@ Handlers module for cardio bot
 - registration: Регистрация пользователей (имя, email, телефон)
 - survey: Прохождение опроса о здоровье (18 вопросов)
 - tests: Психологические тесты (HADS, Burns, ISI и др.)
+- score2: SCORE2 калькулятор сердечно-сосудистого риска (команда /score)
 """
 
 from aiogram import Router
-from . import start, registration, survey, tests, fallback, webinar_broadcast, webinar_survey
+from . import start, registration, survey, tests, score2, fallback, webinar_broadcast, webinar_survey
 from .base import UserStates, setup_bot_commands, StateProtectionMiddleware, DebugStateProtectionMiddleware
 
 def get_handlers_router() -> Router:
@@ -27,6 +28,7 @@ def get_handlers_router() -> Router:
     
     # Подключаем роутеры модулей в правильном порядке
     main_router.include_router(start.router)            # Команды и стартовая логика
+    main_router.include_router(score2.score2_router)    # SCORE2 калькулятор сердечно-сосудистого риска
     main_router.include_router(registration.router)     # Регистрация (имя, email, телефон)
     main_router.include_router(survey.router)           # Опросы о здоровье
     main_router.include_router(tests.router)            # Психологические тесты
