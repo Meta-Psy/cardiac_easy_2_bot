@@ -1,4 +1,5 @@
 import asyncio
+import json
 import logging
 from aiogram import Router, F
 from aiogram.types import Message, CallbackQuery
@@ -31,6 +32,9 @@ async def save_survey_data(telegram_id: int, survey_data: dict):
                 # Обновляем существующий
                 for key, value in survey_data.items():
                     if hasattr(existing_survey, key):
+                        # Сериализуем списки в JSON
+                        if isinstance(value, list):
+                            value = json.dumps(value, ensure_ascii=False)
                         setattr(existing_survey, key, value)
                 existing_survey.completed_at = datetime.now()
                 logger.info(f"Обновлен существующий опрос для пользователя {telegram_id}")
@@ -39,6 +43,9 @@ async def save_survey_data(telegram_id: int, survey_data: dict):
                 survey_fields = {}
                 for key, value in survey_data.items():
                     if hasattr(Survey, key):
+                        # Сериализуем списки в JSON
+                        if isinstance(value, list):
+                            value = json.dumps(value, ensure_ascii=False)
                         survey_fields[key] = value
                 
                 new_survey = Survey(
