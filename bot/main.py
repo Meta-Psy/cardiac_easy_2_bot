@@ -202,13 +202,7 @@ async def main():
             dp.include_router(admin_router)  # ПЕРВЫМ - админский роутер
             logger.info("УСПЕХ: Административный роутер подключен")
             
-        # Подключаем score2_router если он существует
-        try:
-            from handlers.score2 import score2_router
-            dp.include_router(score2_router)
-            logger.info("УСПЕХ: SCORE2 роутер подключен")
-        except ImportError:
-            logger.warning("SCORE2 роутер не найден, пропускаем")
+        # SCORE2 роутер теперь подключается через handlers/__init__.py
 
         dp.include_router(main_router)  # ВТОРЫМ - основной роутер
         
