@@ -149,16 +149,15 @@ def get_health_importance_keyboard():
 def get_checkup_history_keyboard():
     """Клавиатура для истории кардиочекапов"""
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="Да, в последние 12 месяцев", callback_data="checkup_history_recent")],
-        [InlineKeyboardButton(text="Да, более года назад", callback_data="checkup_history_old")],
-        [InlineKeyboardButton(text="Нет, никогда", callback_data="checkup_history_never")],
-        [InlineKeyboardButton(text="Не помню", callback_data="checkup_history_forgot")]
+        [InlineKeyboardButton(text="Да, проходил(а)", callback_data="checkup_history_yes")],
+        [InlineKeyboardButton(text="Проходил(а) только отдельные обследования", callback_data="checkup_history_partial")],
+        [InlineKeyboardButton(text="Нет, никогда", callback_data="checkup_history_no")]
     ])
     return keyboard
 
 def get_checkup_content_keyboard(selected: List[str]):
-    """Клавиатура для содержимого кардиочекапа (мультивыбор) - ПОЛНОСТЬЮ ИСПРАВЛЕННАЯ"""
-    # ТОЧНЫЕ названия пунктов (как они будут сохраняться)
+    """Клавиатура для содержимого кардиочекапа (мультивыбор) - СООТВЕТСТВУЕТ ТЗ"""
+    # ТОЧНЫЕ названия из ТЗ
     options = [
         ("Консультация и осмотр врача-кардиолога / терапевта", "checkup_content_consultation"),
         ("Оценка факторов риска сердечно-сосудистых заболеваний", "checkup_content_risk_assessment"),
@@ -178,9 +177,9 @@ def get_checkup_content_keyboard(selected: List[str]):
         buttons.append([InlineKeyboardButton(text=prefix + text, callback_data=callback_data)])
     
     # Кнопка "Не проходил(а)" всегда доступна
-    not_passed_selected = "Не проходил(а)" in selected
+    not_passed_selected = "Не проходил(а) кардиочекап" in selected
     prefix = "✅ " if not_passed_selected else "☐ "
-    buttons.append([InlineKeyboardButton(text=prefix + "❌ Не проходил(а) кардиочекап", callback_data="checkup_content_skip")])
+    buttons.append([InlineKeyboardButton(text=prefix + "Не проходил(а) кардиочекап", callback_data="checkup_content_skip")])
     
     # Кнопка "Готово" всегда доступна
     buttons.append([InlineKeyboardButton(text="✅ Готово", callback_data="checkup_content_done")])

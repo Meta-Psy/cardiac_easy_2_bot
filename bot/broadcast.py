@@ -10,9 +10,53 @@ from typing import Optional, Dict, Any
 import pytz
 from aiogram import Bot
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from database import get_all_users, get_completed_users, get_uncompleted_users, log_broadcast
+from database import get_db_sync, User
 
 logger = logging.getLogger(__name__)
+
+# ============================================================================
+# ФУНКЦИИ РАБОТЫ С ПОЛЬЗОВАТЕЛЯМИ ДЛЯ РАССЫЛОК
+# ============================================================================
+
+def get_all_users():
+    """Получить всех пользователей для рассылки"""
+    db = get_db_sync()
+    try:
+        users = db.query(User.telegram_id).all()
+        return [user.telegram_id for user in users]
+    except Exception as e:
+        logger.error(f"Ошибка получения всех пользователей: {e}")
+        return []
+    finally:
+        db.close()
+
+def get_completed_users():
+    """Получить пользователей, завершивших диагностику"""
+    db = get_db_sync()
+    try:
+        users = db.query(User.telegram_id).filter(User.completed_diagnostic == True).all()
+        return [user.telegram_id for user in users]
+    except Exception as e:
+        logger.error(f"Ошибка получения завершивших пользователей: {e}")
+        return []
+    finally:
+        db.close()
+
+def get_uncompleted_users():
+    """Получить пользователей, не завершивших диагностику"""
+    db = get_db_sync()
+    try:
+        users = db.query(User.telegram_id).filter(User.completed_diagnostic == False).all()
+        return [user.telegram_id for user in users]
+    except Exception as e:
+        logger.error(f"Ошибка получения незавершивших пользователей: {e}")
+        return []
+    finally:
+        db.close()
+
+def log_broadcast(broadcast_id: str, message: str, user_count: int, success_count: int):
+    """Логирование рассылки"""
+    logger.info(f"📡 Рассылка {broadcast_id}: отправлено {success_count}/{user_count} сообщений")
 
 class BroadcastScheduler:
     def __init__(self, bot: Bot):
@@ -22,7 +66,7 @@ class BroadcastScheduler:
         # Дата вебинара: 3 августа 2025, 12:00 МСК
         self.webinar_date = self.timezone.localize(datetime(2025, 8, 3, 12, 0))
         # Дата рассылки записи: 6 августа 2025, 13:35 МСК
-        self.recording_date = self.timezone.localize(datetime(2025, 8, 6, 14, 25))
+        self.recording_date = self.timezone.localize(datetime(2025, 8, 7, 8, 25))
         self.running = False
         
         # Флаги отправленных рассылок (для предотвращения дублирования)

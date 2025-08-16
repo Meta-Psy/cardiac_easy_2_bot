@@ -32,6 +32,7 @@ def get_admin_keyboard():
         [InlineKeyboardButton(text="📤 РАССЫЛКИ", callback_data="admin_broadcast_menu")],
         [InlineKeyboardButton(text="💾 Импорт БД", callback_data="admin_import_menu")],
         [InlineKeyboardButton(text="🗑 Очистить старые данные", callback_data="admin_clean")],
+        [InlineKeyboardButton(text="🔍 Диагностика ID", callback_data="admin_id_diagnostic")],
         [InlineKeyboardButton(text="🚪 Выйти", callback_data="admin_logout")]
     ])
     return keyboard
@@ -42,6 +43,7 @@ def get_broadcast_menu():
         [InlineKeyboardButton(text="📤 Рассылка по БД", callback_data="broadcast_from_db")],
         [InlineKeyboardButton(text="📋 Рассылка по ID", callback_data="broadcast_manual_ids")],
         [InlineKeyboardButton(text="🧪 Тестовая рассылка", callback_data="broadcast_test")],
+        [InlineKeyboardButton(text="🫀 РАССЫЛКА ВЕБИНАРА (ТОЧКА 2)", callback_data="broadcast_webinar")],
         [InlineKeyboardButton(text="📊 История рассылок", callback_data="broadcast_history")],
         [InlineKeyboardButton(text="⬅️ Назад", callback_data="admin_back")]
     ])
@@ -129,7 +131,7 @@ async def show_admin_panel(message: Message):
 @admin_router.callback_query(F.data == "admin_broadcast_menu")
 async def broadcast_menu(callback: CallbackQuery, state: FSMContext, is_admin: bool = False):
     """Меню рассылок"""
-    from database import admin_get_stats
+    from database.analytics import admin_get_stats
     if not await check_admin_auth(callback, state, is_admin):
         return
     
@@ -381,27 +383,39 @@ async def execute_broadcast(callback: CallbackQuery, state: FSMContext, is_admin
 
 async def get_user_ids_by_filter(filter_type: str) -> list:
     """Получение ID пользователей по фильтру"""
-    from database import SessionLocal, User
+    from database import get_db_sync, User
     def _get_ids():
-        db = SessionLocal()
+        db = get_db_sync()
         try:
+            # Базовый фильтр для корректных telegram_id (6-10 цифр)
+            base_filter = db.query(User).filter(
+                User.telegram_id >= 100000,
+                User.telegram_id <= 9999999999
+            )
+            
             if filter_type == "all":
-                users = db.query(User).filter(User.registration_completed == True).all()
+                users = base_filter.filter(User.registration_completed == True).all()
             elif filter_type == "completed":
-                users = db.query(User).filter(User.completed_diagnostic == True).all()
+                users = base_filter.filter(User.completed_diagnostic == True).all()
             elif filter_type == "uncompleted":
-                users = db.query(User).filter(
+                users = base_filter.filter(
                     User.registration_completed == True,
                     User.completed_diagnostic == False
                 ).all()
             elif filter_type == "survey":
-                users = db.query(User).filter(User.survey_completed == True).all()
+                users = base_filter.filter(User.survey_completed == True).all()
             elif filter_type == "tests":
-                users = db.query(User).filter(User.tests_completed == True).all()
+                users = base_filter.filter(User.tests_completed == True).all()
             else:
                 return []
             
-            return [user.telegram_id for user in users]
+            valid_ids = []
+            for user in users:
+                # Дополнительная проверка на случай если в базе остались некорректные ID
+                if 100000 <= user.telegram_id <= 9999999999:
+                    valid_ids.append(user.telegram_id)
+            
+            return valid_ids
         finally:
             db.close()
     
@@ -478,11 +492,106 @@ async def test_broadcast(callback: CallbackQuery, state: FSMContext, is_admin: b
     except Exception as e:
         await callback.message.edit_text(f"❌ Ошибка теста: {e}")
 
+@admin_router.callback_query(F.data == "broadcast_webinar")
+async def webinar_broadcast(callback: CallbackQuery, state: FSMContext, is_admin: bool = False):
+    """Запуск рассылки вебинара ТОЧКА 2"""
+    if not await check_admin_auth(callback, state, is_admin):
+        return
+    
+    await callback.answer()
+    
+    # Проверяем статистику
+    try:
+        from database import get_db_sync, User, WebinarStatus
+        
+        def _get_stats():
+            db = get_db_sync()
+            try:
+                total_users = db.query(User).filter(User.registration_completed == True).count()
+                already_sent = db.query(WebinarStatus).filter(WebinarStatus.initial_message_sent == True).count()
+                return total_users, already_sent
+            finally:
+                db.close()
+        
+        total_users, already_sent = await asyncio.get_event_loop().run_in_executor(None, _get_stats)
+        will_send = total_users - already_sent
+        
+        text = f"""🫀 <b>РАССЫЛКА ВЕБИНАРА (ТОЧКА 2)</b>
+
+📊 <b>Статистика:</b>
+• Всего пользователей: {total_users}
+• Уже получили сообщение: {already_sent}
+• Будет отправлено: {will_send}
+
+⚠️ <b>ВНИМАНИЕ!</b>
+Это рассылка первого сообщения о просмотре вебинара согласно ТЗ ТОЧКА 2.
+
+Отправится сообщение:
+"Здравствуйте! На связи врачи-кардиологи Диана Сергеевна И Елена Васильевна..."
+
+С кнопками:
+🔘 Да, посмотрел(а)
+🔘 Нет, ещё не успел(а)
+
+Продолжить?"""
+        
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="✅ ЗАПУСТИТЬ РАССЫЛКУ", callback_data="confirm_webinar_broadcast")],
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_broadcast_menu")]
+        ])
+        
+        await callback.message.edit_text(text, parse_mode="HTML", reply_markup=keyboard)
+        
+    except Exception as e:
+        await callback.message.edit_text(f"❌ Ошибка получения статистики: {e}")
+
+@admin_router.callback_query(F.data == "confirm_webinar_broadcast")
+async def confirm_webinar_broadcast(callback: CallbackQuery, state: FSMContext, is_admin: bool = False):
+    """Подтверждение и выполнение рассылки вебинара"""
+    if not await check_admin_auth(callback, state, is_admin):
+        return
+    
+    await callback.answer()
+    await callback.message.edit_text("⏳ Запускаю рассылку вебинара...")
+    
+    try:
+        # Импортируем функцию рассылки
+        from handlers.webinar_broadcast import broadcast_initial_message_to_all
+        
+        # Выполняем рассылку
+        result = await broadcast_initial_message_to_all(callback.bot)
+        
+        result_text = f"""✅ <b>РАССЫЛКА ВЕБИНАРА ЗАВЕРШЕНА</b>
+
+📊 <b>Результаты:</b>
+• Всего пользователей: {result['total']}
+• Успешно отправлено: {result['sent']}
+• Ошибок отправки: {result['failed']}
+• Успешность: {(result['sent']/result['total']*100):.1f if result['total'] > 0 else 0}%
+
+🚀 <b>Что будет дальше:</b>
+• Пользователи получат сообщение с кнопками
+• При нажатии "Да" → сразу опрос ТОЧКА 2
+• При нажатии "Нет" → через сутки напоминание
+• Планировщик автоматически отслеживает напоминания
+
+✅ Рассылка ТОЧКА 2 активирована!"""
+        
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="📊 Статистика", callback_data="admin_stats")],
+            [InlineKeyboardButton(text="⬅️ В админку", callback_data="admin_back")]
+        ])
+        
+        await callback.message.edit_text(result_text, parse_mode="HTML", reply_markup=keyboard)
+        
+    except Exception as e:
+        await callback.message.edit_text(f"❌ Ошибка рассылки вебинара: {e}")
+
 # =========================== ПРОВЕРКА АВТОРИЗАЦИИ ===========================
 
 async def check_admin_auth(callback: CallbackQuery, state: FSMContext, is_admin: bool) -> bool:
     """Проверка авторизации админа"""
-    from database import admin_get_stats
+    from database.analytics import admin_get_stats
     if not is_admin:
         await callback.answer("❌ Нет прав доступа", show_alert=True)
         return False
@@ -527,7 +636,7 @@ async def admin_logout(callback: CallbackQuery, state: FSMContext, is_admin: boo
 @admin_router.callback_query(F.data == "admin_stats")
 async def show_stats(callback: CallbackQuery, state: FSMContext, is_admin: bool = False):
     """Показать статистику"""
-    from database import admin_get_stats
+    from database.analytics import admin_get_stats
     if not await check_admin_auth(callback, state, is_admin):
         return
     
@@ -989,7 +1098,7 @@ async def perform_database_import(file_path: str) -> dict:
         start_time = time.time()
         
         try:
-            from database import SessionLocal, User, Survey, TestResult
+            from database import get_db_sync, User, Survey, TestResult
             
             # Читаем Excel файл
             df = pd.read_excel(file_path, sheet_name="Все данные" if "Все данные" in pd.ExcelFile(file_path).sheet_names else 0)
@@ -997,7 +1106,7 @@ async def perform_database_import(file_path: str) -> dict:
             # Подготавливаем данные
             df = df.where(pd.notnull(df), None)  # Заменяем NaN на None
             
-            db = SessionLocal()
+            db = get_db_sync()
             
             try:
                 imported_users = 0
@@ -1167,8 +1276,8 @@ async def broadcast_history(callback: CallbackQuery, state: FSMContext, is_admin
     try:
         # Получаем историю рассылок из БД
         def _get_history():
-            from database import BroadcastLog, SessionLocal
-            db = SessionLocal()
+            from database import BroadcastLog, get_db_sync
+            db = get_db_sync()
             try:
                 logs = db.query(BroadcastLog).order_by(BroadcastLog.created_at.desc()).limit(10).all()
                 return logs
@@ -1217,7 +1326,7 @@ async def broadcast_history(callback: CallbackQuery, state: FSMContext, is_admin
 @admin_router.message(Command("stats"))
 async def quick_stats(message: Message, state: FSMContext, is_admin: bool = False):
     """Быстрая статистика"""
-    from database import admin_get_stats
+    from database.analytics import admin_get_stats
     if not is_admin:
         await message.answer("❌ У вас нет прав администратора.")
         return
@@ -1242,7 +1351,7 @@ async def quick_stats(message: Message, state: FSMContext, is_admin: bool = Fals
 @admin_router.message(Command("export"))
 async def quick_export(message: Message, state: FSMContext, is_admin: bool = False):
     """Быстрый экспорт"""
-    from database import admin_export_data
+    from database.analytics import admin_export_data
     if not is_admin:
         await message.answer("❌ У вас нет прав администратора.")
         return
@@ -1268,7 +1377,7 @@ async def quick_export(message: Message, state: FSMContext, is_admin: bool = Fal
 @admin_router.message(Command("broadcast"))
 async def quick_broadcast_menu(message: Message, state: FSMContext, is_admin: bool = False):
     """Быстрый доступ к рассылкам"""
-    from database import admin_get_stats
+    from database.analytics import admin_get_stats
     if not is_admin:
         await message.answer("❌ У вас нет прав администратора.")
         return
@@ -1547,8 +1656,8 @@ async def debug_database(message: Message, state: FSMContext, is_admin: bool = F
     
     try:
         def _debug():
-            from database import SessionLocal, User, Survey, TestResult, ActivityLog
-            db = SessionLocal()
+            from database import get_db_sync, User, Survey, TestResult, ActivityLog
+            db = get_db_sync()
             try:
                 users_count = db.query(User).count()
                 surveys_count = db.query(Survey).count()
@@ -1608,7 +1717,7 @@ async def debug_database(message: Message, state: FSMContext, is_admin: bool = F
 @admin_router.callback_query(F.data == "admin_export")
 async def export_data(callback: CallbackQuery, state: FSMContext, is_admin: bool = False):
     """Экспорт данных"""
-    from database import admin_export_data
+    from database.analytics import admin_export_data
 
     if not await check_admin_auth(callback, state, is_admin):
         return
@@ -1662,7 +1771,7 @@ async def clean_data_menu(callback: CallbackQuery, state: FSMContext, is_admin: 
 @admin_router.callback_query(F.data.startswith("clean_"))
 async def clean_old_data_action(callback: CallbackQuery, state: FSMContext, is_admin: bool = False):
     """Очистка старых данных"""
-    from database import clean_old_data
+    from .migration_utils import clean_duplicate_users
     if not await check_admin_auth(callback, state, is_admin):
         return
     
@@ -1673,7 +1782,7 @@ async def clean_old_data_action(callback: CallbackQuery, state: FSMContext, is_a
     
     try:
         def _clean():
-            return clean_old_data(days)
+            return clean_duplicate_users()
         
         loop = asyncio.get_event_loop()
         result = await loop.run_in_executor(None, _clean)
@@ -1695,3 +1804,44 @@ async def clean_old_data_action(callback: CallbackQuery, state: FSMContext, is_a
         
     except Exception as e:
         await callback.message.edit_text(f"❌ Ошибка: {e}")
+
+@admin_router.callback_query(F.data == "admin_id_diagnostic")
+async def id_diagnostic(callback: CallbackQuery, state: FSMContext, is_admin: bool = False):
+    """Диагностика пользовательских ID"""
+    if not await check_admin_auth(callback, state, is_admin):
+        return
+    
+    await callback.answer()
+    await callback.message.edit_text("🔍 Анализирую пользовательские ID...")
+    
+    try:
+        from .migration_utils import admin_id_diagnostic
+        
+        # Быстрая диагностика
+        diagnostic = await admin_id_diagnostic()
+        
+        text = f"""🔍 <b>ДИАГНОСТИКА ПОЛЬЗОВАТЕЛЬСКИХ ID</b>
+
+👥 <b>Общая статистика:</b>
+• Всего пользователей: {diagnostic['total_users']}
+• Корректных ID: {diagnostic['valid_users']}
+• Проблемных ID: {diagnostic['problematic_users']}
+• Готовых для рассылки: {diagnostic['broadcast_ready_ids']}
+
+📊 <b>Статус:</b> {diagnostic['summary']}
+
+{('⚠️ <b>Обнаружены проблемы с ID!</b>' if diagnostic['has_problems'] else '✅ <b>Все ID корректны</b>')}
+
+💡 <b>Информация:</b>
+Корректные telegram_id пользователей имеют длину 6-10 цифр.
+Меньшие значения могут быть message_id или chat_id."""
+        
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="⬅️ Назад", callback_data="admin_back")]
+        ])
+        
+        await callback.message.edit_text(text, parse_mode="HTML", reply_markup=keyboard)
+        
+    except Exception as e:
+        await callback.message.edit_text(f"❌ Ошибка диагностики: {e}")
+

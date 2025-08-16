@@ -1,178 +1,63 @@
 import asyncio
-import logging
 import os
-import sys
 from aiogram import Bot, Dispatcher
-from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
-from aiogram.client.session.aiohttp import AiohttpSession
-import aiohttp
-from score_2_handler import score2_router
+from aiogram.client.default import DefaultBotProperties
+# Proxy imports удалены - добавить при необходимости
 
-from handlers import router, state_protection
-from database import init_db, ensure_database_exists, fix_incomplete_records, validate_data_integrity
+from core.config import BOT_TOKEN, ADMIN_PASSWORD, PROXY_URL, ADMIN_IDS, check_environment, print_startup_banner
+from core.logging_setup import setup_logging
+from core.middleware import AdminMiddleware, SimpleDiagnosticMiddleware
+
+from database import init_db, ensure_database_exists, validate_data_integrity
+from handlers import main_router, state_protection
 from admin import admin_router
 from broadcast import BroadcastScheduler
-from dotenv import load_dotenv
 
-load_dotenv()
-
-# Настройка логирования без эмодзи для совместимости с Windows
-def setup_logging():
-    log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    file_handler = logging.FileHandler('bot.log', encoding='utf-8')
-    console_handler = logging.StreamHandler(sys.stdout)
-
-    formatter = logging.Formatter(log_format)
-    file_handler.setFormatter(formatter)
-    console_handler.setFormatter(formatter)
-
-    root = logging.getLogger()
-    root.setLevel(logging.INFO)
-    root.addHandler(file_handler)
-    root.addHandler(console_handler)
-    
-    try:
-        # Настройка для файла с UTF-8
-        file_handler = logging.FileHandler('bot.log', encoding='utf-8')
-        file_handler.setLevel(logging.INFO)
-        file_handler.setFormatter(logging.Formatter(log_format))
-        
-        # Настройка для консоли с безопасной кодировкой
-        console_handler = logging.StreamHandler(sys.stdout)
-        console_handler.setLevel(logging.INFO)
-        console_handler.setFormatter(logging.Formatter(log_format))
-        
-        # Для Windows устанавливаем безопасную кодировку
-        if sys.platform.startswith('win'):
-            import locale
-            import codecs
-            
-            # Попытка установить UTF-8 кодировку для Windows
-            try:
-                # Для Python 3.7+
-                if hasattr(sys.stdout, 'reconfigure'):
-                    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
-                    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
-                else:
-                    # Для старых версий Python
-                    sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer, 'replace')
-                    sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer, 'replace')
-            except:
-                # Если ничего не помогает, используем безопасную кодировку
-                pass
-    except Exception as e:
-        # Fallback для проблемных систем
-        logging.basicConfig(
-            level=logging.INFO,
-            format=log_format,
-            handlers=[
-                logging.FileHandler('bot.log', encoding='utf-8', errors='replace'),
-                logging.StreamHandler()
-            ]
-        )
-
+# Настройка логирования
 setup_logging()
+import logging
 logger = logging.getLogger(__name__)
 
-# Получаем переменные из .env
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
-PROXY_URL = os.getenv("PROXY_URL") 
-
-# ID администраторов
-ADMIN_IDS_STR = os.getenv("ADMIN_IDS", "")
-ADMIN_IDS = []
-if ADMIN_IDS_STR:
+async def create_bot():
+    """Создание бота с базовыми настройками"""
     try:
-        ADMIN_IDS = [int(x.strip()) for x in ADMIN_IDS_STR.split(",") if x.strip()]
-    except ValueError:
-        logger.warning("Некорректный формат ADMIN_IDS в .env файле")
-
-class AdminMiddleware:
-    """Middleware для проверки прав администратора"""
-    
-    def __init__(self, admin_ids):
-        self.admin_ids = admin_ids
-    
-    async def __call__(self, handler, event, data):
-        if hasattr(event, 'from_user') and event.from_user:
-            data['is_admin'] = event.from_user.id in self.admin_ids
-        else:
-            data['is_admin'] = False
-        return await handler(event, data)
-
-async def create_bot_with_proxy():
-    """Создание бота с прокси (если нужно)"""
-    
-    if not PROXY_URL:
-        # Если прокси не нужен, создаем обычного бота
-        return Bot(
-            token=BOT_TOKEN,
-            default=DefaultBotProperties(parse_mode=ParseMode.MARKDOWN)
-        )
-    
-    try:
-        logger.info(f"Настройка бота с прокси: {PROXY_URL}")
-        
-        # Создаем connector для прокси
-        connector = aiohttp.TCPConnector()
-        
-        # Создаем timeout
-        timeout = aiohttp.ClientTimeout(total=60, connect=15)
-        
-        # Создаем сессию с прокси
-        session = aiohttp.ClientSession(
-            connector=connector,
-            timeout=timeout
-        )
-        
-        # Оборачиваем в AiohttpSession
-        aiogram_session = AiohttpSession(session)
-        
-        # Создаем бота
         bot = Bot(
             token=BOT_TOKEN,
-            session=aiogram_session,
             default=DefaultBotProperties(parse_mode=ParseMode.MARKDOWN)
         )
+        
+        # Если нужен proxy, можно добавить позже через environment переменные
+        if PROXY_URL:
+            logger.info(f"PROXY_URL настроен: {PROXY_URL}")
+            logger.warning("Proxy поддержка требует дополнительной настройки")
         
         return bot
         
     except Exception as e:
-        logger.error(f"Ошибка создания бота с прокси: {e}")
-        logger.info("Переключаюсь на обычного бота без прокси")
-        
-        # Fallback на обычного бота
-        return Bot(
-            token=BOT_TOKEN,
-            default=DefaultBotProperties(parse_mode=ParseMode.MARKDOWN)
-        )
+        logger.error(f"Ошибка создания бота: {e}")
+        raise
 
 async def create_bot_with_retry():
-    """Создание бота с настройками для retry"""
+    """Создание бота с повторными попытками"""
     
-    try:
-        # Выбираем тип создания бота в зависимости от настроек
-        if PROXY_URL:
-            return await create_bot_with_proxy()
-        else:
-            # Создаем простого бота без дополнительных настроек
-            bot = Bot(
-                token=BOT_TOKEN,
-                default=DefaultBotProperties(parse_mode=ParseMode.MARKDOWN)
-            )
+    max_attempts = 3
+    for attempt in range(max_attempts):
+        try:
+            logger.info(f"Попытка создания бота ({attempt + 1}/{max_attempts})...")
+            bot = await create_bot()
+            logger.info("УСПЕХ: Бот создан")
             return bot
-    
-    except Exception as e:
-        logger.error(f"Ошибка создания бота: {e}")
-        # Fallback - создаем простого бота
-        return Bot(
-            token=BOT_TOKEN,
-            default=DefaultBotProperties(parse_mode=ParseMode.MARKDOWN)
-        )
         
+        except Exception as e:
+            logger.error(f"Попытка {attempt + 1} неудачна: {e}")
+            if attempt < max_attempts - 1:
+                await asyncio.sleep(2)  # Пауза перед следующей попыткой
+            else:
+                logger.error("Все попытки создания бота исчерпаны!")
+                raise
+
 async def setup_commands(bot):
     """Настройка команд бота"""
     try:
@@ -235,14 +120,6 @@ async def startup_checks():
         init_db()
         logger.info("УСПЕХ: База данных инициализирована")
         
-        # Исправляем неполные записи
-        try:
-            fixed_data = fix_incomplete_records()
-            if fixed_data['fixed_records'] > 0:
-                logger.info(f"ИСПРАВЛЕНО: {fixed_data['fixed_records']} неполных записей")
-        except Exception as e:
-            logger.warning(f"Не удалось исправить записи: {e}")
-        
         # Проверяем целостность данных
         try:
             integrity_check = validate_data_integrity()
@@ -304,13 +181,6 @@ async def main():
         if os.getenv("DEBUG_MODE", "true").lower() == "true":
             logger.info("🔍 РЕЖИМ ДИАГНОСТИКИ: простой middleware")
             
-            class SimpleDiagnosticMiddleware:
-                async def __call__(self, handler, event, data):
-                    if hasattr(event, 'from_user') and event.from_user:
-                        user_id = event.from_user.id
-                        logger.info(f"🔍 ДИАГНОСТИКА: user_id={user_id}")
-                    return await handler(event, data)
-            
             diagnostic_middleware = SimpleDiagnosticMiddleware()
             dp.message.middleware(diagnostic_middleware)
             dp.callback_query.middleware(diagnostic_middleware)
@@ -332,9 +202,15 @@ async def main():
             dp.include_router(admin_router)  # ПЕРВЫМ - админский роутер
             logger.info("УСПЕХ: Административный роутер подключен")
             
-        dp.include_router(score2_router)
+        # Подключаем score2_router если он существует
+        try:
+            from handlers.score2 import score2_router
+            dp.include_router(score2_router)
+            logger.info("УСПЕХ: SCORE2 роутер подключен")
+        except ImportError:
+            logger.warning("SCORE2 роутер не найден, пропускаем")
 
-        dp.include_router(router)  # ВТОРЫМ - основной роутер
+        dp.include_router(main_router)  # ВТОРЫМ - основной роутер
         
         logger.info("УСПЕХ: Диспетчер настроен с защитой состояний")
         
@@ -352,6 +228,15 @@ async def main():
             logger.info("УСПЕХ: Планировщик рассылок создан")
     except Exception as e:
         logger.warning(f"Ошибка создания планировщика: {e}")
+    
+    # Запуск планировщика вебинара (ТОЧКА 2)
+    webinar_scheduler = None
+    try:
+        from handlers.webinar_scheduler import start_scheduler
+        await start_scheduler(bot)
+        logger.info("УСПЕХ: Планировщик вебинара запущен")
+    except Exception as e:
+        logger.warning(f"Ошибка запуска планировщика вебинара: {e}")
     
     # Выводим информацию о конфигурации
     logger.info("Конфигурация бота:")
@@ -408,6 +293,14 @@ async def main():
             scheduler.stop_scheduler()
             logger.info("ОСТАНОВЛЕН: Планировщик рассылок")
             
+        # Останавливаем планировщик вебинара
+        try:
+            from handlers.webinar_scheduler import stop_scheduler
+            await stop_scheduler()
+            logger.info("ОСТАНОВЛЕН: Планировщик вебинара")
+        except Exception as e:
+            logger.warning(f"Ошибка остановки планировщика вебинара: {e}")
+            
         if scheduler_task:
             scheduler_task.cancel()
             try:
@@ -444,41 +337,6 @@ async def main():
                 logger.warning(f"Ошибка при закрытии сессии бота: {e}")
         
         logger.info("ЗАВЕРШЕНО: Бот корректно завершен с защитой состояний")
-
-def check_environment():
-    """Проверка окружения перед запуском"""
-    if not os.path.exists('.env'):
-        print("ОШИБКА: Файл .env не найден!")
-        print("Создайте файл .env на основе .env.example")
-        print("\nПример содержимого .env:")
-        print("BOT_TOKEN=your_bot_token_here")
-        print("ADMIN_IDS=123456789")
-        print("ADMIN_PASSWORD=your_password_here")
-        return False
-    
-    return True
-
-def print_startup_banner():
-    """Упрощенный баннер без Unicode символов для совместимости с Windows"""
-    banner = """
-====================================================================
-                   CARDIO CHECKUP BOT v2.0                       
-                  C ZASHCHITOY OT ZATSIKLIVANIYA                 
-====================================================================
-  * Middleware zashchity sostoyaniy                              
-  * Deduplikatsiya deystviy polzovateley                         
-  * Zashchita ot spama i perepolneniya                           
-  * Bezopasnoe redaktirovanie soobshcheniy                       
-  * Logirovanie vsekh vzaimodeystviy                             
-====================================================================
-"""
-    try:
-        print(banner)
-    except UnicodeEncodeError:
-        # Fallback для старых систем
-        print("CARDIO CHECKUP BOT v2.0 - Starting...")
-        print("System protection enabled")
-
 
 if __name__ == "__main__":
     try:
