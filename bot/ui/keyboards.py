@@ -184,8 +184,8 @@ def get_checkup_content_keyboard(selected: List[str]):
     # Кнопка "Готово" с отображением количества выбранных элементов
     # Считаем количество выбранных обычных пунктов (не включая "не проходил")
     normal_selected_count = len([item for item in selected if item != "Не проходил(а) кардиочекап"])
-    total_options = len(options)
-    buttons.append([InlineKeyboardButton(text=f"✅ Готово ({normal_selected_count}/{total_options})", callback_data="checkup_content_done")])
+    max_selections = 5  # Максимум 5 вариантов для вопроса 16
+    buttons.append([InlineKeyboardButton(text=f"✅ Готово ({normal_selected_count}/{max_selections})", callback_data="checkup_content_done")])
     
     keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
     return keyboard
@@ -209,8 +209,8 @@ def get_prevention_barriers_keyboard(selected: List[str]):
     
     # Кнопка "Готово" с отображением количества выбранных элементов
     selected_count = len(selected)
-    total_options = len(options)
-    buttons.append([InlineKeyboardButton(text=f"Готово ({selected_count}/{total_options})", callback_data="prevention_barriers_done")])
+    max_selections = 3  # Максимум 3 варианта для вопроса 17
+    buttons.append([InlineKeyboardButton(text=f"✅ Готово ({selected_count}/{max_selections})", callback_data="prevention_barriers_done")])
     
     keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
     return keyboard
