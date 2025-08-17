@@ -572,7 +572,7 @@ async def cmd_score2_start(message: Message, state: FSMContext):
             telegram_id=user_id,
             action="score2_started",
             details={"method": "command"},
-            step="score2_start"
+            state="score2_start"
         )
         
         welcome_text = """
@@ -625,7 +625,7 @@ async def process_gender(callback: CallbackQuery, state: FSMContext):
             telegram_id=user_id,
             action="score2_gender_selected", 
             details={"gender": gender},
-            step="score2_gender"
+            state="score2_gender"
         )
         
         text = f"""
@@ -667,7 +667,7 @@ async def process_smoking(callback: CallbackQuery, state: FSMContext):
             telegram_id=user_id,
             action="score2_smoking_selected",
             details={"smoking": smoking},
-            step="score2_smoking"
+            state="score2_smoking"
         )
         
         smoking_text = "Не курю" if smoking == "не_курит" else "Курю"
@@ -713,7 +713,7 @@ async def process_age(callback: CallbackQuery, state: FSMContext):
             telegram_id=user_id,
             action="score2_age_selected",
             details={"age": age},
-            step="score2_age"
+            state="score2_age"
         )
         
         # Преобразуем возраст для отображения
@@ -777,7 +777,7 @@ async def process_blood_pressure(callback: CallbackQuery, state: FSMContext):
             telegram_id=user_id,
             action="score2_bp_selected",
             details={"blood_pressure": bp},
-            step="score2_blood_pressure"
+            state="score2_blood_pressure"
         )
         
         # Преобразуем АД для отображения
@@ -856,7 +856,7 @@ async def process_cholesterol_unit(callback: CallbackQuery, state: FSMContext):
             telegram_id=user_id,
             action="score2_chol_unit_selected",
             details={"cholesterol_unit": unit},
-            step="score2_cholesterol_unit"
+            state="score2_cholesterol_unit"
         )
         
         # Собираем все данные для отображения
@@ -947,7 +947,7 @@ async def process_cholesterol_mmol(callback: CallbackQuery, state: FSMContext):
             telegram_id=user_id,
             action="score2_chol_mmol_selected",
             details={"cholesterol": cholesterol},
-            step="score2_cholesterol_mmol"
+            state="score2_cholesterol_mmol"
         )
         
         await calculate_and_show_result(callback, state)
@@ -969,7 +969,7 @@ async def process_cholesterol_mgdl(callback: CallbackQuery, state: FSMContext):
             telegram_id=user_id,
             action="score2_chol_mgdl_selected",
             details={"cholesterol": cholesterol},
-            step="score2_cholesterol_mgdl"
+            state="score2_cholesterol_mgdl"
         )
         
         await calculate_and_show_result(callback, state)
@@ -1019,7 +1019,7 @@ async def calculate_and_show_result(callback: CallbackQuery, state: FSMContext):
             "risk_score": risk_score,
             "risk_level": risk_info["level"]
         },
-        step="score2_result"
+        state="score2_result"
     )
     
     # Формируем текст результата
@@ -1111,7 +1111,7 @@ async def back_to_main_menu(callback: CallbackQuery, state: FSMContext):
             telegram_id=user_id,
             action="score2_exit_to_menu",
             details={"method": "main_menu_button"},
-            step="score2_exit"
+            state="score2_exit"
         )
         
         # Очищаем состояние
@@ -1155,7 +1155,7 @@ async def restart_score2(callback: CallbackQuery, state: FSMContext):
             telegram_id=user_id,
             action="score2_restarted",
             details={"method": "restart_button"},
-            step="score2_restart"
+            state="score2_restart"
         )
         
         # Очищаем состояние

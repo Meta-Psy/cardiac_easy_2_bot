@@ -181,8 +181,11 @@ def get_checkup_content_keyboard(selected: List[str]):
     prefix = "✅ " if not_passed_selected else "☐ "
     buttons.append([InlineKeyboardButton(text=prefix + "Не проходил(а) кардиочекап", callback_data="checkup_content_skip")])
     
-    # Кнопка "Готово" всегда доступна
-    buttons.append([InlineKeyboardButton(text="✅ Готово", callback_data="checkup_content_done")])
+    # Кнопка "Готово" с отображением количества выбранных элементов
+    # Считаем количество выбранных обычных пунктов (не включая "не проходил")
+    normal_selected_count = len([item for item in selected if item != "Не проходил(а) кардиочекап"])
+    total_options = len(options)
+    buttons.append([InlineKeyboardButton(text=f"✅ Готово ({normal_selected_count}/{total_options})", callback_data="checkup_content_done")])
     
     keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
     return keyboard
@@ -204,8 +207,10 @@ def get_prevention_barriers_keyboard(selected: List[str]):
         prefix = "✅ " if text in selected else "☐ "
         buttons.append([InlineKeyboardButton(text=prefix + text, callback_data=callback_data)])
     
-    # Специальные кнопки
-    buttons.append([InlineKeyboardButton(text="Готово", callback_data="prevention_barriers_done")])
+    # Кнопка "Готово" с отображением количества выбранных элементов
+    selected_count = len(selected)
+    total_options = len(options)
+    buttons.append([InlineKeyboardButton(text=f"Готово ({selected_count}/{total_options})", callback_data="prevention_barriers_done")])
     
     keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
     return keyboard

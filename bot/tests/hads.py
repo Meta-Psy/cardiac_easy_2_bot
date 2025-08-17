@@ -191,13 +191,6 @@ def get_hads_interpretation(anxiety_score: int, depression_score: int) -> str:
     depression_level = get_level(depression_score)
     
     result = f"<b>Тревога:</b> {anxiety_score} баллов - {anxiety_level}\n"
-    result += f"<b>Депрессия:</b> {depression_score} баллов - {depression_level}\n\n"
-    
-    if anxiety_score > 10 or depression_score > 10:
-        result += "🚨 <b>Рекомендация:</b> Рекомендуется консультация специалиста (психолога, психотерапевта) для дальнейшей оценки и возможной помощи."
-    elif anxiety_score > 7 or depression_score > 7:
-        result += "⚠️ <b>Рекомендация:</b> Обратите внимание на свое эмоциональное состояние. Рассмотрите возможность работы со стрессом, релаксационные техники."
-    else:
-        result += "✅ <b>Результат:</b> Ваши показатели тревоги и депрессии находятся в пределах нормы."
+    result += f"<b>Депрессия:</b> {depression_score} баллов - {depression_level}"
     
     return result

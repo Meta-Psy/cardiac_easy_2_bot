@@ -156,10 +156,10 @@ async def save_test_results(telegram_id: int, test_results: dict) -> bool:
         if 'ess_score' in test_results:
             test_result.ess_level = get_ess_level(test_results['ess_score'])
             
-        if 'fagerstrom_score' in test_results:
+        if 'fagerstrom_score' in test_results and test_results['fagerstrom_score'] is not None:
             test_result.fagerstrom_level = get_fagerstrom_level(test_results['fagerstrom_score'])
             
-        if 'audit_score' in test_results:
+        if 'audit_score' in test_results and test_results['audit_score'] is not None:
             test_result.audit_level = get_audit_level(test_results['audit_score'])
         
         if 'stop_bang_score' in test_results:
@@ -198,35 +198,35 @@ def calculate_risk_level(test_results: dict) -> str:
     risk_score = 0
     
     # HADS тревога
-    hads_anxiety = test_results.get('hads_anxiety_score', 0)
+    hads_anxiety = test_results.get('hads_anxiety_score', 0) or 0
     if hads_anxiety >= 11:
         risk_score += 3
     elif hads_anxiety >= 8:
         risk_score += 1
     
     # HADS депрессия
-    hads_depression = test_results.get('hads_depression_score', 0)
+    hads_depression = test_results.get('hads_depression_score', 0) or 0
     if hads_depression >= 11:
         risk_score += 3
     elif hads_depression >= 8:
         risk_score += 1
     
     # Burns депрессия
-    burns_score = test_results.get('burns_score', 0)
+    burns_score = test_results.get('burns_score', 0) or 0
     if burns_score >= 25:
         risk_score += 2
     elif burns_score >= 11:
         risk_score += 1
     
     # ISI бессонница
-    isi_score = test_results.get('isi_score', 0)
+    isi_score = test_results.get('isi_score', 0) or 0
     if isi_score >= 15:
         risk_score += 2
     elif isi_score >= 8:
         risk_score += 1
     
     # STOP-BANG апноэ
-    stop_bang_score = test_results.get('stop_bang_score', 0)
+    stop_bang_score = test_results.get('stop_bang_score', 0) or 0
     if stop_bang_score >= 5:
         risk_score += 3
     elif stop_bang_score >= 3:
@@ -724,19 +724,19 @@ async def send_detailed_results(message: Message, test_results: dict):
             detailed_text += f"   • Балл: {ess_score} ({get_ess_level(ess_score)})\n\n"
         
         # Fagerstrom результаты
-        if test_results.get('fagerstrom_score') is not None:
-            fagerstrom_score = test_results['fagerstrom_score']
+        fagerstrom_score = test_results.get('fagerstrom_score')
+        if fagerstrom_score is not None:
             detailed_text += f"🚬 <b>Фагерстрем (Никотин):</b>\n"
             detailed_text += f"   • Балл: {fagerstrom_score} ({get_fagerstrom_level(fagerstrom_score)})\n\n"
-        elif test_results.get('fagerstrom_skipped'):
+        elif test_results.get('fagerstrom_skipped', False):
             detailed_text += f"🚬 <b>Фагерстрем:</b> Пропущен (не курю)\n\n"
         
         # AUDIT результаты
-        if test_results.get('audit_score') is not None:
-            audit_score = test_results['audit_score']
+        audit_score = test_results.get('audit_score')
+        if audit_score is not None:
             detailed_text += f"🍷 <b>AUDIT (Алкоголь):</b>\n"
             detailed_text += f"   • Балл: {audit_score} ({get_audit_level(audit_score)})\n\n"
-        elif test_results.get('audit_skipped'):
+        elif test_results.get('audit_skipped', False):
             detailed_text += f"🍷 <b>AUDIT:</b> Пропущен (не употребляю)\n\n"
         
         # Общая оценка риска
@@ -822,8 +822,9 @@ async def complete_all_tests(message: Message, state: FSMContext):
         bot = message.bot
         chat_id = message.chat.id
         
-        # Абсолютный путь к папке с материалами
-        materials_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'materials'))
+        # Путь к папке с материалами относительно корня проекта
+        materials_path = os.path.join(os.path.dirname(__file__), '..', '..', 'materials')
+        materials_path = os.path.abspath(materials_path)
         logger.info(f"🔍 Ищем материалы в папке: {materials_path}")
         
         # Проверяем существование папки
@@ -1011,8 +1012,10 @@ def get_risk_explanation(risk_level: str) -> str:
 # ФУНКЦИИ ДЛЯ ОПРЕДЕЛЕНИЯ УРОВНЕЙ ТЕСТОВ
 # ============================================================================
 
-def get_hads_anxiety_level(score: int) -> str:
+def get_hads_anxiety_level(score) -> str:
     """Определить уровень тревоги HADS"""
+    if score is None:
+        return "не определен"
     if score <= 7:
         return "норма"
     elif score <= 10:
@@ -1020,8 +1023,10 @@ def get_hads_anxiety_level(score: int) -> str:
     else:
         return "клинический"
 
-def get_hads_depression_level(score: int) -> str:
+def get_hads_depression_level(score) -> str:
     """Определить уровень депрессии HADS"""
+    if score is None:
+        return "не определен"
     if score <= 7:
         return "норма"
     elif score <= 10:
@@ -1029,8 +1034,10 @@ def get_hads_depression_level(score: int) -> str:
     else:
         return "клинический"
 
-def get_burns_level(score: int) -> str:
+def get_burns_level(score) -> str:
     """Определить уровень выгорания Бернса"""
+    if score is None:
+        return "не определен"
     if score <= 25:
         return "низкий"
     elif score <= 50:
@@ -1038,8 +1045,10 @@ def get_burns_level(score: int) -> str:
     else:
         return "высокий"
 
-def get_isi_level(score: int) -> str:
+def get_isi_level(score) -> str:
     """Определить уровень нарушений сна ISI"""
+    if score is None:
+        return "не определен"
     if score <= 7:
         return "норма"
     elif score <= 14:
@@ -1049,8 +1058,10 @@ def get_isi_level(score: int) -> str:
     else:
         return "тяжелые нарушения"
 
-def get_stop_bang_risk(score: int) -> str:
+def get_stop_bang_risk(score) -> str:
     """Определить риск апноэ STOP-BANG"""
+    if score is None:
+        return "не определен"
     if score <= 2:
         return "низкий риск"
     elif score <= 4:
@@ -1058,15 +1069,19 @@ def get_stop_bang_risk(score: int) -> str:
     else:
         return "высокий риск"
 
-def get_ess_level(score: int) -> str:
+def get_ess_level(score) -> str:
     """Определить уровень дневной сонливости ESS"""
+    if score is None:
+        return "не определен"
     if score <= 10:
         return "норма"
     else:
         return "повышенная сонливость"
 
-def get_fagerstrom_level(score: int) -> str:
+def get_fagerstrom_level(score) -> str:
     """Определить уровень никотиновой зависимости"""
+    if score is None:
+        return "не определен"
     if score <= 2:
         return "очень слабая"
     elif score <= 4:
@@ -1078,8 +1093,10 @@ def get_fagerstrom_level(score: int) -> str:
     else:
         return "очень сильная"
 
-def get_audit_level(score: int) -> str:
+def get_audit_level(score) -> str:
     """Определить уровень проблем с алкоголем AUDIT"""
+    if score is None:
+        return "не определен"
     if score <= 7:
         return "низкий риск"
     elif score <= 15:
@@ -1094,23 +1111,29 @@ def calculate_cv_risk_score(test_results: dict) -> int:
     total_score = 0
     
     # HADS (тревога + депрессия)
-    if test_results.get('hads_anxiety_score'):
-        total_score += test_results['hads_anxiety_score']
-    if test_results.get('hads_depression_score'):
-        total_score += test_results['hads_depression_score']
+    hads_anxiety = test_results.get('hads_anxiety_score')
+    if hads_anxiety is not None:
+        total_score += hads_anxiety
+    hads_depression = test_results.get('hads_depression_score')
+    if hads_depression is not None:
+        total_score += hads_depression
     
     # Другие тесты - нормализуем к шкале 0-10
-    if test_results.get('burns_score'):
-        total_score += min(10, test_results['burns_score'] // 5)  # 0-50 -> 0-10
+    burns_score = test_results.get('burns_score')
+    if burns_score is not None:
+        total_score += min(10, burns_score // 5)  # 0-50 -> 0-10
     
-    if test_results.get('isi_score'):
-        total_score += min(10, test_results['isi_score'] // 3)  # 0-28 -> 0-10
+    isi_score = test_results.get('isi_score')
+    if isi_score is not None:
+        total_score += min(10, isi_score // 3)  # 0-28 -> 0-10
         
-    if test_results.get('stop_bang_score'):
-        total_score += test_results['stop_bang_score']  # 0-8
+    stop_bang_score = test_results.get('stop_bang_score')
+    if stop_bang_score is not None:
+        total_score += stop_bang_score  # 0-8
         
-    if test_results.get('ess_score'):
-        total_score += min(10, test_results['ess_score'] // 2)  # 0-24 -> 0-10
+    ess_score = test_results.get('ess_score')
+    if ess_score is not None:
+        total_score += min(10, ess_score // 2)  # 0-24 -> 0-10
     
     return total_score
 
@@ -1143,11 +1166,13 @@ def calculate_risk_factors_count(test_results: dict) -> int:
         count += 1
         
     # Курение (Фагерстрем)
-    if test_results.get('fagerstrom_score', 0) > 0 and not test_results.get('fagerstrom_skipped'):
+    fagerstrom_score = test_results.get('fagerstrom_score')
+    if fagerstrom_score is not None and fagerstrom_score > 0 and not test_results.get('fagerstrom_skipped', False):
         count += 1
         
     # Алкоголь (AUDIT)
-    if test_results.get('audit_score', 0) > 7 and not test_results.get('audit_skipped'):
+    audit_score = test_results.get('audit_score')
+    if audit_score is not None and audit_score > 7 and not test_results.get('audit_skipped', False):
         count += 1
     
     return count

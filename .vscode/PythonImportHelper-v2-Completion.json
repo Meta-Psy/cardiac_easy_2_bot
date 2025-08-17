@@ -2985,7 +2985,7 @@
         "kind": 2,
         "importPath": "bot.handlers.tests",
         "description": "bot.handlers.tests",
-        "peekOfCode": "def calculate_risk_level(test_results: dict) -> str:\n    \"\"\"Расчет общего уровня риска на основе результатов тестов\"\"\"\n    risk_score = 0\n    # HADS тревога\n    hads_anxiety = test_results.get('hads_anxiety_score', 0)\n    if hads_anxiety >= 11:\n        risk_score += 3\n    elif hads_anxiety >= 8:\n        risk_score += 1\n    # HADS депрессия",
+        "peekOfCode": "def calculate_risk_level(test_results: dict) -> str:\n    \"\"\"Расчет общего уровня риска на основе результатов тестов\"\"\"\n    risk_score = 0\n    # HADS тревога\n    hads_anxiety = test_results.get('hads_anxiety_score', 0) or 0\n    if hads_anxiety >= 11:\n        risk_score += 3\n    elif hads_anxiety >= 8:\n        risk_score += 1\n    # HADS депрессия",
         "detail": "bot.handlers.tests",
         "documentation": {}
     },
@@ -3021,7 +3021,7 @@
         "kind": 2,
         "importPath": "bot.handlers.tests",
         "description": "bot.handlers.tests",
-        "peekOfCode": "def get_hads_anxiety_level(score: int) -> str:\n    \"\"\"Определить уровень тревоги HADS\"\"\"\n    if score <= 7:\n        return \"норма\"\n    elif score <= 10:\n        return \"субклинический\"\n    else:\n        return \"клинический\"\ndef get_hads_depression_level(score: int) -> str:\n    \"\"\"Определить уровень депрессии HADS\"\"\"",
+        "peekOfCode": "def get_hads_anxiety_level(score) -> str:\n    \"\"\"Определить уровень тревоги HADS\"\"\"\n    if score is None:\n        return \"не определен\"\n    if score <= 7:\n        return \"норма\"\n    elif score <= 10:\n        return \"субклинический\"\n    else:\n        return \"клинический\"",
         "detail": "bot.handlers.tests",
         "documentation": {}
     },
@@ -3030,7 +3030,7 @@
         "kind": 2,
         "importPath": "bot.handlers.tests",
         "description": "bot.handlers.tests",
-        "peekOfCode": "def get_hads_depression_level(score: int) -> str:\n    \"\"\"Определить уровень депрессии HADS\"\"\"\n    if score <= 7:\n        return \"норма\"\n    elif score <= 10:\n        return \"субклинический\"\n    else:\n        return \"клинический\"\ndef get_burns_level(score: int) -> str:\n    \"\"\"Определить уровень выгорания Бернса\"\"\"",
+        "peekOfCode": "def get_hads_depression_level(score) -> str:\n    \"\"\"Определить уровень депрессии HADS\"\"\"\n    if score is None:\n        return \"не определен\"\n    if score <= 7:\n        return \"норма\"\n    elif score <= 10:\n        return \"субклинический\"\n    else:\n        return \"клинический\"",
         "detail": "bot.handlers.tests",
         "documentation": {}
     },
@@ -3039,7 +3039,7 @@
         "kind": 2,
         "importPath": "bot.handlers.tests",
         "description": "bot.handlers.tests",
-        "peekOfCode": "def get_burns_level(score: int) -> str:\n    \"\"\"Определить уровень выгорания Бернса\"\"\"\n    if score <= 25:\n        return \"низкий\"\n    elif score <= 50:\n        return \"умеренный\"\n    else:\n        return \"высокий\"\ndef get_isi_level(score: int) -> str:\n    \"\"\"Определить уровень нарушений сна ISI\"\"\"",
+        "peekOfCode": "def get_burns_level(score) -> str:\n    \"\"\"Определить уровень выгорания Бернса\"\"\"\n    if score is None:\n        return \"не определен\"\n    if score <= 25:\n        return \"низкий\"\n    elif score <= 50:\n        return \"умеренный\"\n    else:\n        return \"высокий\"",
         "detail": "bot.handlers.tests",
         "documentation": {}
     },
@@ -3048,7 +3048,7 @@
         "kind": 2,
         "importPath": "bot.handlers.tests",
         "description": "bot.handlers.tests",
-        "peekOfCode": "def get_isi_level(score: int) -> str:\n    \"\"\"Определить уровень нарушений сна ISI\"\"\"\n    if score <= 7:\n        return \"норма\"\n    elif score <= 14:\n        return \"легкие нарушения\"\n    elif score <= 21:\n        return \"умеренные нарушения\"\n    else:\n        return \"тяжелые нарушения\"",
+        "peekOfCode": "def get_isi_level(score) -> str:\n    \"\"\"Определить уровень нарушений сна ISI\"\"\"\n    if score is None:\n        return \"не определен\"\n    if score <= 7:\n        return \"норма\"\n    elif score <= 14:\n        return \"легкие нарушения\"\n    elif score <= 21:\n        return \"умеренные нарушения\"",
         "detail": "bot.handlers.tests",
         "documentation": {}
     },
@@ -3057,7 +3057,7 @@
         "kind": 2,
         "importPath": "bot.handlers.tests",
         "description": "bot.handlers.tests",
-        "peekOfCode": "def get_stop_bang_risk(score: int) -> str:\n    \"\"\"Определить риск апноэ STOP-BANG\"\"\"\n    if score <= 2:\n        return \"низкий риск\"\n    elif score <= 4:\n        return \"средний риск\"\n    else:\n        return \"высокий риск\"\ndef get_ess_level(score: int) -> str:\n    \"\"\"Определить уровень дневной сонливости ESS\"\"\"",
+        "peekOfCode": "def get_stop_bang_risk(score) -> str:\n    \"\"\"Определить риск апноэ STOP-BANG\"\"\"\n    if score is None:\n        return \"не определен\"\n    if score <= 2:\n        return \"низкий риск\"\n    elif score <= 4:\n        return \"средний риск\"\n    else:\n        return \"высокий риск\"",
         "detail": "bot.handlers.tests",
         "documentation": {}
     },
@@ -3066,7 +3066,7 @@
         "kind": 2,
         "importPath": "bot.handlers.tests",
         "description": "bot.handlers.tests",
-        "peekOfCode": "def get_ess_level(score: int) -> str:\n    \"\"\"Определить уровень дневной сонливости ESS\"\"\"\n    if score <= 10:\n        return \"норма\"\n    else:\n        return \"повышенная сонливость\"\ndef get_fagerstrom_level(score: int) -> str:\n    \"\"\"Определить уровень никотиновой зависимости\"\"\"\n    if score <= 2:\n        return \"очень слабая\"",
+        "peekOfCode": "def get_ess_level(score) -> str:\n    \"\"\"Определить уровень дневной сонливости ESS\"\"\"\n    if score is None:\n        return \"не определен\"\n    if score <= 10:\n        return \"норма\"\n    else:\n        return \"повышенная сонливость\"\ndef get_fagerstrom_level(score) -> str:\n    \"\"\"Определить уровень никотиновой зависимости\"\"\"",
         "detail": "bot.handlers.tests",
         "documentation": {}
     },
@@ -3075,7 +3075,7 @@
         "kind": 2,
         "importPath": "bot.handlers.tests",
         "description": "bot.handlers.tests",
-        "peekOfCode": "def get_fagerstrom_level(score: int) -> str:\n    \"\"\"Определить уровень никотиновой зависимости\"\"\"\n    if score <= 2:\n        return \"очень слабая\"\n    elif score <= 4:\n        return \"слабая\"\n    elif score <= 6:\n        return \"средняя\"\n    elif score <= 8:\n        return \"сильная\"",
+        "peekOfCode": "def get_fagerstrom_level(score) -> str:\n    \"\"\"Определить уровень никотиновой зависимости\"\"\"\n    if score is None:\n        return \"не определен\"\n    if score <= 2:\n        return \"очень слабая\"\n    elif score <= 4:\n        return \"слабая\"\n    elif score <= 6:\n        return \"средняя\"",
         "detail": "bot.handlers.tests",
         "documentation": {}
     },
@@ -3084,7 +3084,7 @@
         "kind": 2,
         "importPath": "bot.handlers.tests",
         "description": "bot.handlers.tests",
-        "peekOfCode": "def get_audit_level(score: int) -> str:\n    \"\"\"Определить уровень проблем с алкоголем AUDIT\"\"\"\n    if score <= 7:\n        return \"низкий риск\"\n    elif score <= 15:\n        return \"опасное потребление\"\n    elif score <= 19:\n        return \"вредное потребление\"\n    else:\n        return \"возможная зависимость\"",
+        "peekOfCode": "def get_audit_level(score) -> str:\n    \"\"\"Определить уровень проблем с алкоголем AUDIT\"\"\"\n    if score is None:\n        return \"не определен\"\n    if score <= 7:\n        return \"низкий риск\"\n    elif score <= 15:\n        return \"опасное потребление\"\n    elif score <= 19:\n        return \"вредное потребление\"",
         "detail": "bot.handlers.tests",
         "documentation": {}
     },
@@ -3093,7 +3093,7 @@
         "kind": 2,
         "importPath": "bot.handlers.tests",
         "description": "bot.handlers.tests",
-        "peekOfCode": "def calculate_cv_risk_score(test_results: dict) -> int:\n    \"\"\"Рассчитать общий балл CV риска на основе тестов\"\"\"\n    total_score = 0\n    # HADS (тревога + депрессия)\n    if test_results.get('hads_anxiety_score'):\n        total_score += test_results['hads_anxiety_score']\n    if test_results.get('hads_depression_score'):\n        total_score += test_results['hads_depression_score']\n    # Другие тесты - нормализуем к шкале 0-10\n    if test_results.get('burns_score'):",
+        "peekOfCode": "def calculate_cv_risk_score(test_results: dict) -> int:\n    \"\"\"Рассчитать общий балл CV риска на основе тестов\"\"\"\n    total_score = 0\n    # HADS (тревога + депрессия)\n    hads_anxiety = test_results.get('hads_anxiety_score')\n    if hads_anxiety is not None:\n        total_score += hads_anxiety\n    hads_depression = test_results.get('hads_depression_score')\n    if hads_depression is not None:\n        total_score += hads_depression",
         "detail": "bot.handlers.tests",
         "documentation": {}
     },
