@@ -284,7 +284,14 @@ def get_test_selection_keyboard(completed_data=None):
         buttons.append([InlineKeyboardButton(text="⭕ 🍷 Тест AUDIT (употребление алкоголя)", callback_data="test_audit")])
         buttons.append([InlineKeyboardButton(text="⏭ Я не употребляю алкоголь", callback_data="test_audit_skip")])
     
-    # ИСПРАВЛЕННАЯ логика кнопок завершения - минимум 5 тестов
+    # ИСПРАВЛЕННАЯ логика кнопок завершения - минимум 5 тестов + учет пропущенных
+    # Считаем общее количество завершенных тестов (включая пропущенные)
+    total_completed = completed_count
+    if fagerstrom_completed:
+        total_completed += 1
+    if audit_completed:
+        total_completed += 1
+    
     if completed_count >= 5:  # Все 5 обязательных тестов пройдены
         buttons.append([InlineKeyboardButton(text="🎯 Завершить и получить материалы", callback_data="test_complete")])
     elif completed_count >= 3:  # 3-4 теста пройдено - еще нужно

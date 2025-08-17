@@ -599,11 +599,7 @@ async def cmd_score2_start(message: Message, state: FSMContext):
 👤 **Укажите ваш пол:**
         """
         
-        await message.edit_text(
-            text=welcome_text,
-            reply_markup=create_gender_keyboard(),
-            parse_mode="Markdown"
-        ) if message.text != "/score" else await message.answer(
+        await message.answer(
             text=welcome_text,
             reply_markup=create_gender_keyboard(),
             parse_mode="Markdown"

@@ -435,6 +435,14 @@
         "documentation": {}
     },
     {
+        "label": "FSInputFile",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
         "label": "Message",
         "importPath": "aiogram.types",
         "description": "aiogram.types",

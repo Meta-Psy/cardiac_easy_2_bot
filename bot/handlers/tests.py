@@ -1,8 +1,9 @@
 import asyncio
 import logging
+import os
 from datetime import datetime
 from aiogram import Router, F
-from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton, FSInputFile
 from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 
@@ -572,17 +573,31 @@ async def finish_current_test(message: Message, state: FSMContext):
         # Получаем интерпретацию результата
         interpretation = get_test_interpretation(current_test, total_score)
     
-    text = f"""✅ <b>Тест завершен!</b>
+    # Отправляем мини-результат как новое сообщение (остается в истории)
+    mini_result_text = f"""✅ <b>Тест завершен!</b>
 
-{interpretation}
-
-Переходим к следующему тесту..."""
+{interpretation}"""
     
-    await safe_edit_message(message, text)
-    await asyncio.sleep(3)
+    await message.bot.send_message(
+        chat_id=message.chat.id,
+        text=mini_result_text,
+        parse_mode="HTML"
+    )
     
-    # Показываем меню тестов
-    await show_test_menu(message, state)
+    await asyncio.sleep(2)
+    
+    # Показываем меню тестов как новое сообщение
+    menu_text = "Выберите следующий тест для прохождения:"
+    data = await state.get_data()
+    keyboard = get_test_selection_keyboard(data)
+    
+    await message.bot.send_message(
+        chat_id=message.chat.id,
+        text=menu_text,
+        reply_markup=keyboard,
+        parse_mode="HTML"
+    )
+    await state.set_state(UserStates.test_selection)
 
 def get_test_interpretation(test_name: str, score: int) -> str:
     """Получить интерпретацию результата теста"""
@@ -669,6 +684,81 @@ def get_test_interpretation(test_name: str, score: int) -> str:
 # ЗАВЕРШЕНИЕ ВСЕХ ТЕСТОВ
 # ============================================================================
 
+async def send_detailed_results(message: Message, test_results: dict):
+    """Отправляем детальные результаты всех тестов как отдельное сообщение"""
+    try:
+        detailed_text = "📋 <b>ДЕТАЛЬНЫЕ РЕЗУЛЬТАТЫ ТЕСТИРОВАНИЯ</b>\n\n"
+        
+        # HADS результаты
+        if test_results.get('hads_anxiety_score') is not None and test_results.get('hads_depression_score') is not None:
+            anxiety_score = test_results['hads_anxiety_score']
+            depression_score = test_results['hads_depression_score']
+            total_hads = anxiety_score + depression_score
+            detailed_text += f"🟣 <b>HADS (Тревога и депрессия):</b>\n"
+            detailed_text += f"   • Тревога: {anxiety_score} баллов ({get_hads_anxiety_level(anxiety_score)})\n"
+            detailed_text += f"   • Депрессия: {depression_score} баллов ({get_hads_depression_level(depression_score)})\n"
+            detailed_text += f"   • Общий балл: {total_hads}\n\n"
+        
+        # Burns результаты
+        if test_results.get('burns_score') is not None:
+            burns_score = test_results['burns_score']
+            detailed_text += f"🔵 <b>Тест Бернса (Выгорание):</b>\n"
+            detailed_text += f"   • Балл: {burns_score} ({get_burns_level(burns_score)})\n\n"
+        
+        # ISI результаты
+        if test_results.get('isi_score') is not None:
+            isi_score = test_results['isi_score']
+            detailed_text += f"🌙 <b>ISI (Качество сна):</b>\n"
+            detailed_text += f"   • Балл: {isi_score} ({get_isi_level(isi_score)})\n\n"
+        
+        # STOP-BANG результаты
+        if test_results.get('stop_bang_score') is not None:
+            stop_bang_score = test_results['stop_bang_score']
+            detailed_text += f"😴 <b>STOP-BANG (Апноэ сна):</b>\n"
+            detailed_text += f"   • Балл: {stop_bang_score} ({get_stop_bang_risk(stop_bang_score)})\n\n"
+        
+        # ESS результаты
+        if test_results.get('ess_score') is not None:
+            ess_score = test_results['ess_score']
+            detailed_text += f"😴 <b>ESS (Дневная сонливость):</b>\n"
+            detailed_text += f"   • Балл: {ess_score} ({get_ess_level(ess_score)})\n\n"
+        
+        # Fagerstrom результаты
+        if test_results.get('fagerstrom_score') is not None:
+            fagerstrom_score = test_results['fagerstrom_score']
+            detailed_text += f"🚬 <b>Фагерстрем (Никотин):</b>\n"
+            detailed_text += f"   • Балл: {fagerstrom_score} ({get_fagerstrom_level(fagerstrom_score)})\n\n"
+        elif test_results.get('fagerstrom_skipped'):
+            detailed_text += f"🚬 <b>Фагерстрем:</b> Пропущен (не курю)\n\n"
+        
+        # AUDIT результаты
+        if test_results.get('audit_score') is not None:
+            audit_score = test_results['audit_score']
+            detailed_text += f"🍷 <b>AUDIT (Алкоголь):</b>\n"
+            detailed_text += f"   • Балл: {audit_score} ({get_audit_level(audit_score)})\n\n"
+        elif test_results.get('audit_skipped'):
+            detailed_text += f"🍷 <b>AUDIT:</b> Пропущен (не употребляю)\n\n"
+        
+        # Общая оценка риска
+        overall_risk = calculate_risk_level(test_results)
+        risk_factors = calculate_risk_factors_count(test_results)
+        
+        detailed_text += f"🎯 <b>ОБЩАЯ ОЦЕНКА:</b>\n"
+        detailed_text += f"   • Сердечно-сосудистый риск: <b>{overall_risk}</b>\n"
+        detailed_text += f"   • Факторов риска выявлено: {risk_factors}\n\n"
+        
+        detailed_text += f"📌 <i>Эти результаты помогут вам лучше подготовиться к вебинару и получить персональные рекомендации от врачей.</i>"
+        
+        await message.bot.send_message(
+            chat_id=message.chat.id,
+            text=detailed_text,
+            parse_mode="HTML"
+        )
+        logger.info(f"✅ Отправлены детальные результаты пользователю {message.chat.id}")
+        
+    except Exception as e:
+        logger.error(f"❌ Ошибка отправки детальных результатов: {e}")
+
 async def complete_all_tests(message: Message, state: FSMContext):
     """Завершение всех тестов и генерация итогового отчета"""
     await log_user_interaction(message.from_user.id, "all_tests_completed")
@@ -724,19 +814,28 @@ async def complete_all_tests(message: Message, state: FSMContext):
     
     await safe_edit_message(message, text, reply_markup=keyboard)
     
+    # ДОПОЛНИТЕЛЬНО: отправляем детальные результаты как отдельное сообщение
+    await send_detailed_results(message, test_results)
+    
     # Отправляем бонусные материалы
     try:
-        from aiogram.types import FSInputFile
-        import os
-        
         bot = message.bot
         chat_id = message.chat.id
         
-        # Путь к папке с материалами
-        materials_path = os.path.join(os.path.dirname(__file__), '..', '..', 'materials')
+        # Абсолютный путь к папке с материалами
+        materials_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'materials'))
+        logger.info(f"🔍 Ищем материалы в папке: {materials_path}")
+        
+        # Проверяем существование папки
+        if not os.path.exists(materials_path):
+            logger.error(f"❌ Папка с материалами не найдена: {materials_path}")
+            await bot.send_message(chat_id, "⚠️ Материалы временно недоступны. Обратитесь к администратору.")
+            return
         
         # Отправляем список анализов
         analyses_file = os.path.join(materials_path, 'analyses_list.pdf')
+        logger.info(f"🔍 Проверяем файл анализов: {analyses_file}")
+        
         if os.path.exists(analyses_file):
             analyses_input = FSInputFile(analyses_file)
             await bot.send_document(
@@ -744,10 +843,14 @@ async def complete_all_tests(message: Message, state: FSMContext):
                 document=analyses_input,
                 caption="📌 Список базовых анализов для подготовки к вебинару"
             )
-            logger.info(f"✅ Отправлен список анализов пользователю {message.chat.id}")
+            logger.info(f"✅ Отправлен список анализов пользователю {chat_id}")
+        else:
+            logger.error(f"❌ Файл с анализами не найден: {analyses_file}")
         
         # Отправляем бонус чек-лист
         bonus_file = os.path.join(materials_path, 'webinar_preparation.png')
+        logger.info(f"🔍 Проверяем бонус файл: {bonus_file}")
+        
         if os.path.exists(bonus_file):
             bonus_input = FSInputFile(bonus_file)
             await bot.send_photo(
@@ -755,10 +858,14 @@ async def complete_all_tests(message: Message, state: FSMContext):
                 photo=bonus_input,
                 caption="📌 Бонус: чек-лист «Препараты и методики, которые не лечат сердце и сосуды»"
             )
-            logger.info(f"✅ Отправлен бонус чек-лист пользователю {message.chat.id}")
+            logger.info(f"✅ Отправлен бонус чек-лист пользователю {chat_id}")
+        else:
+            logger.error(f"❌ Бонус файл не найден: {bonus_file}")
             
     except Exception as e:
         logger.error(f"❌ Ошибка отправки бонусных материалов: {e}")
+        import traceback
+        logger.error(f"Подробности ошибки: {traceback.format_exc()}")
     
     # Отмечаем диагностику как завершенную
     try:
@@ -822,10 +929,20 @@ async def check_test_completion(callback: CallbackQuery, state: FSMContext):
     
     completed_count = len(completed_tests)
     
+    # Учитываем опциональные тесты (включая пропущенные)
+    optional_tests_done = 0
+    if data.get('fagerstrom_score') is not None or data.get('fagerstrom_skipped') or data.get('completed_fagerstrom'):
+        optional_tests_done += 1
+    if data.get('audit_score') is not None or data.get('audit_skipped') or data.get('completed_audit'):
+        optional_tests_done += 1
+        
+    total_tests_done = completed_count + optional_tests_done
+    
     if completed_count >= 5:
-        text = """✅ <b>ТЕСТЫ МОЖНО ЗАВЕРШИТЬ</b>
+        text = f"""✅ <b>ТЕСТЫ МОЖНО ЗАВЕРШИТЬ</b>
 
 Вы прошли все 5 обязательных тестов!
+Завершено тестов: {total_tests_done} из 7 (включая опциональные)
 
 ❓ Хотите завершить тестирование и получить материалы?"""
         
@@ -838,9 +955,11 @@ async def check_test_completion(callback: CallbackQuery, state: FSMContext):
         text = f"""⚠️ <b>НУЖНО ПРОЙТИ ЕЩЕ ТЕСТЫ</b>
 
 Завершено: {completed_count} из 5 обязательных тестов
-Осталось: {missing_count} тестов
+Опциональных: {optional_tests_done} из 2
+Осталось обязательных: {missing_count} тестов
 
-Для получения материалов нужно пройти все 5 обязательных тестов (кроме Фагерстрема и AUDIT)."""
+Для получения материалов нужно пройти все 5 обязательных тестов.
+Фагерстрем и AUDIT можно пропустить, если не применимо."""
         
         keyboard = InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text="📝 Продолжить тестирование", callback_data="continue_tests")]
