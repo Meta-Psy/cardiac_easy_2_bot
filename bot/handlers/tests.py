@@ -759,6 +759,67 @@ async def send_detailed_results(message: Message, test_results: dict):
     except Exception as e:
         logger.error(f"❌ Ошибка отправки детальных результатов: {e}")
 
+async def send_text_materials(bot, chat_id):
+    """Отправка текстовой версии материалов когда файлы недоступны"""
+    try:
+        # Список анализов
+        analyses_text = """📌 <b>СПИСОК БАЗОВЫХ АНАЛИЗОВ ДЛЯ ПОДГОТОВКИ К ВЕБИНАРУ</b>
+
+🩸 <b>Обязательные анализы:</b>
+• Общий анализ крови с лейкоформулой
+• Биохимический анализ крови:
+  - Глюкоза натощак
+  - Общий холестерин
+  - ЛПВП, ЛПНП
+  - Триглицериды
+  - Креатинин
+  - АЛТ, АСТ
+
+🫀 <b>Дополнительные исследования:</b>
+• ЭКГ в покое
+• Измерение артериального давления
+• Индекс массы тела (рост, вес)
+
+💡 <b>Рекомендации:</b>
+• Анализы сдавать натощак (8-12 часов)
+• За день исключить алкоголь и тяжелую пищу
+• Принести результаты на вебинар
+
+📅 <b>Срок:</b> До вебинара"""
+
+        await bot.send_message(chat_id, analyses_text, parse_mode="HTML")
+        
+        # Чек-лист препаратов
+        checklist_text = """📌 <b>ЧЕК-ЛИСТ: ПРЕПАРАТЫ И МЕТОДИКИ, КОТОРЫЕ НЕ ЛЕЧАТ СЕРДЦЕ</b>
+
+❌ <b>Неэффективные препараты:</b>
+• Валидол, корвалол - только успокаивающий эффект
+• Милдронат - нет доказательств эффективности
+• Рибоксин - устаревший препарат
+• Актовегин - не имеет доказанной эффективности
+• "Сердечные" витамины без показаний
+
+❌ <b>Сомнительные методики:</b>
+• "Чистка сосудов" народными средствами
+• БАДы для "укрепления сердца"
+• Гомеопатические препараты
+• "Детокс" программы
+
+✅ <b>Что действительно работает:</b>
+• Статины при повышенном холестерине
+• АПФ при гипертонии
+• Аспирин для профилактики тромбов
+• Бета-блокаторы по показаниям
+• Изменение образа жизни
+
+⚠️ <b>Помните:</b> Любые препараты должен назначать врач!"""
+
+        await bot.send_message(chat_id, checklist_text, parse_mode="HTML")
+        logger.info(f"✅ Отправлены текстовые материалы пользователю {chat_id}")
+        
+    except Exception as e:
+        logger.error(f"❌ Ошибка отправки текстовых материалов: {e}")
+
 async def complete_all_tests(message: Message, state: FSMContext):
     """Завершение всех тестов и генерация итогового отчета"""
     await log_user_interaction(message.from_user.id, "all_tests_completed")
@@ -822,15 +883,33 @@ async def complete_all_tests(message: Message, state: FSMContext):
         bot = message.bot
         chat_id = message.chat.id
         
-        # Путь к папке с материалами относительно корня проекта
-        materials_path = os.path.join(os.path.dirname(__file__), '..', '..', 'materials')
-        materials_path = os.path.abspath(materials_path)
-        logger.info(f"🔍 Ищем материалы в папке: {materials_path}")
+        # Пробуем несколько вариантов путей к папке materials
+        possible_paths = [
+            # Путь относительно корня проекта (разработка)
+            os.path.join(os.path.dirname(__file__), '..', '..', 'materials'),
+            # Прямой путь от текущей директории
+            os.path.abspath('materials'),
+            # Docker путь (если контейнер запущен из /app)
+            '/app/materials',
+            # Альтернативный Docker путь
+            os.path.join('/app', 'materials'),
+            # Путь от текущей рабочей директории
+            os.path.join(os.getcwd(), 'materials')
+        ]
         
-        # Проверяем существование папки
-        if not os.path.exists(materials_path):
-            logger.error(f"❌ Папка с материалами не найдена: {materials_path}")
-            await bot.send_message(chat_id, "⚠️ Материалы временно недоступны. Обратитесь к администратору.")
+        materials_path = None
+        for path in possible_paths:
+            abs_path = os.path.abspath(path)
+            logger.info(f"🔍 Проверяем путь к materials: {abs_path}")
+            if os.path.exists(abs_path):
+                materials_path = abs_path
+                logger.info(f"✅ Найдена папка materials: {materials_path}")
+                break
+                
+        if not materials_path:
+            logger.error(f"❌ Папка materials не найдена ни по одному из путей: {possible_paths}")
+            # Отправляем текстовую версию материалов
+            await send_text_materials(bot, chat_id)
             return
         
         # Отправляем список анализов
@@ -847,6 +926,9 @@ async def complete_all_tests(message: Message, state: FSMContext):
             logger.info(f"✅ Отправлен список анализов пользователю {chat_id}")
         else:
             logger.error(f"❌ Файл с анализами не найден: {analyses_file}")
+            # Если PDF не найден, отправляем текстовую версию
+            await send_text_materials(bot, chat_id)
+            return
         
         # Отправляем бонус чек-лист
         bonus_file = os.path.join(materials_path, 'webinar_preparation.png')
@@ -862,6 +944,31 @@ async def complete_all_tests(message: Message, state: FSMContext):
             logger.info(f"✅ Отправлен бонус чек-лист пользователю {chat_id}")
         else:
             logger.error(f"❌ Бонус файл не найден: {bonus_file}")
+            # Если изображение не найдено, отправляем только текстовый чек-лист
+            checklist_text = """📌 <b>ЧЕК-ЛИСТ: ПРЕПАРАТЫ И МЕТОДИКИ, КОТОРЫЕ НЕ ЛЕЧАТ СЕРДЦЕ</b>
+
+❌ <b>Неэффективные препараты:</b>
+• Валидол, корвалол - только успокаивающий эффект
+• Милдронат - нет доказательств эффективности
+• Рибоксин - устаревший препарат
+• Актовегин - не имеет доказанной эффективности
+• "Сердечные" витамины без показаний
+
+❌ <b>Сомнительные методики:</b>
+• "Чистка сосудов" народными средствами
+• БАДы для "укрепления сердца"
+• Гомеопатические препараты
+• "Детокс" программы
+
+✅ <b>Что действительно работает:</b>
+• Статины при повышенном холестерине
+• АПФ при гипертонии
+• Аспирин для профилактики тромбов
+• Бета-блокаторы по показаниям
+• Изменение образа жизни
+
+⚠️ <b>Помните:</b> Любые препараты должен назначать врач!"""
+            await bot.send_message(chat_id, checklist_text, parse_mode="HTML")
             
     except Exception as e:
         logger.error(f"❌ Ошибка отправки бонусных материалов: {e}")

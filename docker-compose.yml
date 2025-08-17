@@ -11,5 +11,6 @@ services:
     volumes:
       - ./data:/app/data
       - ./exports:/app/exports
+      - ./materials:/app/materials
     working_dir: /app
     command: python main.py
