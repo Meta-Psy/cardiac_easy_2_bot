@@ -155,12 +155,13 @@ def get_question_7_keyboard(selected: List[str]):
 def get_question_8_keyboard():
     """Вопрос 8: Влияние вебинара на мотивацию"""
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="Решающее влияние — до него даже не задумывался(ась), а теперь точно знаю, что нужно действовать", callback_data="q8_decisive")],
-        [InlineKeyboardButton(text="Существенное влияние — помог систематизировать знания и подтолкнул к конкретным шагам", callback_data="q8_significant")],
-        [InlineKeyboardButton(text="Незначительное влияние — многое уже было известно, но некоторые моменты стали понятнее", callback_data="q8_minor")],
-        [InlineKeyboardButton(text="Без влияния — не изменил моего отношения или планов", callback_data="q8_no_influence")]
+        [InlineKeyboardButton(text="1", callback_data="q8_decisive")],
+        [InlineKeyboardButton(text="2", callback_data="q8_significant")],
+        [InlineKeyboardButton(text="3", callback_data="q8_minor")],
+        [InlineKeyboardButton(text="4", callback_data="q8_no_influence")]
     ])
     return keyboard
+
 
 # ============================================================================
 # НАЧАЛО ОПРОСА
@@ -390,7 +391,13 @@ async def handle_question_6(callback: CallbackQuery, state: FSMContext):
     # Переход к вопросу 7
     text = """🟣 <b>Вопрос 7</b>
 Что стало для вас главным мотивом для прохождения кардиочекапа после вебинара? 
-(выберите все подходящие варианты)"""
+(выберите все подходящие варианты)
+
+1. Понимание реального риска
+2. Эмоциональный отклик на информацию
+3. Узнал(а) о простых и доступных шагах
+4. Убедили примеры и статистика
+5. Ничего — просто послушал(а), без отклика"""
     
     await state.update_data(q7_selected=[])
     keyboard = get_question_7_keyboard([])
@@ -417,7 +424,12 @@ async def handle_question_7(callback: CallbackQuery, state: FSMContext):
         
         # Переход к вопросу 8
         text = """🟣 <b>Вопрос 8</b>
-Какое влияние вебинар оказал на ваше решение или мотивацию заняться профилактическим обследованием сердечно-сосудистых заболеваний?"""
+Какое влияние вебинар оказал на ваше решение или мотивацию заняться профилактическим обследованием сердечно-сосудистых заболеваний?
+
+1. Решающее влияние — до него даже не задумывался(ась), а теперь точно знаю, что нужно действовать
+2. Существенное влияние — помог систематизировать знания и подтолкнул к конкретным шагам
+3. Незначительное влияние — многое уже было известно, но некоторые моменты стали понятнее
+4. Без влияния — не изменил моего отношения или планов"""
         
         keyboard = get_question_8_keyboard()
         await safe_edit_message(callback.message, text, reply_markup=keyboard)

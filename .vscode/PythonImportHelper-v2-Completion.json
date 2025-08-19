@@ -3246,7 +3246,7 @@
         "kind": 2,
         "importPath": "bot.handlers.webinar_survey",
         "description": "bot.handlers.webinar_survey",
-        "peekOfCode": "def get_question_8_keyboard():\n    \"\"\"Вопрос 8: Влияние вебинара на мотивацию\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Решающее влияние — до него даже не задумывался(ась), а теперь точно знаю, что нужно действовать\", callback_data=\"q8_decisive\")],\n        [InlineKeyboardButton(text=\"Существенное влияние — помог систематизировать знания и подтолкнул к конкретным шагам\", callback_data=\"q8_significant\")],\n        [InlineKeyboardButton(text=\"Незначительное влияние — многое уже было известно, но некоторые моменты стали понятнее\", callback_data=\"q8_minor\")],\n        [InlineKeyboardButton(text=\"Без влияния — не изменил моего отношения или планов\", callback_data=\"q8_no_influence\")]\n    ])\n    return keyboard\n# ============================================================================",
+        "peekOfCode": "def get_question_8_keyboard():\n    \"\"\"Вопрос 8: Влияние вебинара на мотивацию\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"1\", callback_data=\"q8_decisive\")],\n        [InlineKeyboardButton(text=\"2\", callback_data=\"q8_significant\")],\n        [InlineKeyboardButton(text=\"3\", callback_data=\"q8_minor\")],\n        [InlineKeyboardButton(text=\"4\", callback_data=\"q8_no_influence\")]\n    ])\n    return keyboard\n# ============================================================================",
         "detail": "bot.handlers.webinar_survey",
         "documentation": {}
     },
