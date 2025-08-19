@@ -547,16 +547,30 @@ async def send_bonus_material(message: Message, state: FSMContext):
     # Удаляем сообщение пользователя
     await message.delete()
     
-    # Отправляем бонус
+    # Отправляем текст
     text = """🎁 <b>Спасибо за участие!</b>
 
 В знак благодарности — обещанный бонус:
 
-✅ Памятка «Тревожные звоночки: как проявляются инфаркт и инсульт у женщин и мужчин — типичные и неожиданные симптомы».
-
-📩 Скачайте по ссылке: https://novikova-diana.ru/bonus-pamyatka"""
+✅ Памятка «Тревожные звоночки: как проявляются инфаркт и инсульт у женщин и мужчин — типичные и неожиданные симптомы»."""
     
     await message.answer(text, parse_mode="HTML")
+    
+    # Отправляем файл
+    try:
+        from aiogram.types import FSInputFile
+        import os
+        
+        file_path = os.path.join("materials", "Infarkt.pdf")
+        if os.path.exists(file_path):
+            document = FSInputFile(file_path, filename="Памятка_Инфаркт_и_Инсульт.pdf")
+            await message.answer_document(document, caption="📄 Памятка о симптомах инфаркта и инсульта")
+        else:
+            logger.error(f"Файл {file_path} не найден")
+            await message.answer("❌ Извините, произошла ошибка при отправке файла. Обратитесь к администратору.")
+    except Exception as e:
+        logger.error(f"Ошибка отправки файла: {e}")
+        await message.answer("❌ Извините, произошла ошибка при отправке файла. Обратитесь к администратору.")
     
     # Отмечаем получение бонуса
     def _mark_bonus():
