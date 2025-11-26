@@ -75,6 +75,46 @@
         "documentation": {}
     },
     {
+        "label": "Bot",
+        "importPath": "aiogram",
+        "description": "aiogram",
+        "isExtraImport": true,
+        "detail": "aiogram",
+        "documentation": {}
+    },
+    {
+        "label": "Router",
+        "importPath": "aiogram",
+        "description": "aiogram",
+        "isExtraImport": true,
+        "detail": "aiogram",
+        "documentation": {}
+    },
+    {
+        "label": "F",
+        "importPath": "aiogram",
+        "description": "aiogram",
+        "isExtraImport": true,
+        "detail": "aiogram",
+        "documentation": {}
+    },
+    {
+        "label": "Router",
+        "importPath": "aiogram",
+        "description": "aiogram",
+        "isExtraImport": true,
+        "detail": "aiogram",
+        "documentation": {}
+    },
+    {
+        "label": "F",
+        "importPath": "aiogram",
+        "description": "aiogram",
+        "isExtraImport": true,
+        "detail": "aiogram",
+        "documentation": {}
+    },
+    {
         "label": "Router",
         "importPath": "aiogram",
         "description": "aiogram",
@@ -268,6 +308,70 @@
     },
     {
         "label": "Message",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "CallbackQuery",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "InlineKeyboardMarkup",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "InlineKeyboardButton",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "Message",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "CallbackQuery",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "InlineKeyboardMarkup",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "InlineKeyboardButton",
+        "importPath": "aiogram.types",
+        "description": "aiogram.types",
+        "isExtraImport": true,
+        "detail": "aiogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "FSInputFile",
         "importPath": "aiogram.types",
         "description": "aiogram.types",
         "isExtraImport": true,
@@ -555,6 +659,14 @@
         "documentation": {}
     },
     {
+        "label": "StateFilter",
+        "importPath": "aiogram.filters",
+        "description": "aiogram.filters",
+        "isExtraImport": true,
+        "detail": "aiogram.filters",
+        "documentation": {}
+    },
+    {
         "label": "Command",
         "importPath": "aiogram.filters",
         "description": "aiogram.filters",
@@ -691,6 +803,30 @@
         "documentation": {}
     },
     {
+        "label": "FSMContext",
+        "importPath": "aiogram.fsm.context",
+        "description": "aiogram.fsm.context",
+        "isExtraImport": true,
+        "detail": "aiogram.fsm.context",
+        "documentation": {}
+    },
+    {
+        "label": "State",
+        "importPath": "aiogram.fsm.state",
+        "description": "aiogram.fsm.state",
+        "isExtraImport": true,
+        "detail": "aiogram.fsm.state",
+        "documentation": {}
+    },
+    {
+        "label": "StatesGroup",
+        "importPath": "aiogram.fsm.state",
+        "description": "aiogram.fsm.state",
+        "isExtraImport": true,
+        "detail": "aiogram.fsm.state",
+        "documentation": {}
+    },
+    {
         "label": "State",
         "importPath": "aiogram.fsm.state",
         "description": "aiogram.fsm.state",
@@ -796,6 +932,22 @@
     },
     {
         "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
         "importPath": "datetime",
         "description": "datetime",
         "isExtraImport": true,
@@ -1039,6 +1191,22 @@
     },
     {
         "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
         "importPath": "typing",
         "description": "typing",
         "isExtraImport": true,
@@ -1471,6 +1639,14 @@
         "documentation": {}
     },
     {
+        "label": "text",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
         "label": "sessionmaker",
         "importPath": "sqlalchemy.orm",
         "description": "sqlalchemy.orm",
@@ -1512,6 +1688,62 @@
     },
     {
         "label": "log_user_activity",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "get_db_sync",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "FollowUpStatus",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "get_db_sync",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "FollowUpSurvey",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "FollowUpStatus",
         "importPath": "database",
         "description": "database",
         "isExtraImport": true,
@@ -1752,6 +1984,38 @@
     },
     {
         "label": "validate_data_integrity",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "FollowUpSurvey",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "FollowUpStatus",
         "importPath": "database",
         "description": "database",
         "isExtraImport": true,
@@ -2022,7 +2286,7 @@
         "kind": 2,
         "importPath": "bot.admin.handlers",
         "description": "bot.admin.handlers",
-        "peekOfCode": "def get_broadcast_menu():\n    \"\"\"Меню рассылок\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"📤 Рассылка по БД\", callback_data=\"broadcast_from_db\")],\n        [InlineKeyboardButton(text=\"📋 Рассылка по ID\", callback_data=\"broadcast_manual_ids\")],\n        [InlineKeyboardButton(text=\"🧪 Тестовая рассылка\", callback_data=\"broadcast_test\")],\n        [InlineKeyboardButton(text=\"🫀 РАССЫЛКА ВЕБИНАРА (ТОЧКА 2)\", callback_data=\"broadcast_webinar\")],\n        [InlineKeyboardButton(text=\"📊 История рассылок\", callback_data=\"broadcast_history\")],\n        [InlineKeyboardButton(text=\"⬅️ Назад\", callback_data=\"admin_back\")]\n    ])",
+        "peekOfCode": "def get_broadcast_menu():\n    \"\"\"Меню рассылок\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"📤 Рассылка по БД\", callback_data=\"broadcast_from_db\")],\n        [InlineKeyboardButton(text=\"📋 Рассылка по ID\", callback_data=\"broadcast_manual_ids\")],\n        [InlineKeyboardButton(text=\"🧪 Тестовая рассылка\", callback_data=\"broadcast_test\")],\n        [InlineKeyboardButton(text=\"🫀 РАССЫЛКА ВЕБИНАРА (ТОЧКА 2)\", callback_data=\"broadcast_webinar\")],\n        [InlineKeyboardButton(text=\"📅 РАССЫЛКА ОПРОСА 3+ МЕСЯЦА (ТОЧКА 3)\", callback_data=\"broadcast_followup\")],\n        [InlineKeyboardButton(text=\"📊 История рассылок\", callback_data=\"broadcast_history\")],\n        [InlineKeyboardButton(text=\"⬅️ Назад\", callback_data=\"admin_back\")]",
         "detail": "bot.admin.handlers",
         "documentation": {}
     },
@@ -2549,6 +2813,24 @@
         "documentation": {}
     },
     {
+        "label": "FollowUpSurvey",
+        "kind": 6,
+        "importPath": "bot.database.models",
+        "description": "bot.database.models",
+        "peekOfCode": "class FollowUpSurvey(Base):\n    \"\"\"Опрос ТОЧКА 3 - через 3+ месяца после вебинара (13 вопросов)\"\"\"\n    __tablename__ = \"followup_surveys\"\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    telegram_id = Column(\n        BigInteger, ForeignKey(\"users.telegram_id\"), nullable=False, index=True\n    )\n    # Вопрос 1: Обращение к врачу\n    doctor_visit = Column(String(255), nullable=True)\n    # Вопрос 2: К какому врачу обращались (множественный выбор, до 2)",
+        "detail": "bot.database.models",
+        "documentation": {}
+    },
+    {
+        "label": "FollowUpStatus",
+        "kind": 6,
+        "importPath": "bot.database.models",
+        "description": "bot.database.models",
+        "peekOfCode": "class FollowUpStatus(Base):\n    \"\"\"Статус рассылки опроса ТОЧКА 3 (через 3+ месяца)\"\"\"\n    __tablename__ = \"followup_status\"\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    telegram_id = Column(\n        BigInteger, ForeignKey(\"users.telegram_id\"), nullable=False, index=True\n    )\n    # Статусы рассылки\n    initial_message_sent = Column(Boolean, default=False, nullable=False)  # Отправлено ли начальное сообщение\n    initial_message_sent_at = Column(DateTime, nullable=True)",
+        "detail": "bot.database.models",
+        "documentation": {}
+    },
+    {
         "label": "Base",
         "kind": 5,
         "importPath": "bot.database.models",
@@ -2717,6 +2999,177 @@
         "description": "bot.handlers.fallback",
         "peekOfCode": "router = Router()\n@router.message()\nasync def handle_unknown_message(message: Message, state: FSMContext):\n    \"\"\"Обработчик неизвестных сообщений (подключается ПОСЛЕДНИМ)\"\"\"\n    await log_user_interaction(message.from_user.id, \"unknown_message\", message.text)\n    current_state = await state.get_state()\n    # Если пользователь в процессе диагностики, направляем его\n    if current_state:\n        if \"waiting_name\" in current_state:\n            text = \"\"\"❌ Пожалуйста, введите ваше имя для продолжения регистрации.\"\"\"",
         "detail": "bot.handlers.fallback",
+        "documentation": {}
+    },
+    {
+        "label": "get_followup_start_keyboard",
+        "kind": 2,
+        "importPath": "bot.handlers.followup_broadcast",
+        "description": "bot.handlers.followup_broadcast",
+        "peekOfCode": "def get_followup_start_keyboard():\n    \"\"\"Клавиатура с кнопкой 'Начать опрос'\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Начать опрос\", callback_data=\"start_followup_survey\")]\n    ])\n    return keyboard\n# ============================================================================\n# ФУНКЦИЯ РАССЫЛКИ\n# ============================================================================\nasync def broadcast_followup_initial_message(bot: Bot, user_id: int) -> bool:",
+        "detail": "bot.handlers.followup_broadcast",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "bot.handlers.followup_broadcast",
+        "description": "bot.handlers.followup_broadcast",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nrouter = Router()\n# ============================================================================\n# ТЕКСТ НАЧАЛЬНОГО СООБЩЕНИЯ ИЗ ТЗ\n# ============================================================================\nFOLLOWUP_INITIAL_MESSAGE = \"\"\"Уже прошло больше трёх месяцев после нашей встречи на вебинаре «Умный кардиочекап». Но на этом наша забота о вас не заканчивается — мы всё ещё рядом и продолжаем помогать вам держать сердце под контролем.\nТогда вы сделали важный шаг: разобрались в рисках, анализах и профилактике. Сейчас нам важно понять не только, что вы узнали, а что реально удалось применить после вебинара в вашей жизни.\n🧭 <b>Ваши ответы помогут нам:</b>\n — лучше понимать, чем живут наши слушатели спустя время,\n — доработать программы так, чтобы поддерживать вас не только «в момент вебинара», но и в реальной жизни.",
+        "detail": "bot.handlers.followup_broadcast",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "bot.handlers.followup_broadcast",
+        "description": "bot.handlers.followup_broadcast",
+        "peekOfCode": "router = Router()\n# ============================================================================\n# ТЕКСТ НАЧАЛЬНОГО СООБЩЕНИЯ ИЗ ТЗ\n# ============================================================================\nFOLLOWUP_INITIAL_MESSAGE = \"\"\"Уже прошло больше трёх месяцев после нашей встречи на вебинаре «Умный кардиочекап». Но на этом наша забота о вас не заканчивается — мы всё ещё рядом и продолжаем помогать вам держать сердце под контролем.\nТогда вы сделали важный шаг: разобрались в рисках, анализах и профилактике. Сейчас нам важно понять не только, что вы узнали, а что реально удалось применить после вебинара в вашей жизни.\n🧭 <b>Ваши ответы помогут нам:</b>\n — лучше понимать, чем живут наши слушатели спустя время,\n — доработать программы так, чтобы поддерживать вас не только «в момент вебинара», но и в реальной жизни.\n🎁 В благодарность вы получите ещё один полезный бонус — нашу фирменную методичку, которую обычно даём только пациентам нашей клиники:",
+        "detail": "bot.handlers.followup_broadcast",
+        "documentation": {}
+    },
+    {
+        "label": "FOLLOWUP_INITIAL_MESSAGE",
+        "kind": 5,
+        "importPath": "bot.handlers.followup_broadcast",
+        "description": "bot.handlers.followup_broadcast",
+        "peekOfCode": "FOLLOWUP_INITIAL_MESSAGE = \"\"\"Уже прошло больше трёх месяцев после нашей встречи на вебинаре «Умный кардиочекап». Но на этом наша забота о вас не заканчивается — мы всё ещё рядом и продолжаем помогать вам держать сердце под контролем.\nТогда вы сделали важный шаг: разобрались в рисках, анализах и профилактике. Сейчас нам важно понять не только, что вы узнали, а что реально удалось применить после вебинара в вашей жизни.\n🧭 <b>Ваши ответы помогут нам:</b>\n — лучше понимать, чем живут наши слушатели спустя время,\n — доработать программы так, чтобы поддерживать вас не только «в момент вебинара», но и в реальной жизни.\n🎁 В благодарность вы получите ещё один полезный бонус — нашу фирменную методичку, которую обычно даём только пациентам нашей клиники:\n<b>«Правила ЗОЖ как основа профилактики и лечения сердечно-сосудистых заболеваний. Режим • Питание • Тренировки • Гигиена»</b>\nА ещё — это часть нашей большой миссии ☝️ Мы изучаем потенциал социальных сетей в повышении информированности и приверженности к выполнению рекомендаций с целью улучшения здоровья населения нашей страны.\n*Опрос является конфиденциальным, и данные на основе законодательства РФ никому не передаются.\n❤️‍🔥Благодаря нашим совместным усилиям мы сможем говорить с медицинским сообществом и системой здравоохранения на языке фактов — и менять подход к профилактике и лечению сердечно-сосудистых заболеваний в масштабах страны.",
+        "detail": "bot.handlers.followup_broadcast",
+        "documentation": {}
+    },
+    {
+        "label": "FollowUpSurveyStates",
+        "kind": 6,
+        "importPath": "bot.handlers.followup_survey",
+        "description": "bot.handlers.followup_survey",
+        "peekOfCode": "class FollowUpSurveyStates(StatesGroup):\n    question_1 = State()   # Обращение к врачу\n    question_2 = State()   # К какому врачу (мультивыбор)\n    question_3 = State()   # Отношение врача\n    question_4 = State()   # Что было сделано на приеме (мультивыбор)\n    question_5 = State()   # Серьезность врача (шкала 1-10)\n    question_6 = State()   # Следование рекомендациям\n    question_6_barriers = State()  # Что мешает (если не полностью соблюдают)\n    question_7 = State()   # Шаги по снижению рисков (мультивыбор)\n    question_8 = State()   # Стабильность изменений (шкала 0-10)",
+        "detail": "bot.handlers.followup_survey",
+        "documentation": {}
+    },
+    {
+        "label": "get_question_1_keyboard",
+        "kind": 2,
+        "importPath": "bot.handlers.followup_survey",
+        "description": "bot.handlers.followup_survey",
+        "peekOfCode": "def get_question_1_keyboard():\n    \"\"\"Вопрос 1: Обращение к врачу\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Да, специально пошёл(ла) к врачу после вебинара\", callback_data=\"fq1_yes_after_webinar\")],\n        [InlineKeyboardButton(text=\"Да, я и раньше наблюдалась, просто обсудил(а) эту тему на приёме\", callback_data=\"fq1_yes_discussed\")],\n        [InlineKeyboardButton(text=\"Нет, не обращался(ась), считаю, что у меня нет серьёзных рисков\", callback_data=\"fq1_no_no_risks\")],\n        [InlineKeyboardButton(text=\"Нет, пока не дошёл(ла), но планирую\", callback_data=\"fq1_no_planning\")]\n    ])\n    return keyboard\ndef get_question_2_keyboard(selected: List[str]):",
+        "detail": "bot.handlers.followup_survey",
+        "documentation": {}
+    },
+    {
+        "label": "get_question_2_keyboard",
+        "kind": 2,
+        "importPath": "bot.handlers.followup_survey",
+        "description": "bot.handlers.followup_survey",
+        "peekOfCode": "def get_question_2_keyboard(selected: List[str]):\n    \"\"\"Вопрос 2: К какому врачу обращались (до 2 вариантов)\"\"\"\n    options = [\n        (\"Кардиолог\", \"fq2_cardiologist\"),\n        (\"Терапевт / врач общей практики\", \"fq2_therapist\"),\n        (\"Другой специалист\", \"fq2_other\")\n    ]\n    buttons = []\n    for text, callback_data in options:\n        prefix = \"✅ \" if text in selected else \"☐ \"",
+        "detail": "bot.handlers.followup_survey",
+        "documentation": {}
+    },
+    {
+        "label": "get_question_3_keyboard",
+        "kind": 2,
+        "importPath": "bot.handlers.followup_survey",
+        "description": "bot.handlers.followup_survey",
+        "peekOfCode": "def get_question_3_keyboard():\n    \"\"\"Вопрос 3: Отношение врача\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Врач поддержал мой интерес к профилактике, всё подробно объяснил(а)\", callback_data=\"fq3_supportive\")],\n        [InlineKeyboardButton(text=\"Врач отнесся нейтрально, без особого интереса\", callback_data=\"fq3_neutral\")],\n        [InlineKeyboardButton(text=\"Врач отнесся скептически / пренебрежительно\", callback_data=\"fq3_skeptical\")],\n        [InlineKeyboardButton(text=\"Не обращался(ась) к врачу после вебинара\", callback_data=\"fq3_no_visit\")]\n    ])\n    return keyboard\ndef get_question_4_keyboard(selected: List[str]):",
+        "detail": "bot.handlers.followup_survey",
+        "documentation": {}
+    },
+    {
+        "label": "get_question_4_keyboard",
+        "kind": 2,
+        "importPath": "bot.handlers.followup_survey",
+        "description": "bot.handlers.followup_survey",
+        "peekOfCode": "def get_question_4_keyboard(selected: List[str]):\n    \"\"\"Вопрос 4: Что было сделано на приеме (мультивыбор)\"\"\"\n    options = [\n        (\"Врач подробно расспросил(а) о жалобах и факторах риска\", \"fq4_detailed_questioning\"),\n        (\"Пересмотрел(а) имеющиеся анализы и обследования\", \"fq4_reviewed_tests\"),\n        (\"Назначил(а) дополнительные анализы / обследования\", \"fq4_additional_tests\"),\n        (\"Рассчитал(а) сердечно-сосудистый риск\", \"fq4_risk_calculation\"),\n        (\"Изменил(а) лечение / добавил(а) препараты\", \"fq4_treatment_change\"),\n        (\"Сказал(а), что «всё в норме / не переживайте» без детальных объяснений\", \"fq4_no_worries\"),\n        (\"Другое\", \"fq4_other\")",
+        "detail": "bot.handlers.followup_survey",
+        "documentation": {}
+    },
+    {
+        "label": "get_question_5_keyboard",
+        "kind": 2,
+        "importPath": "bot.handlers.followup_survey",
+        "description": "bot.handlers.followup_survey",
+        "peekOfCode": "def get_question_5_keyboard():\n    \"\"\"Вопрос 5: Серьезность врача (шкала 1-10)\"\"\"\n    buttons = []\n    row = []\n    for i in range(1, 11):\n        row.append(InlineKeyboardButton(text=str(i), callback_data=f\"fq5_rating_{i}\"))\n        if i % 5 == 0:\n            buttons.append(row)\n            row = []\n    keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)",
+        "detail": "bot.handlers.followup_survey",
+        "documentation": {}
+    },
+    {
+        "label": "get_question_6_keyboard",
+        "kind": 2,
+        "importPath": "bot.handlers.followup_survey",
+        "description": "bot.handlers.followup_survey",
+        "peekOfCode": "def get_question_6_keyboard():\n    \"\"\"Вопрос 6: Следование рекомендациям\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Полностью соблюдаю\", callback_data=\"fq6_fully_compliant\")],\n        [InlineKeyboardButton(text=\"В основном соблюдаю, но иногда отклоняюсь\", callback_data=\"fq6_mostly_compliant\")],\n        [InlineKeyboardButton(text=\"Следую частично\", callback_data=\"fq6_partially\")],\n        [InlineKeyboardButton(text=\"Практически не соблюдаю\", callback_data=\"fq6_non_compliant\")],\n        [InlineKeyboardButton(text=\"Рекомендаций по профилактике почти не было\", callback_data=\"fq6_no_recommendations\")]\n    ])\n    return keyboard",
+        "detail": "bot.handlers.followup_survey",
+        "documentation": {}
+    },
+    {
+        "label": "get_question_7_keyboard",
+        "kind": 2,
+        "importPath": "bot.handlers.followup_survey",
+        "description": "bot.handlers.followup_survey",
+        "peekOfCode": "def get_question_7_keyboard(selected: List[str]):\n    \"\"\"Вопрос 7: Шаги по снижению рисков (мультивыбор)\"\"\"\n    options = [\n        (\"Бросил(а) курить или сократил(а) количество сигарет\", \"fq7_quit_smoking\"),\n        (\"Сократил(а) употребление алкоголя\", \"fq7_reduce_alcohol\"),\n        (\"Изменил(а) питание\", \"fq7_diet_change\"),\n        (\"Увеличил(а) уровень физической активности\", \"fq7_increase_activity\"),\n        (\"Нормализовал(а) холестерин/липидный профиль\", \"fq7_lipids\"),\n        (\"Нормализовалось давление\", \"fq7_bp\"),\n        (\"Начал(а) приём рекомендованных препаратов\", \"fq7_medications\"),",
+        "detail": "bot.handlers.followup_survey",
+        "documentation": {}
+    },
+    {
+        "label": "get_question_8_keyboard",
+        "kind": 2,
+        "importPath": "bot.handlers.followup_survey",
+        "description": "bot.handlers.followup_survey",
+        "peekOfCode": "def get_question_8_keyboard():\n    \"\"\"Вопрос 8: Стабильность изменений (шкала 0-10)\"\"\"\n    buttons = []\n    row = []\n    for i in range(0, 11):\n        row.append(InlineKeyboardButton(text=str(i), callback_data=f\"fq8_rating_{i}\"))\n        if (i + 1) % 6 == 0:\n            buttons.append(row)\n            row = []\n    if row:",
+        "detail": "bot.handlers.followup_survey",
+        "documentation": {}
+    },
+    {
+        "label": "get_question_9_keyboard",
+        "kind": 2,
+        "importPath": "bot.handlers.followup_survey",
+        "description": "bot.handlers.followup_survey",
+        "peekOfCode": "def get_question_9_keyboard(selected: List[str]):\n    \"\"\"Вопрос 9: Трудности (мультивыбор)\"\"\"\n    options = [\n        (\"Недостаток времени\", \"fq9_time\"),\n        (\"Сложно отказаться от привычек\", \"fq9_habits\"),\n        (\"Трудно соблюдать режим при работе / семье / нагрузке\", \"fq9_schedule\"),\n        (\"Финансовые ограничения\", \"fq9_finances\"),\n        (\"Недостаток поддержки со стороны семьи / окружения\", \"fq9_support\"),\n        (\"Врач не придал значения моим рискам\", \"fq9_doctor\"),\n        (\"Не до конца понимаю, что именно и в каком объёме нужно делать\", \"fq9_understanding\"),",
+        "detail": "bot.handlers.followup_survey",
+        "documentation": {}
+    },
+    {
+        "label": "get_question_10_keyboard",
+        "kind": 2,
+        "importPath": "bot.handlers.followup_survey",
+        "description": "bot.handlers.followup_survey",
+        "peekOfCode": "def get_question_10_keyboard():\n    \"\"\"Вопрос 10: Изменение отношения к профилактике\"\"\"\n    keyboard = InlineKeyboardMarkup(inline_keyboard=[\n        [InlineKeyboardButton(text=\"Стал(а) относиться серьезнее и уже действую\", callback_data=\"fq10_serious_acting\")],\n        [InlineKeyboardButton(text=\"Стал(а) относиться серьёзнее, но действовать пока трудно\", callback_data=\"fq10_serious_difficult\")],\n        [InlineKeyboardButton(text=\"В целом отношение не изменилось\", callback_data=\"fq10_no_change\")],\n        [InlineKeyboardButton(text=\"Стал(а) спокойнее, потому что лучше понимаю свою ситуацию\", callback_data=\"fq10_calmer\")]\n    ])\n    return keyboard\ndef get_question_11_keyboard():",
+        "detail": "bot.handlers.followup_survey",
+        "documentation": {}
+    },
+    {
+        "label": "get_question_11_keyboard",
+        "kind": 2,
+        "importPath": "bot.handlers.followup_survey",
+        "description": "bot.handlers.followup_survey",
+        "peekOfCode": "def get_question_11_keyboard():\n    \"\"\"Вопрос 11: Уверенность в понимании (шкала 0-10)\"\"\"\n    buttons = []\n    row = []\n    for i in range(0, 11):\n        row.append(InlineKeyboardButton(text=str(i), callback_data=f\"fq11_rating_{i}\"))\n        if (i + 1) % 6 == 0:\n            buttons.append(row)\n            row = []\n    if row:",
+        "detail": "bot.handlers.followup_survey",
+        "documentation": {}
+    },
+    {
+        "label": "get_question_12_keyboard",
+        "kind": 2,
+        "importPath": "bot.handlers.followup_survey",
+        "description": "bot.handlers.followup_survey",
+        "peekOfCode": "def get_question_12_keyboard(selected: List[str]):\n    \"\"\"Вопрос 12: Потребность в дополнительной информации (мультивыбор)\"\"\"\n    options = [\n        (\"Да, хотелось бы более подробнее про анализы и обследования\", \"fq12_tests\"),\n        (\"Да, про давление и лечение артериальной гипертензии\", \"fq12_bp\"),\n        (\"Да, про холестерин, липиды и статины\", \"fq12_lipids\"),\n        (\"Да, про питание и вес\", \"fq12_nutrition\"),\n        (\"Да, про сон и режим дня\", \"fq12_sleep\"),\n        (\"Да, про поддержание дисциплины и мотивации в модификации образа жизни\", \"fq12_motivation\"),\n        (\"Да, про физическую активность и безопасные нагрузки\", \"fq12_activity\"),",
+        "detail": "bot.handlers.followup_survey",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "bot.handlers.followup_survey",
+        "description": "bot.handlers.followup_survey",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nrouter = Router()\n# ============================================================================\n# СОСТОЯНИЯ ДЛЯ ОПРОСА ТОЧКА 3\n# ============================================================================\nclass FollowUpSurveyStates(StatesGroup):\n    question_1 = State()   # Обращение к врачу\n    question_2 = State()   # К какому врачу (мультивыбор)\n    question_3 = State()   # Отношение врача\n    question_4 = State()   # Что было сделано на приеме (мультивыбор)",
+        "detail": "bot.handlers.followup_survey",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "bot.handlers.followup_survey",
+        "description": "bot.handlers.followup_survey",
+        "peekOfCode": "router = Router()\n# ============================================================================\n# СОСТОЯНИЯ ДЛЯ ОПРОСА ТОЧКА 3\n# ============================================================================\nclass FollowUpSurveyStates(StatesGroup):\n    question_1 = State()   # Обращение к врачу\n    question_2 = State()   # К какому врачу (мультивыбор)\n    question_3 = State()   # Отношение врача\n    question_4 = State()   # Что было сделано на приеме (мультивыбор)\n    question_5 = State()   # Серьезность врача (шкала 1-10)",
+        "detail": "bot.handlers.followup_survey",
         "documentation": {}
     },
     {
@@ -3698,6 +4151,15 @@
         "description": "bot.main",
         "peekOfCode": "logger = logging.getLogger(__name__)\nasync def create_bot():\n    \"\"\"Создание бота с базовыми настройками\"\"\"\n    try:\n        bot = Bot(\n            token=BOT_TOKEN,\n            default=DefaultBotProperties(parse_mode=ParseMode.MARKDOWN)\n        )\n        # Если нужен proxy, можно добавить позже через environment переменные\n        if PROXY_URL:",
         "detail": "bot.main",
+        "documentation": {}
+    },
+    {
+        "label": "apply_migration",
+        "kind": 2,
+        "importPath": "apply_migration",
+        "description": "apply_migration",
+        "peekOfCode": "def apply_migration():\n    \"\"\"Применение миграции для добавления таблиц опроса ТОЧКА 3\"\"\"\n    print(\"🔄 Начинаю миграцию базы данных...\")\n    try:\n        # Создаем все таблицы, которых нет\n        Base.metadata.create_all(engine)\n        print(\"✅ Миграция успешно применена!\")\n        print(\"\\nДобавлены следующие таблицы:\")\n        print(\"  - followup_surveys (опрос ТОЧКА 3, 13 вопросов)\")\n        print(\"  - followup_status (статус рассылки и прохождения)\")",
+        "detail": "apply_migration",
         "documentation": {}
     }
 ]

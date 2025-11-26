@@ -44,6 +44,7 @@ def get_broadcast_menu():
         [InlineKeyboardButton(text="📋 Рассылка по ID", callback_data="broadcast_manual_ids")],
         [InlineKeyboardButton(text="🧪 Тестовая рассылка", callback_data="broadcast_test")],
         [InlineKeyboardButton(text="🫀 РАССЫЛКА ВЕБИНАРА (ТОЧКА 2)", callback_data="broadcast_webinar")],
+        [InlineKeyboardButton(text="📅 РАССЫЛКА ОПРОСА 3+ МЕСЯЦА (ТОЧКА 3)", callback_data="broadcast_followup")],
         [InlineKeyboardButton(text="📊 История рассылок", callback_data="broadcast_history")],
         [InlineKeyboardButton(text="⬅️ Назад", callback_data="admin_back")]
     ])
@@ -586,6 +587,102 @@ async def confirm_webinar_broadcast(callback: CallbackQuery, state: FSMContext, 
         
     except Exception as e:
         await callback.message.edit_text(f"❌ Ошибка рассылки вебинара: {e}")
+
+@admin_router.callback_query(F.data == "broadcast_followup")
+async def followup_broadcast(callback: CallbackQuery, state: FSMContext, is_admin: bool = False):
+    """Запуск рассылки опроса ТОЧКА 3 (3+ месяца после вебинара)"""
+    if not await check_admin_auth(callback, state, is_admin):
+        return
+
+    await callback.answer()
+
+    # Проверяем статистику
+    try:
+        from database import get_db_sync, User, FollowUpStatus
+
+        def _get_stats():
+            db = get_db_sync()
+            try:
+                total_users = db.query(User).filter(User.registration_completed == True).count()
+                already_sent = db.query(FollowUpStatus).filter(FollowUpStatus.initial_message_sent == True).count()
+                return total_users, already_sent
+            finally:
+                db.close()
+
+        total_users, already_sent = await asyncio.get_event_loop().run_in_executor(None, _get_stats)
+        will_send = total_users - already_sent
+
+        text = f"""📅 <b>РАССЫЛКА ОПРОСА 3+ МЕСЯЦА (ТОЧКА 3)</b>
+
+📊 <b>Статистика:</b>
+• Всего пользователей: {total_users}
+• Уже получили сообщение: {already_sent}
+• Будет отправлено: {will_send}
+
+⚠️ <b>ВНИМАНИЕ!</b>
+Это рассылка опроса через 3+ месяца после вебинара согласно ТЗ ТОЧКА 3.
+
+Отправится сообщение:
+"Уже прошло больше трёх месяцев после нашей встречи на вебинаре «Умный кардиочекап»..."
+
+С кнопкой:
+🔘 Начать опрос
+
+После прохождения 13 вопросов пользователи получат методичку ЗОЖ.
+
+Продолжить?"""
+
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="✅ ЗАПУСТИТЬ РАССЫЛКУ", callback_data="confirm_followup_broadcast")],
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_broadcast_menu")]
+        ])
+
+        await callback.message.edit_text(text, parse_mode="HTML", reply_markup=keyboard)
+
+    except Exception as e:
+        await callback.message.edit_text(f"❌ Ошибка получения статистики: {e}")
+
+@admin_router.callback_query(F.data == "confirm_followup_broadcast")
+async def confirm_followup_broadcast(callback: CallbackQuery, state: FSMContext, is_admin: bool = False):
+    """Подтверждение и выполнение рассылки опроса ТОЧКА 3"""
+    if not await check_admin_auth(callback, state, is_admin):
+        return
+
+    await callback.answer()
+    await callback.message.edit_text("⏳ Запускаю рассылку опроса ТОЧКА 3...")
+
+    try:
+        # Импортируем функцию рассылки
+        from handlers.followup_broadcast import broadcast_followup_to_all
+
+        # Выполняем рассылку
+        result = await broadcast_followup_to_all(callback.bot)
+
+        result_text = f"""✅ <b>РАССЫЛКА ОПРОСА ТОЧКА 3 ЗАВЕРШЕНА</b>
+
+📊 <b>Результаты:</b>
+• Всего пользователей в БД: {result['total_users']}
+• Целевая аудитория: {result['total']}
+• Успешно отправлено: {result['sent']}
+• Ошибок отправки: {result['failed']}
+• Успешность: {(result['sent']/result['total']*100 if result['total'] > 0 else 0):.1f}%
+
+🚀 <b>Что будет дальше:</b>
+• Пользователи получат начальное сообщение с кнопкой "Начать опрос"
+• При нажатии → опрос из 13 вопросов
+• После завершения → автоматическая отправка методички ЗОЖ
+
+✅ Рассылка ТОЧКА 3 активирована!"""
+
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="📊 Статистика", callback_data="admin_stats")],
+            [InlineKeyboardButton(text="⬅️ В админку", callback_data="admin_back")]
+        ])
+
+        await callback.message.edit_text(result_text, parse_mode="HTML", reply_markup=keyboard)
+
+    except Exception as e:
+        await callback.message.edit_text(f"❌ Ошибка рассылки опроса ТОЧКА 3: {e}")
 
 # =========================== ПРОВЕРКА АВТОРИЗАЦИИ ===========================
 

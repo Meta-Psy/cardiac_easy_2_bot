@@ -12,7 +12,7 @@ Handlers module for cardio bot
 """
 
 from aiogram import Router
-from . import start, registration, survey, tests, score2, fallback, webinar_broadcast, webinar_survey
+from . import start, registration, survey, tests, score2, fallback, webinar_broadcast, webinar_survey, followup_broadcast, followup_survey
 from .base import UserStates, setup_bot_commands, StateProtectionMiddleware, DebugStateProtectionMiddleware
 
 def get_handlers_router() -> Router:
@@ -21,11 +21,11 @@ def get_handlers_router() -> Router:
     ВАЖНО: порядок подключения роутеров имеет значение!
     """
     main_router = Router()
-    
+
     # Регистрируем middleware для защиты состояний
     main_router.message.middleware(StateProtectionMiddleware())
     main_router.callback_query.middleware(StateProtectionMiddleware())
-    
+
     # Подключаем роутеры модулей в правильном порядке
     main_router.include_router(start.router)            # Команды и стартовая логика
     main_router.include_router(score2.score2_router)    # SCORE2 калькулятор сердечно-сосудистого риска
@@ -34,8 +34,10 @@ def get_handlers_router() -> Router:
     main_router.include_router(tests.router)            # Психологические тесты
     main_router.include_router(webinar_broadcast.router) # Рассылка после вебинара (ТОЧКА 2)
     main_router.include_router(webinar_survey.router)   # Опрос ТОЧКА 2 (9 вопросов)
+    main_router.include_router(followup_broadcast.router) # Рассылка опроса ТОЧКА 3 (3+ месяца)
+    main_router.include_router(followup_survey.router)  # Опрос ТОЧКА 3 (13 вопросов)
     main_router.include_router(fallback.router)         # ПОСЛЕДНИЙ - неизвестные сообщения
-    
+
     return main_router
 
 # Создаем главный роутер и middleware для обратной совместимости

@@ -4,7 +4,7 @@ Database module for cardio bot
 """
 
 # Импорты моделей
-from .models import Base, User, Survey, TestResult, ActivityLog, BroadcastLog, SystemStats, WebinarStatus, WebinarSurvey
+from .models import Base, User, Survey, TestResult, ActivityLog, BroadcastLog, SystemStats, WebinarStatus, WebinarSurvey, FollowUpStatus, FollowUpSurvey
 
 # Импорты подключения к БД  
 from .connection import (
@@ -67,7 +67,7 @@ from .analytics import (
 # Экспорты для обратной совместимости
 __all__ = [
     # Модели
-    'Base', 'User', 'Survey', 'TestResult', 'ActivityLog', 'BroadcastLog', 'SystemStats', 'WebinarStatus', 'WebinarSurvey',
+    'Base', 'User', 'Survey', 'TestResult', 'ActivityLog', 'BroadcastLog', 'SystemStats', 'WebinarStatus', 'WebinarSurvey', 'FollowUpStatus', 'FollowUpSurvey',
     
     # Подключение к БД
     'engine', 'SessionLocal', 'get_db', 'get_db_sync', 

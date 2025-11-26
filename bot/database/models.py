@@ -64,6 +64,12 @@ class User(Base):
     webinar_surveys = relationship(
         "WebinarSurvey", back_populates="user", cascade="all, delete-orphan"
     )
+    followup_surveys = relationship(
+        "FollowUpSurvey", back_populates="user", cascade="all, delete-orphan"
+    )
+    followup_status = relationship(
+        "FollowUpStatus", back_populates="user", cascade="all, delete-orphan"
+    )
 
     def __repr__(self):
         return f"<User(telegram_id={self.telegram_id}, name='{self.name}')>"
@@ -394,6 +400,113 @@ class WebinarSurvey(Base):
         return f"<WebinarSurvey(telegram_id={self.telegram_id}, completed_at={self.completed_at})>"
 
 
+class FollowUpSurvey(Base):
+    """Опрос ТОЧКА 3 - через 3+ месяца после вебинара (13 вопросов)"""
+
+    __tablename__ = "followup_surveys"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    telegram_id = Column(
+        BigInteger, ForeignKey("users.telegram_id"), nullable=False, index=True
+    )
+
+    # Вопрос 1: Обращение к врачу
+    doctor_visit = Column(String(255), nullable=True)
+
+    # Вопрос 2: К какому врачу обращались (множественный выбор, до 2)
+    doctor_type = Column(Text, nullable=True)  # JSON список
+
+    # Вопрос 3: Отношение врача
+    doctor_attitude = Column(String(255), nullable=True)
+
+    # Вопрос 4: Что было сделано на приеме (множественный выбор)
+    visit_actions = Column(Text, nullable=True)  # JSON список
+    visit_actions_other = Column(Text, nullable=True)  # Поле "Другое"
+
+    # Вопрос 5: Серьезность врача (шкала 1-10)
+    doctor_seriousness = Column(Integer, nullable=True)
+
+    # Вопрос 6: Следование рекомендациям
+    following_recommendations = Column(String(255), nullable=True)
+    following_barriers = Column(Text, nullable=True)  # Свободный ответ
+
+    # Вопрос 7: Шаги по снижению рисков (множественный выбор)
+    risk_reduction_steps = Column(Text, nullable=True)  # JSON список
+    risk_reduction_other = Column(Text, nullable=True)  # Поле "Другое"
+
+    # Вопрос 8: Стабильность изменений (шкала 0-10)
+    changes_stability = Column(Integer, nullable=True)
+
+    # Вопрос 9: Трудности (множественный выбор)
+    difficulties = Column(Text, nullable=True)  # JSON список
+    difficulties_other = Column(Text, nullable=True)  # Поле "Другое"
+
+    # Вопрос 10: Изменение отношения к профилактике
+    prevention_attitude_change = Column(String(255), nullable=True)
+
+    # Вопрос 11: Уверенность в понимании (шкала 0-10)
+    understanding_confidence = Column(Integer, nullable=True)
+
+    # Вопрос 12: Потребность в дополнительной информации (множественный выбор)
+    additional_info_need = Column(Text, nullable=True)  # JSON список
+    additional_info_other = Column(Text, nullable=True)  # Поле "Другое"
+
+    # Вопрос 13: Главное изменение (свободный ответ)
+    main_change = Column(Text, nullable=True)
+
+    # Временные метки
+    completed_at = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    updated_at = Column(
+        DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False
+    )
+
+    # Связь с пользователем
+    user = relationship("User", back_populates="followup_surveys")
+
+    def __repr__(self):
+        return f"<FollowUpSurvey(telegram_id={self.telegram_id}, completed_at={self.completed_at})>"
+
+
+class FollowUpStatus(Base):
+    """Статус рассылки опроса ТОЧКА 3 (через 3+ месяца)"""
+
+    __tablename__ = "followup_status"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    telegram_id = Column(
+        BigInteger, ForeignKey("users.telegram_id"), nullable=False, index=True
+    )
+
+    # Статусы рассылки
+    initial_message_sent = Column(Boolean, default=False, nullable=False)  # Отправлено ли начальное сообщение
+    initial_message_sent_at = Column(DateTime, nullable=True)
+
+    # Начало опроса
+    survey_started = Column(Boolean, default=False, nullable=False)  # Начал ли пользователь опрос
+    survey_started_at = Column(DateTime, nullable=True)
+
+    # Завершение опроса
+    survey_completed = Column(Boolean, default=False, nullable=False)  # Завершил ли опрос
+    survey_completed_at = Column(DateTime, nullable=True)
+
+    # Получение бонуса
+    bonus_sent = Column(Boolean, default=False, nullable=False)  # Отправлена ли методичка
+    bonus_sent_at = Column(DateTime, nullable=True)
+
+    # Временные метки
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    updated_at = Column(
+        DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False
+    )
+
+    # Связь с пользователем
+    user = relationship("User", back_populates="followup_status")
+
+    def __repr__(self):
+        return f"<FollowUpStatus(telegram_id={self.telegram_id}, survey_completed={self.survey_completed})>"
+
+
 # Индексы для оптимизации запросов
 Index('idx_users_telegram_id', User.telegram_id)
 Index('idx_users_last_activity', User.last_activity)
@@ -404,3 +517,5 @@ Index('idx_broadcast_logs_broadcast_id', BroadcastLog.broadcast_id)
 Index('idx_system_stats_metric_timestamp', SystemStats.metric_name, SystemStats.timestamp)
 Index('idx_webinar_status_telegram_id', WebinarStatus.telegram_id)
 Index('idx_webinar_surveys_telegram_id', WebinarSurvey.telegram_id)
+Index('idx_followup_surveys_telegram_id', FollowUpSurvey.telegram_id)
+Index('idx_followup_status_telegram_id', FollowUpStatus.telegram_id)
