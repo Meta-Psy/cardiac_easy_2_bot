@@ -3143,7 +3143,7 @@
         "kind": 2,
         "importPath": "bot.handlers.followup_survey",
         "description": "bot.handlers.followup_survey",
-        "peekOfCode": "def get_question_4_keyboard(selected: List[str]):\n    \"\"\"Вопрос 4: Что было сделано на приеме (мультивыбор)\"\"\"\n    options = [\n        (\"Врач подробно расспросил(а) о жалобах и факторах риска\", \"fq4_detailed_questioning\"),\n        (\"Пересмотрел(а) имеющиеся анализы и обследования\", \"fq4_reviewed_tests\"),\n        (\"Назначил(а) дополнительные анализы / обследования\", \"fq4_additional_tests\"),\n        (\"Рассчитал(а) сердечно-сосудистый риск\", \"fq4_risk_calculation\"),\n        (\"Изменил(а) лечение / добавил(а) препараты\", \"fq4_treatment_change\"),\n        (\"Сказал(а), что «всё в норме / не переживайте» без детальных объяснений\", \"fq4_no_worries\"),\n        (\"Другое\", \"fq4_other\")",
+        "peekOfCode": "def get_question_4_keyboard(selected: List[str]):\n    \"\"\"Вопрос 4: Что было сделано на приеме (мультивыбор)\"\"\"\n    options = [\n        (\"Расспросил о жалобах и факторах риска\", \"fq4_detailed_questioning\"),\n        (\"Пересмотрел анализы и обследования\", \"fq4_reviewed_tests\"),\n        (\"Назначил доп. анализы/обследования\", \"fq4_additional_tests\"),\n        (\"Рассчитал сердечно-сосудистый риск\", \"fq4_risk_calculation\"),\n        (\"Изменил лечение/добавил препараты\", \"fq4_treatment_change\"),\n        (\"Сказал «всё в норме» без объяснений\", \"fq4_no_worries\"),\n        (\"Другое\", \"fq4_other\")",
         "detail": "bot.handlers.followup_survey",
         "documentation": {}
     },
@@ -3170,7 +3170,7 @@
         "kind": 2,
         "importPath": "bot.handlers.followup_survey",
         "description": "bot.handlers.followup_survey",
-        "peekOfCode": "def get_question_7_keyboard(selected: List[str]):\n    \"\"\"Вопрос 7: Шаги по снижению рисков (мультивыбор)\"\"\"\n    options = [\n        (\"Бросил(а) курить или сократил(а) количество сигарет\", \"fq7_quit_smoking\"),\n        (\"Сократил(а) употребление алкоголя\", \"fq7_reduce_alcohol\"),\n        (\"Изменил(а) питание\", \"fq7_diet_change\"),\n        (\"Увеличил(а) уровень физической активности\", \"fq7_increase_activity\"),\n        (\"Нормализовал(а) холестерин/липидный профиль\", \"fq7_lipids\"),\n        (\"Нормализовалось давление\", \"fq7_bp\"),\n        (\"Начал(а) приём рекомендованных препаратов\", \"fq7_medications\"),",
+        "peekOfCode": "def get_question_7_keyboard(selected: List[str]):\n    \"\"\"Вопрос 7: Шаги по снижению рисков (мультивыбор)\"\"\"\n    options = [\n        (\"Бросил/сократил курение\", \"fq7_quit_smoking\"),\n        (\"Сократил употребление алкоголя\", \"fq7_reduce_alcohol\"),\n        (\"Изменил питание\", \"fq7_diet_change\"),\n        (\"Увеличил физическую активность\", \"fq7_increase_activity\"),\n        (\"Нормализовал холестерин/липиды\", \"fq7_lipids\"),\n        (\"Нормализовалось давление\", \"fq7_bp\"),\n        (\"Начал приём препаратов\", \"fq7_medications\"),",
         "detail": "bot.handlers.followup_survey",
         "documentation": {}
     },
@@ -3188,7 +3188,7 @@
         "kind": 2,
         "importPath": "bot.handlers.followup_survey",
         "description": "bot.handlers.followup_survey",
-        "peekOfCode": "def get_question_9_keyboard(selected: List[str]):\n    \"\"\"Вопрос 9: Трудности (мультивыбор)\"\"\"\n    options = [\n        (\"Недостаток времени\", \"fq9_time\"),\n        (\"Сложно отказаться от привычек\", \"fq9_habits\"),\n        (\"Трудно соблюдать режим при работе / семье / нагрузке\", \"fq9_schedule\"),\n        (\"Финансовые ограничения\", \"fq9_finances\"),\n        (\"Недостаток поддержки со стороны семьи / окружения\", \"fq9_support\"),\n        (\"Врач не придал значения моим рискам\", \"fq9_doctor\"),\n        (\"Не до конца понимаю, что именно и в каком объёме нужно делать\", \"fq9_understanding\"),",
+        "peekOfCode": "def get_question_9_keyboard(selected: List[str]):\n    \"\"\"Вопрос 9: Трудности (мультивыбор)\"\"\"\n    options = [\n        (\"Недостаток времени\", \"fq9_time\"),\n        (\"Сложно отказаться от привычек\", \"fq9_habits\"),\n        (\"Трудно соблюдать режим (работа/семья)\", \"fq9_schedule\"),\n        (\"Финансовые ограничения\", \"fq9_finances\"),\n        (\"Недостаток поддержки окружения\", \"fq9_support\"),\n        (\"Врач не придал значения рискам\", \"fq9_doctor\"),\n        (\"Не понимаю, что конкретно делать\", \"fq9_understanding\"),",
         "detail": "bot.handlers.followup_survey",
         "documentation": {}
     },
@@ -3215,7 +3215,7 @@
         "kind": 2,
         "importPath": "bot.handlers.followup_survey",
         "description": "bot.handlers.followup_survey",
-        "peekOfCode": "def get_question_12_keyboard(selected: List[str]):\n    \"\"\"Вопрос 12: Потребность в дополнительной информации (мультивыбор)\"\"\"\n    options = [\n        (\"Да, хотелось бы более подробнее про анализы и обследования\", \"fq12_tests\"),\n        (\"Да, про давление и лечение артериальной гипертензии\", \"fq12_bp\"),\n        (\"Да, про холестерин, липиды и статины\", \"fq12_lipids\"),\n        (\"Да, про питание и вес\", \"fq12_nutrition\"),\n        (\"Да, про сон и режим дня\", \"fq12_sleep\"),\n        (\"Да, про поддержание дисциплины и мотивации в модификации образа жизни\", \"fq12_motivation\"),\n        (\"Да, про физическую активность и безопасные нагрузки\", \"fq12_activity\"),",
+        "peekOfCode": "def get_question_12_keyboard(selected: List[str]):\n    \"\"\"Вопрос 12: Потребность в дополнительной информации (мультивыбор)\"\"\"\n    options = [\n        (\"Да, про анализы и обследования\", \"fq12_tests\"),\n        (\"Да, про давление и гипертензию\", \"fq12_bp\"),\n        (\"Да, про холестерин, липиды, статины\", \"fq12_lipids\"),\n        (\"Да, про питание и вес\", \"fq12_nutrition\"),\n        (\"Да, про сон и режим дня\", \"fq12_sleep\"),\n        (\"Да, про дисциплину и мотивацию\", \"fq12_motivation\"),\n        (\"Да, про физ. активность и нагрузки\", \"fq12_activity\"),",
         "detail": "bot.handlers.followup_survey",
         "documentation": {}
     },
