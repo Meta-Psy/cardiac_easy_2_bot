@@ -251,6 +251,14 @@
         "documentation": {}
     },
     {
+        "label": "Bot",
+        "importPath": "aiogram",
+        "description": "aiogram",
+        "isExtraImport": true,
+        "detail": "aiogram",
+        "documentation": {}
+    },
+    {
         "label": "Message",
         "importPath": "aiogram.types",
         "description": "aiogram.types",
@@ -1647,6 +1655,14 @@
         "documentation": {}
     },
     {
+        "label": "text",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
         "label": "sessionmaker",
         "importPath": "sqlalchemy.orm",
         "description": "sqlalchemy.orm",
@@ -2023,6 +2039,30 @@
         "documentation": {}
     },
     {
+        "label": "get_db_sync",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
         "label": "get_start_keyboard",
         "importPath": "ui.keyboards",
         "description": "ui.keyboards",
@@ -2256,11 +2296,36 @@
         "documentation": {}
     },
     {
+        "label": "io",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "io",
+        "description": "io",
+        "detail": "io",
+        "documentation": {}
+    },
+    {
         "label": "migrate_webinar_fields",
         "importPath": "bot.database.migration_webinar",
         "description": "bot.database.migration_webinar",
         "isExtraImport": true,
         "detail": "bot.database.migration_webinar",
+        "documentation": {}
+    },
+    {
+        "label": "BOT_TOKEN",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "broadcast_followup_initial_message",
+        "importPath": "handlers.followup_broadcast",
+        "description": "handlers.followup_broadcast",
+        "isExtraImport": true,
+        "detail": "handlers.followup_broadcast",
         "documentation": {}
     },
     {
@@ -4158,8 +4223,44 @@
         "kind": 2,
         "importPath": "apply_migration",
         "description": "apply_migration",
-        "peekOfCode": "def apply_migration():\n    \"\"\"Применение миграции для добавления таблиц опроса ТОЧКА 3\"\"\"\n    print(\"🔄 Начинаю миграцию базы данных...\")\n    try:\n        # Создаем все таблицы, которых нет\n        Base.metadata.create_all(engine)\n        print(\"✅ Миграция успешно применена!\")\n        print(\"\\nДобавлены следующие таблицы:\")\n        print(\"  - followup_surveys (опрос ТОЧКА 3, 13 вопросов)\")\n        print(\"  - followup_status (статус рассылки и прохождения)\")",
+        "peekOfCode": "def apply_migration():\n    \"\"\"Применение миграции для добавления таблиц опроса ТОЧКА 3\"\"\"\n    print(\">> Начинаю миграцию базы данных...\")\n    try:\n        # Создаем все таблицы, которых нет\n        Base.metadata.create_all(engine)\n        print(\"[OK] Миграция успешно применена!\")\n        print(\"\\nДобавлены следующие таблицы:\")\n        print(\"  - followup_surveys (опрос ТОЧКА 3, 13 вопросов)\")\n        print(\"  - followup_status (статус рассылки и прохождения)\")",
         "detail": "apply_migration",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 5,
+        "importPath": "check_users",
+        "description": "check_users",
+        "peekOfCode": "db = get_db_sync()\ncount = db.query(User).count()\nregistered = db.query(User).filter(User.registration_completed == True).count()\nprint(f'Total users: {count}')\nprint(f'Registered users: {registered}')\nif registered > 0:\n    user = db.query(User).filter(User.registration_completed == True).first()\n    print(f'\\nExample user for testing:')\n    print(f'  Telegram ID: {user.telegram_id}')\n    print(f'  Name: {user.name}')",
+        "detail": "check_users",
+        "documentation": {}
+    },
+    {
+        "label": "count",
+        "kind": 5,
+        "importPath": "check_users",
+        "description": "check_users",
+        "peekOfCode": "count = db.query(User).count()\nregistered = db.query(User).filter(User.registration_completed == True).count()\nprint(f'Total users: {count}')\nprint(f'Registered users: {registered}')\nif registered > 0:\n    user = db.query(User).filter(User.registration_completed == True).first()\n    print(f'\\nExample user for testing:')\n    print(f'  Telegram ID: {user.telegram_id}')\n    print(f'  Name: {user.name}')\ndb.close()",
+        "detail": "check_users",
+        "documentation": {}
+    },
+    {
+        "label": "registered",
+        "kind": 5,
+        "importPath": "check_users",
+        "description": "check_users",
+        "peekOfCode": "registered = db.query(User).filter(User.registration_completed == True).count()\nprint(f'Total users: {count}')\nprint(f'Registered users: {registered}')\nif registered > 0:\n    user = db.query(User).filter(User.registration_completed == True).first()\n    print(f'\\nExample user for testing:')\n    print(f'  Telegram ID: {user.telegram_id}')\n    print(f'  Name: {user.name}')\ndb.close()",
+        "detail": "check_users",
+        "documentation": {}
+    },
+    {
+        "label": "apply_full_migration",
+        "kind": 2,
+        "importPath": "full_migration",
+        "description": "full_migration",
+        "peekOfCode": "def apply_full_migration():\n    \"\"\"Применение полной миграции\"\"\"\n    print(\">> Начинаю полную миграцию базы данных...\")\n    try:\n        with engine.connect() as conn:\n            # Проверяем существующие колонки в таблице users\n            result = conn.execute(text(\"PRAGMA table_info(users)\"))\n            existing_columns = {row[1] for row in result}\n            print(f\"\\nНайдено колонок в users: {len(existing_columns)}\")\n            # Добавляем недостающие колонки в users (для ТОЧКА 2)",
+        "detail": "full_migration",
         "documentation": {}
     }
 ]

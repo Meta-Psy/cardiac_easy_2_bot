@@ -1,0 +1,52 @@
+# =====================================================================
+# SCP КОМАНДЫ ДЛЯ ЗАГРУЗКИ ФАЙЛОВ НА СЕРВЕР
+# =====================================================================
+# ЗАМЕНИТЕ:
+#   user@server           - на ваш логин@сервер
+#   /path/to/project      - на путь к проекту на сервере
+# =====================================================================
+
+# НОВЫЕ ФАЙЛЫ (обязательно)
+scp bot/handlers/followup_survey.py user@server:/path/to/cardio_2_easy_bot/bot/handlers/
+scp bot/handlers/followup_broadcast.py user@server:/path/to/cardio_2_easy_bot/bot/handlers/
+scp apply_migration.py user@server:/path/to/cardio_2_easy_bot/
+scp "materials/Методичка ЗОЖ.pdf" user@server:/path/to/cardio_2_easy_bot/materials/
+
+# ИЗМЕНЕННЫЕ ФАЙЛЫ (обязательно)
+scp bot/handlers/__init__.py user@server:/path/to/cardio_2_easy_bot/bot/handlers/
+scp bot/database/models.py user@server:/path/to/cardio_2_easy_bot/bot/database/
+scp bot/database/__init__.py user@server:/path/to/cardio_2_easy_bot/bot/database/
+scp bot/admin/handlers.py user@server:/path/to/cardio_2_easy_bot/bot/admin/
+
+# ДОКУМЕНТАЦИЯ (опционально)
+scp DEPLOY_INSTRUCTIONS.md user@server:/path/to/cardio_2_easy_bot/
+scp DEPLOY_QUICK_GUIDE.txt user@server:/path/to/cardio_2_easy_bot/
+scp FOLLOWUP_SURVEY_README.md user@server:/path/to/cardio_2_easy_bot/
+
+# =====================================================================
+# ИЛИ ОДИН АРХИВ СО ВСЕМИ ФАЙЛАМИ
+# =====================================================================
+
+# Создать архив (выполнить локально)
+tar -czf followup_deploy.tar.gz \
+    bot/handlers/followup_survey.py \
+    bot/handlers/followup_broadcast.py \
+    bot/handlers/__init__.py \
+    bot/database/models.py \
+    bot/database/__init__.py \
+    bot/admin/handlers.py \
+    apply_migration.py \
+    "materials/Методичка ЗОЖ.pdf" \
+    DEPLOY_INSTRUCTIONS.md \
+    DEPLOY_QUICK_GUIDE.txt
+
+# Загрузить архив
+scp followup_deploy.tar.gz user@server:/path/to/cardio_2_easy_bot/
+
+# Распаковать на сервере
+ssh user@server
+cd /path/to/cardio_2_easy_bot
+tar -xzf followup_deploy.tar.gz
+rm followup_deploy.tar.gz
+
+# =====================================================================

@@ -1,0 +1,94 @@
+═══════════════════════════════════════════════════════════════════
+  БЫСТРАЯ ШПАРГАЛКА ПО ДЕПЛОЮ ТОЧКА 3
+═══════════════════════════════════════════════════════════════════
+
+1. ОСТАНОВИТЬ БОТА
+   sudo systemctl stop cardio_bot
+
+2. БЭКАП БД (ОБЯЗАТЕЛЬНО!)
+   cd /path/to/cardio_2_easy_bot/bot
+   cp cardio_bot.db cardio_bot.db.backup_$(date +%Y%m%d_%H%M%S)
+
+3. ЗАГРУЗИТЬ ФАЙЛЫ (с локального компьютера)
+   scp bot/handlers/followup_survey.py user@server:/path/to/.../bot/handlers/
+   scp bot/handlers/followup_broadcast.py user@server:/path/to/.../bot/handlers/
+   scp bot/handlers/__init__.py user@server:/path/to/.../bot/handlers/
+   scp bot/database/models.py user@server:/path/to/.../bot/database/
+   scp bot/database/__init__.py user@server:/path/to/.../bot/database/
+   scp bot/admin/handlers.py user@server:/path/to/.../bot/admin/
+   scp apply_migration.py user@server:/path/to/.../
+   scp "materials/Методичка ЗОЖ.pdf" user@server:/path/to/.../materials/
+
+4. ПРИМЕНИТЬ МИГРАЦИЮ (на сервере)
+   cd /path/to/cardio_2_easy_bot
+   python3 apply_migration.py
+
+   Должно быть:
+   [OK] Миграция успешно применена!
+   [OK] Обе таблицы успешно созданы!
+
+5. ПРОВЕРИТЬ БД
+   cd bot
+   sqlite3 cardio_bot.db "SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'followup%';"
+
+   Должно вывести:
+   followup_surveys
+   followup_status
+
+6. ЗАПУСТИТЬ БОТА
+   sudo systemctl start cardio_bot
+   sudo systemctl status cardio_bot
+
+   Должно быть: active (running)
+
+7. ПРОВЕРИТЬ ЛОГИ
+   sudo journalctl -u cardio_bot -f
+
+   Должно быть: "Bot started successfully"
+   НЕ должно быть: "ModuleNotFoundError", "no such table"
+
+8. ТЕСТИРОВАТЬ
+   - Открыть бота → /admin
+   - Рассылки → "📅 РАССЫЛКА ОПРОСА 3+ МЕСЯЦА (ТОЧКА 3)"
+   - Проверить статистику
+   - НЕ ЗАПУСКАТЬ рассылку! Сначала тест на себе
+
+9. ТЕСТ НА СЕБЕ
+   Создать test_single_user.py:
+   ---
+   import sys, os, asyncio
+   sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'bot'))
+   from aiogram import Bot
+   from config import BOT_TOKEN
+   from handlers.followup_broadcast import broadcast_followup_initial_message
+
+   async def test():
+       bot = Bot(token=BOT_TOKEN)
+       success = await broadcast_followup_initial_message(bot, ВАШ_ID)
+       print("SUCCESS!" if success else "FAILED")
+       await bot.session.close()
+
+   asyncio.run(test())
+   ---
+
+   python3 test_single_user.py
+
+10. ПРОЙТИ ОПРОС
+    ✓ Начальное сообщение получено
+    ✓ Кнопка "Начать опрос" работает
+    ✓ Все 13 вопросов работают
+    ✓ Методичка получена
+
+11. МАССОВАЯ РАССЫЛКА (только после теста!)
+    /admin → Рассылки → ТОЧКА 3 → ✅ ЗАПУСТИТЬ РАССЫЛКУ
+
+═══════════════════════════════════════════════════════════════════
+  ЕСЛИ ЧТО-ТО СЛОМАЛОСЬ - ОТКАТ
+═══════════════════════════════════════════════════════════════════
+
+sudo systemctl stop cardio_bot
+cd /path/to/cardio_2_easy_bot/bot
+cp cardio_bot.db.backup_YYYYMMDD_HHMMSS cardio_bot.db
+sudo systemctl start cardio_bot
+
+═══════════════════════════════════════════════════════════════════
