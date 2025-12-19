@@ -65,9 +65,7 @@ async def setup_commands(bot):
         
         commands = [
             BotCommand(command="start", description="🚀 Начать диагностику"),
-            BotCommand(command="score", description="🚀 Пройти тест SCORE"),
-            BotCommand(command="help", description="❓ Помощь и инструкции"),
-            BotCommand(command="restart", description="🔄 Начать заново"),
+            BotCommand(command="score", description="📊 Калькулятор SCORE2"),
         ]
         
         await bot.set_my_commands(commands, BotCommandScopeDefault())
@@ -223,14 +221,6 @@ async def main():
     except Exception as e:
         logger.warning(f"Ошибка создания планировщика: {e}")
     
-    # Запуск планировщика вебинара (ТОЧКА 2)
-    webinar_scheduler = None
-    try:
-        from handlers.webinar_scheduler import start_scheduler
-        await start_scheduler(bot)
-        logger.info("УСПЕХ: Планировщик вебинара запущен")
-    except Exception as e:
-        logger.warning(f"Ошибка запуска планировщика вебинара: {e}")
     
     # Выводим информацию о конфигурации
     logger.info("Конфигурация бота:")
@@ -286,14 +276,6 @@ async def main():
         if scheduler:
             scheduler.stop_scheduler()
             logger.info("ОСТАНОВЛЕН: Планировщик рассылок")
-            
-        # Останавливаем планировщик вебинара
-        try:
-            from handlers.webinar_scheduler import stop_scheduler
-            await stop_scheduler()
-            logger.info("ОСТАНОВЛЕН: Планировщик вебинара")
-        except Exception as e:
-            logger.warning(f"Ошибка остановки планировщика вебинара: {e}")
             
         if scheduler_task:
             scheduler_task.cancel()

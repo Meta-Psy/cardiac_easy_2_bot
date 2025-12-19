@@ -13,25 +13,7 @@ class UserStates(StatesGroup):
     waiting_email = State()
     waiting_phone = State()
     
-    # Опрос состояния
-    survey_age = State()
-    survey_gender = State()
-    survey_location = State()
-    survey_education = State()
-    survey_family = State()
-    survey_children = State()
-    survey_income = State()
-    survey_health = State()
-    survey_death_cause = State()
-    survey_heart_disease = State()
-    survey_cv_risk = State()
-    survey_cv_knowledge = State()
-    survey_heart_danger = State()
-    survey_health_importance = State()
-    survey_checkup_history = State()
-    survey_checkup_content = State()
-    survey_prevention_barriers = State()
-    survey_health_advice = State()
+    # Опрос удален - переходим сразу к тестам
     
     # Тесты состояния
     test_selection = State()
@@ -45,10 +27,7 @@ class UserStates(StatesGroup):
 
 COMMANDS = [
     BotCommand(command="start", description="🚀 Начать диагностику"),
-    BotCommand(command="help", description="❓ Помощь и инструкции"),
-    BotCommand(command="status", description="📊 Мой статус прохождения"),
-    BotCommand(command="restart", description="🔄 Начать заново"),
-    BotCommand(command="score", description="📈 SCORE2 калькулятор риска"), 
+    BotCommand(command="score", description="📊 Калькулятор SCORE2"),
 ]
 
 async def setup_bot_commands(bot):
@@ -120,29 +99,7 @@ class StateProtectionMiddleware:
             # Регистрация
             UserStates.waiting_name: [UserStates.waiting_email],
             UserStates.waiting_email: [UserStates.waiting_phone],
-            UserStates.waiting_phone: [UserStates.survey_age],
-            
-            # Демографический опрос
-            UserStates.survey_age: [UserStates.survey_gender],
-            UserStates.survey_gender: [UserStates.survey_location],
-            UserStates.survey_location: [UserStates.survey_education],
-            UserStates.survey_education: [UserStates.survey_family],
-            UserStates.survey_family: [UserStates.survey_children],
-            UserStates.survey_children: [UserStates.survey_income],
-            UserStates.survey_income: [UserStates.survey_health],
-            
-            # Опрос о здоровье
-            UserStates.survey_health: [UserStates.survey_death_cause],
-            UserStates.survey_death_cause: [UserStates.survey_heart_disease],
-            UserStates.survey_heart_disease: [UserStates.survey_cv_risk],
-            UserStates.survey_cv_risk: [UserStates.survey_cv_knowledge],
-            UserStates.survey_cv_knowledge: [UserStates.survey_heart_danger],
-            UserStates.survey_heart_danger: [UserStates.survey_health_importance],
-            UserStates.survey_health_importance: [UserStates.survey_checkup_history],
-            UserStates.survey_checkup_history: [UserStates.survey_checkup_content],
-            UserStates.survey_checkup_content: [UserStates.survey_prevention_barriers],
-            UserStates.survey_prevention_barriers: [UserStates.survey_health_advice],
-            UserStates.survey_health_advice: [UserStates.test_selection],
+            UserStates.waiting_phone: [UserStates.test_selection],
             
             # Тесты
             UserStates.test_selection: [
@@ -165,9 +122,7 @@ class StateProtectionMiddleware:
         # Специальные разрешения для команд
         self.command_allowed_states = {
             'start': [None],  # /start только из пустого состояния
-            'restart': 'all',  # /restart из любого состояния
-            'help': 'all',     # /help из любого состояния
-            'status': 'all',   # /status из любого состояния
+            'score': 'all',   # /score из любого состояния
         }
 
     async def __call__(self, handler, event, data):

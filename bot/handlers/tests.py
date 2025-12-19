@@ -854,19 +854,11 @@ async def complete_all_tests(message: Message, state: FSMContext):
     overall_risk = calculate_risk_level(test_results)
     
     text = f"""🫀 Отлично! Вы прошли предварительную диагностику — и это отличный фундамент для следующего шага.
-
 На вебинаре вы сможете:
 ✔️ рассчитать персональный суммарный риск сердечно-сосудистых заболеваний и возможных катастроф
 ✔️ собрать маршрутную карту действий — пошаговый план, который поможет защитить сердце и сохранить активность на годы вперёд
-✔️ получить от врачей ответы на ваши вопросы
-
-Теперь вы подготовлены, и на вебинаре получите максимум пользы.
-
-🎯 <b>Ваш сердечно-сосудистый риск:</b> {overall_risk}
-
 📩 А сейчас — как и обещали:
-📌 Список базовых анализов для подготовки к вебинару (можно пройти по желанию)
-📌 Бонус: чек-лист «Препараты и методики, которые не лечат сердце и сосуды»"""
+📌 Список базовых анализов для подготовки к вебинару (можно пройти по желанию)"""
     
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="📊 Посмотреть полные результаты", callback_data="show_full_results")],
@@ -975,6 +967,18 @@ async def complete_all_tests(message: Message, state: FSMContext):
         import traceback
         logger.error(f"Подробности ошибки: {traceback.format_exc()}")
     
+    # Задержка 5 секунд согласно recomendations.txt
+    await asyncio.sleep(5)
+
+    # Финальное сообщение с ссылками на вебинар
+    final_text = """Теперь вы подготовлены, и на вебинаре получите максимум пользы.
+🎥 Запись вебинара «Умный кардиочекап»:
+ 👉 Перейти к записи  https://novikova-diana.ru/kardiochekup_record
+📚 Доступ ко всем материалам на платформе:
+ 👉 Перейти на платформу https://novikova-diana.ru/members/courses/course383510150652"""
+
+    await bot.send_message(chat_id, final_text, parse_mode="HTML")
+
     # Отмечаем диагностику как завершенную
     try:
         await mark_diagnostic_completed(message.chat.id)
