@@ -102,9 +102,8 @@ def get_answer_keyboard(options):
     buttons = []
     for i, option in enumerate(options):
         text = option['text']
-        score = option['score']
-        buttons.append([InlineKeyboardButton(text=text, callback_data=f"answer_{score}")])
-    
+        buttons.append([InlineKeyboardButton(text=text, callback_data=f"answer_{i}")])
+
     keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
     return keyboard
 

@@ -172,9 +172,9 @@ async def continue_current_process(callback: CallbackQuery, state: FSMContext):
     """Продолжить с текущего места"""
     await safe_answer_callback(callback)
     await log_user_interaction(callback.from_user.id, "continue_current")
-    
+
     current_state = await state.get_state()
-    
+
     if "waiting_name" in current_state:
         text = """✍️ <b>Продолжаем регистрацию</b>
 
@@ -182,7 +182,7 @@ async def continue_current_process(callback: CallbackQuery, state: FSMContext):
 
 ✍️ Введите ваше имя"""
         await safe_edit_message(callback.message, text)
-        
+
     elif "waiting_email" in current_state:
         text = """✍️ <b>Продолжаем регистрацию</b>
 
@@ -190,36 +190,126 @@ async def continue_current_process(callback: CallbackQuery, state: FSMContext):
 
 ✍️ Введите ваш e-mail"""
         await safe_edit_message(callback.message, text)
-        
+
     elif "waiting_phone" in current_state:
         text = """✍️ <b>Продолжаем регистрацию</b>
 
-3️⃣ Поделитесь вашим номером телефона.
+3️⃣ И последний шаг — оставьте, пожалуйста, ваш номер телефона.
 
-📱 Нажмите кнопку ниже, чтобы поделиться номером телефона:"""
-        
-        keyboard = ReplyKeyboardMarkup(
-            keyboard=[[KeyboardButton(text="📱 Поделиться номером телефона", request_contact=True)]],
-            resize_keyboard=True,
-            one_time_keyboard=True
-        )
+📱 Введите ваш номер телефона (например: +79991234567):"""
         await safe_edit_message(callback.message, text)
-        await callback.message.answer("👆 Используйте кнопку выше", reply_markup=keyboard)
-        
+
     elif "survey" in current_state:
+        # Для опроса просто показываем сообщение - следующее действие продолжит опрос
         text = """📝 <b>Продолжаем опрос</b>
 
-Вы проходили опрос о вашем здоровье. Продолжайте отвечать на вопросы."""
+Пожалуйста, ответьте на текущий вопрос, чтобы продолжить."""
         await safe_edit_message(callback.message, text)
-        
-    elif "test" in current_state:
-        text = """🧪 <b>Продолжаем тестирование</b>
 
-Вы проходили психологические тесты. Продолжайте тестирование."""
-        await safe_edit_message(callback.message, text)
-        
+    elif "test" in current_state:
+        # Показываем меню тестов или текущий вопрос
+        from .tests import show_test_menu
+        from handlers.tests import show_current_question
+
+        data = await state.get_data()
+        current_test = data.get('current_test')
+
+        if current_test:
+            # Если идет тест - показываем текущий вопрос
+            await safe_edit_message(callback.message, "🧪 <b>Продолжаем тестирование</b>")
+            await show_current_question(callback.message, state)
+        else:
+            # Если в меню выбора тестов
+            await show_test_menu(callback.message, state)
+
     else:
         await safe_edit_message(callback.message, "Продолжаем с того места, где остановились...")
+
+
+@router.callback_query(F.data == "restart_from_beginning")
+async def restart_from_beginning(callback: CallbackQuery, state: FSMContext):
+    """Перезапуск диагностики с начала"""
+    await safe_answer_callback(callback)
+    await log_user_interaction(callback.from_user.id, "restart_from_beginning")
+
+    # Очищаем состояние
+    await state.clear()
+
+    text = """🔄 <b>ПРОГРЕСС СБРОШЕН</b>
+
+Все данные удалены. Начинаем сначала!
+
+Нажмите кнопку ниже, чтобы начать заново:"""
+
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="🚀 Начать заново", callback_data="start_welcome_flow")]
+    ])
+
+    await safe_edit_message(callback.message, text, reply_markup=keyboard)
+
+
+@router.callback_query(F.data == "show_status")
+async def show_status_callback(callback: CallbackQuery, state: FSMContext):
+    """Показать текущий статус пользователя"""
+    await safe_answer_callback(callback)
+    await log_user_interaction(callback.from_user.id, "show_status")
+
+    current_state = await state.get_state()
+    data = await state.get_data()
+
+    # Проверяем завершение
+    user_completed = check_user_completed(callback.from_user.id)
+
+    if user_completed:
+        status_text = "✅ Завершено"
+        stage_text = "Диагностика пройдена"
+    elif not current_state:
+        status_text = "⚪ Не начато"
+        stage_text = "Вы еще не начали диагностику"
+    elif "waiting_name" in current_state:
+        status_text = "🟡 В процессе"
+        stage_text = "Регистрация: ввод имени"
+    elif "waiting_email" in current_state:
+        status_text = "🟡 В процессе"
+        stage_text = "Регистрация: ввод email"
+    elif "waiting_phone" in current_state:
+        status_text = "🟡 В процессе"
+        stage_text = "Регистрация: ввод телефона"
+    elif "survey" in current_state:
+        status_text = "🟡 В процессе"
+        stage_text = "Опрос о здоровье"
+    elif "test" in current_state:
+        status_text = "🟡 В процессе"
+        completed_tests = []
+        if data.get('completed_hads'):
+            completed_tests.append("HADS")
+        if data.get('completed_burns'):
+            completed_tests.append("Burns")
+        if data.get('completed_isi'):
+            completed_tests.append("ISI")
+        if data.get('completed_stop_bang'):
+            completed_tests.append("STOP-BANG")
+        if data.get('completed_ess'):
+            completed_tests.append("ESS")
+
+        stage_text = f"Психологические тесты ({len(completed_tests)}/7 завершено)"
+    else:
+        status_text = "🟡 В процессе"
+        stage_text = "Неизвестный этап"
+
+    text = f"""📊 <b>ВАШ СТАТУС</b>
+
+🎯 <b>Статус:</b> {status_text}
+📍 <b>Этап:</b> {stage_text}
+
+❓ <b>Что дальше?</b>"""
+
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="▶️ Продолжить", callback_data="continue_current")],
+        [InlineKeyboardButton(text="🔄 Начать заново", callback_data="restart_from_beginning")]
+    ])
+
+    await safe_edit_message(callback.message, text, reply_markup=keyboard)
 
 
 

@@ -1,6 +1,6 @@
 import logging
 from aiogram import Router, F
-from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
+from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 
@@ -75,59 +75,41 @@ async def handle_email(message: Message, state: FSMContext):
 
 Всё конфиденциально и в рамках этики врача. Обещаю — никаких звонков.
 
-📱 Нажмите кнопку ниже, чтобы поделиться номером телефона:"""
-    
-    # Создаем клавиатуру с кнопкой для отправки телефона
-    keyboard = ReplyKeyboardMarkup(
-        keyboard=[
-            [KeyboardButton(text="📱 Поделиться номером телефона", request_contact=True)]
-        ],
-        resize_keyboard=True,
-        one_time_keyboard=True
-    )
-    
-    await message.answer(text, parse_mode="HTML", reply_markup=keyboard)
+📱 Введите ваш номер телефона (например: +79991234567):"""
+
+    await message.answer(text, parse_mode="HTML")
     await state.set_state(UserStates.waiting_phone)
     
 @router.message(StateFilter(UserStates.waiting_phone))
 async def handle_phone(message: Message, state: FSMContext):
-    """ИСПРАВЛЕННЫЙ обработчик телефона с правильным telegram_id"""
-    
-    # КРИТИЧЕСКИ ВАЖНО: ТОЛЬКО from_user.id - это настоящий telegram_id
+    """Обработчик телефона - принимает ручной ввод или контакт"""
+
     REAL_USER_ID = message.from_user.id
-    
-    print("=" * 80)
-    print("🚨 ИСПРАВЛЕННАЯ ОБРАБОТКА ТЕЛЕФОНА")
-    print(f"✅ НАСТОЯЩИЙ user_id: {REAL_USER_ID}")
-    print(f"📱 from_user.id: {message.from_user.id}")
-    print(f"💬 chat.id: {message.chat.id}")
-    print(f"📝 message_id: {message.message_id}")
-    print("=" * 80)
-    
-    # ДОПОЛНИТЕЛЬНАЯ ПРОВЕРКА
-    if REAL_USER_ID != message.from_user.id:
-        logger.error("КРИТИЧЕСКАЯ ОШИБКА: from_user.id изменился!")
-        return
-    
-    # Проверяем, что это разумный user_id
-    if not (100000 <= REAL_USER_ID <= 9999999999):
-        logger.error(f"ПОДОЗРИТЕЛЬНЫЙ user_id: {REAL_USER_ID}")
-        await message.answer("❌ Ошибка идентификации пользователя. Попробуйте /start")
-        return
-    
-    await log_user_interaction(REAL_USER_ID, "phone_processing_fixed")
-    
-    # Проверяем контакт
+
+    logger.info(f"Обработка телефона для пользователя {REAL_USER_ID}")
+
+    await log_user_interaction(REAL_USER_ID, "phone_processing")
+
+    # Получаем номер телефона из контакта или текста
     if message.contact:
         phone = message.contact.phone_number
-        
-        # КРИТИЧЕСКАЯ ПРОВЕРКА: contact.user_id должен совпадать с from_user.id
-        if message.contact.user_id != REAL_USER_ID:
-            logger.error(f"❌ НЕСООТВЕТСТВИЕ! contact.user_id={message.contact.user_id}, from_user.id={REAL_USER_ID}")
-            await message.answer("❌ Пожалуйста, отправьте свой собственный номер телефона.")
+        logger.info(f"Получен номер через контакт: {phone}")
+    elif message.text:
+        phone = message.text.strip()
+        logger.info(f"Получен номер вручную: {phone}")
+
+        # Базовая валидация номера телефона
+        # Убираем все символы кроме цифр и +
+        cleaned_phone = ''.join(char for char in phone if char.isdigit() or char == '+')
+
+        # Проверяем что это похоже на номер телефона
+        if len(cleaned_phone) < 10:
+            await message.answer("❌ Пожалуйста, введите корректный номер телефона (минимум 10 цифр).\n\nНапример: +79991234567 или 89991234567")
             return
+
+        phone = cleaned_phone
     else:
-        await message.answer("📱 Пожалуйста, используйте кнопку для отправки номера телефона.")
+        await message.answer("❌ Пожалуйста, отправьте ваш номер телефона текстом.")
         return
     
     await message.answer("Данные получены! Обрабатываю...", reply_markup=ReplyKeyboardRemove())
