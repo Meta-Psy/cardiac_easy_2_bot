@@ -390,7 +390,7 @@ def export_to_excel(filename: str = "cardio_bot_data.xlsx") -> str:
 
         # Получаем статистику рассылок
         broadcast_query = """
-        SELECT 
+        SELECT
             broadcast_id,
             message_text,
             sender_id,
@@ -403,6 +403,90 @@ def export_to_excel(filename: str = "cardio_bot_data.xlsx") -> str:
         ORDER BY created_at DESC
         """
         broadcast_data = pd.read_sql(broadcast_query, engine)
+
+        # Получаем данные ТОЧКА 2 (webinar_surveys - 9 вопросов)
+        webinar_survey_query = """
+        SELECT
+            ws.telegram_id,
+            u.name,
+            ws.understanding_cardio_checkup,
+            ws.attitude_change,
+            ws.screening_problems,
+            ws.cv_risk_assessment,
+            ws.lifestyle_actions,
+            ws.doctor_consultation_plans,
+            ws.checkup_motivation,
+            ws.webinar_influence,
+            ws.most_useful_from_webinar,
+            ws.completed_at,
+            ws.created_at
+        FROM webinar_surveys ws
+        LEFT JOIN users u ON ws.telegram_id = u.telegram_id
+        ORDER BY ws.created_at DESC
+        """
+        webinar_survey_data = pd.read_sql(webinar_survey_query, engine)
+
+        # Получаем данные ТОЧКА 3 (followup_surveys - 20 вопросов)
+        followup_survey_query = """
+        SELECT
+            fs.telegram_id,
+            u.name,
+            fs.understanding_cardio,
+            fs.attitude_change,
+            fs.screening_problems,
+            fs.cv_risk_assessment,
+            fs.lifestyle_plans,
+            fs.doctor_plan,
+            fs.webinar_influence,
+            fs.doctor_visit,
+            fs.doctor_type,
+            fs.doctor_attitude,
+            fs.visit_actions,
+            fs.visit_actions_other,
+            fs.doctor_seriousness,
+            fs.following_recommendations,
+            fs.following_barriers,
+            fs.risk_reduction_steps,
+            fs.risk_reduction_other,
+            fs.changes_stability,
+            fs.difficulties,
+            fs.difficulties_other,
+            fs.prevention_attitude_change,
+            fs.understanding_confidence,
+            fs.additional_info_need,
+            fs.additional_info_other,
+            fs.main_change,
+            fs.completed_at,
+            fs.created_at
+        FROM followup_surveys fs
+        LEFT JOIN users u ON fs.telegram_id = u.telegram_id
+        ORDER BY fs.created_at DESC
+        """
+        followup_survey_data = pd.read_sql(followup_survey_query, engine)
+
+        # Обрабатываем JSON поля в webinar_survey_data
+        webinar_json_columns = [
+            "screening_problems",
+            "lifestyle_actions",
+            "checkup_motivation",
+        ]
+        for col in webinar_json_columns:
+            if col in webinar_survey_data.columns:
+                webinar_survey_data[col] = webinar_survey_data[col].apply(parse_json_field)
+
+        # Обрабатываем JSON поля в followup_survey_data
+        followup_json_columns = [
+            "screening_problems",
+            "lifestyle_plans",
+            "doctor_type",
+            "visit_actions",
+            "risk_reduction_steps",
+            "difficulties",
+            "additional_info_need",
+        ]
+        for col in followup_json_columns:
+            if col in followup_survey_data.columns:
+                followup_survey_data[col] = followup_survey_data[col].apply(parse_json_field)
 
         # Получаем логи активности
         activity_query = """
@@ -490,6 +574,12 @@ def export_to_excel(filename: str = "cardio_bot_data.xlsx") -> str:
 
             # Активность
             activity_data.to_excel(writer, sheet_name="Активность", index=False)
+
+            # ТОЧКА 2 (webinar_surveys - 9 вопросов)
+            webinar_survey_data.to_excel(writer, sheet_name="ТОЧКА 2", index=False)
+
+            # ТОЧКА 3 (followup_surveys - 20 вопросов)
+            followup_survey_data.to_excel(writer, sheet_name="ТОЧКА 3", index=False)
 
             # Статистика
             stats = get_detailed_stats()
