@@ -378,21 +378,21 @@ async def start_followup_survey(callback: CallbackQuery, state: FSMContext):
     chat_id = callback.from_user.id
     await safe_answer_callback(callback)
 
-    # Проверяем, смотрел ли пользователь вебинар
-    def _check_webinar_watched():
+    # Проверяем, проходил ли пользователь тесты (значит смотрел вебинар)
+    def _check_tests_completed():
         db = get_db_sync()
         try:
             user = db.query(User).filter(User.telegram_id == chat_id).first()
-            if user and user.webinar_watched:
+            if user and user.tests_completed:
                 return True
             return False
         finally:
             db.close()
 
-    webinar_watched = await asyncio.get_event_loop().run_in_executor(None, _check_webinar_watched)
+    tests_completed = await asyncio.get_event_loop().run_in_executor(None, _check_tests_completed)
 
-    # Если пользователь НЕ смотрел вебинар - показываем приглашение
-    if not webinar_watched:
+    # Если пользователь НЕ прошёл тесты - показываем приглашение
+    if not tests_completed:
         await log_user_interaction(chat_id, "followup_survey_blocked_no_webinar")
 
         text = """🙏 <b>Спасибо за интерес к опросу!</b>
