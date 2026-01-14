@@ -378,21 +378,21 @@ async def start_followup_survey(callback: CallbackQuery, state: FSMContext):
     chat_id = callback.from_user.id
     await safe_answer_callback(callback)
 
-    # Проверяем, проходил ли пользователь тесты (значит смотрел вебинар)
-    def _check_tests_completed():
+    # Проверяем, проходил ли пользователь основной опрос (gender заполнен = опрос пройден)
+    def _check_survey_completed():
         db = get_db_sync()
         try:
             user = db.query(User).filter(User.telegram_id == chat_id).first()
-            if user and user.tests_completed:
+            if user and user.gender:
                 return True
             return False
         finally:
             db.close()
 
-    tests_completed = await asyncio.get_event_loop().run_in_executor(None, _check_tests_completed)
+    survey_completed = await asyncio.get_event_loop().run_in_executor(None, _check_survey_completed)
 
-    # Если пользователь НЕ прошёл тесты - показываем приглашение
-    if not tests_completed:
+    # Если пользователь НЕ прошёл основной опрос - показываем приглашение
+    if not survey_completed:
         await log_user_interaction(chat_id, "followup_survey_blocked_no_webinar")
 
         text = """🙏 <b>Спасибо за интерес к опросу!</b>
