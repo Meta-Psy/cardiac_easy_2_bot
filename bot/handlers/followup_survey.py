@@ -515,12 +515,21 @@ async def handle_q3_problems(callback: CallbackQuery, state: FSMContext):
         "nq3_nothing": "Ничего не выявил(а)"
     }
 
+    nothing_option = "Ничего не выявил(а)"
+
     option = option_map.get(callback.data)
     if option:
         if option in selected:
             selected.remove(option)
         else:
-            selected.append(option)
+            # Если выбрали "ничего" — сбрасываем все остальные
+            if option == nothing_option:
+                selected = [nothing_option]
+            else:
+                # Если выбрали что-то другое — убираем "ничего"
+                if nothing_option in selected:
+                    selected.remove(nothing_option)
+                selected.append(option)
 
         await state.update_data(nq3_selected=selected)
         keyboard = get_q3_problems_keyboard(selected)
@@ -591,12 +600,21 @@ async def handle_q5_plans(callback: CallbackQuery, state: FSMContext):
         "nq5_nothing": "Пока не планирую ничего делать"
     }
 
+    nothing_option = "Пока не планирую ничего делать"
+
     option = option_map.get(callback.data)
     if option:
         if option in selected:
             selected.remove(option)
         else:
-            selected.append(option)
+            # Если выбрали "ничего" — сбрасываем все остальные
+            if option == nothing_option:
+                selected = [nothing_option]
+            else:
+                # Если выбрали что-то другое — убираем "ничего"
+                if nothing_option in selected:
+                    selected.remove(nothing_option)
+                selected.append(option)
 
         await state.update_data(nq5_selected=selected)
         keyboard = get_q5_plans_keyboard(selected)
@@ -680,7 +698,7 @@ async def handle_question_1(callback: CallbackQuery, state: FSMContext):
     # Если обращались к врачу, переходим к вопросу 2, иначе пропускаем к вопросу 7
     if callback.data in ["fq1_yes_after_webinar", "fq1_yes_discussed"]:
         await state.update_data(visited_doctor=True)
-        text = """🟣 <b>Вопрос 2</b>
+        text = """🟣 <b>Вопрос 9 из 20</b>
 К какому врачу вы обращались в первую очередь?
 (можно выбрать до 2 вариантов)"""
 
@@ -694,8 +712,8 @@ async def handle_question_1(callback: CallbackQuery, state: FSMContext):
         await jump_to_question_7(callback.message, state)
 
 async def jump_to_question_7(message: Message, state: FSMContext):
-    """Переход к вопросу 7 (если не обращались к врачу)"""
-    text = """🟣 <b>Вопрос 7</b>
+    """Переход к вопросу 14 (если не обращались к врачу)"""
+    text = """🟣 <b>Вопрос 14 из 20</b>
 После вебинара вы предпринимали какие-то шаги для снижения сердечно-сосудистых рисков?
 (выберите все подходящие варианты)"""
 
@@ -722,8 +740,8 @@ async def handle_question_2(callback: CallbackQuery, state: FSMContext):
         survey_data['doctor_type'] = json.dumps(selected, ensure_ascii=False)
         await state.update_data(followup_survey_data=survey_data)
 
-        # Переход к вопросу 3
-        text = """🟣 <b>Вопрос 3</b>
+        # Переход к вопросу 10
+        text = """🟣 <b>Вопрос 10 из 20</b>
 Если после вебинара вы обращались к врачу, как вы оцениваете его отношение к вашим знаниям и вопросам (с учётом того, что вы уже были информированы)?
 (выберите 1 вариант)"""
 
@@ -772,7 +790,7 @@ async def handle_question_3(callback: CallbackQuery, state: FSMContext):
     await state.update_data(followup_survey_data=survey_data)
 
     # Переход к вопросу 4
-    text = """🟣 <b>Вопрос 4</b>
+    text = """🟣 <b>Вопрос 11 из 20</b>
 Что было сделано на приёме?
 (выберите все подходящие варианты)"""
 
@@ -825,12 +843,21 @@ async def handle_question_4(callback: CallbackQuery, state: FSMContext):
         "fq4_other": "Другое"
     }
 
+    nothing_option = "Сказал «всё в норме» без объяснений"
+
     option = option_map.get(callback.data)
     if option:
         if option in selected:
             selected.remove(option)
         else:
-            selected.append(option)
+            # Если выбрали "всё в норме" — сбрасываем все остальные
+            if option == nothing_option:
+                selected = [nothing_option]
+            else:
+                # Если выбрали что-то другое — убираем "всё в норме"
+                if nothing_option in selected:
+                    selected.remove(nothing_option)
+                selected.append(option)
 
         await state.update_data(fq4_selected=selected)
         keyboard = get_question_4_keyboard(selected)
@@ -860,8 +887,8 @@ async def handle_question_4_other_text(message: Message, state: FSMContext):
     await ask_question_5(message, state)
 
 async def ask_question_5(message: Message, state: FSMContext):
-    """Переход к вопросу 5"""
-    text = """🟣 <b>Вопрос 5</b>
+    """Переход к вопросу 12"""
+    text = """🟣 <b>Вопрос 12 из 20</b>
 Как вы оцениваете, насколько серьёзно врач отнесся к теме профилактики и ваших рисков?
 (шкала от 1 до 10, где 1 — совсем несерьёзно, 10 — максимально серьёзно и внимательно)"""
 
@@ -883,8 +910,8 @@ async def handle_question_5(callback: CallbackQuery, state: FSMContext):
     survey_data['doctor_seriousness'] = rating
     await state.update_data(followup_survey_data=survey_data)
 
-    # Переход к вопросу 6
-    text = """🟣 <b>Вопрос 6</b>
+    # Переход к вопросу 13
+    text = """🟣 <b>Вопрос 13 из 20</b>
 Насколько вы в целом следуете рекомендациям врача по профилактике и лечению?
 (выберите 1 вариант)"""
 
@@ -992,12 +1019,21 @@ async def handle_question_7(callback: CallbackQuery, state: FSMContext):
         "fq7_other": "Другое"
     }
 
+    nothing_option = "Пока ничего не делал(а)"
+
     option = option_map.get(callback.data)
     if option:
         if option in selected:
             selected.remove(option)
         else:
-            selected.append(option)
+            # Если выбрали "ничего" — сбрасываем все остальные
+            if option == nothing_option:
+                selected = [nothing_option]
+            else:
+                # Если выбрали что-то другое — убираем "ничего"
+                if nothing_option in selected:
+                    selected.remove(nothing_option)
+                selected.append(option)
 
         await state.update_data(fq7_selected=selected)
         keyboard = get_question_7_keyboard(selected)
@@ -1027,8 +1063,8 @@ async def handle_question_7_other_text(message: Message, state: FSMContext):
     await ask_question_8(message, state)
 
 async def ask_question_8(message: Message, state: FSMContext):
-    """Переход к вопросу 8"""
-    text = """🟣 <b>Вопрос 8</b>
+    """Переход к вопросу 15"""
+    text = """🟣 <b>Вопрос 15 из 20</b>
 Насколько стабильно вам удается удерживать эти изменения в течение последних месяцев?
 (шкала от 0 до 10, где 0 — совсем не удаётся, 10 — полностью удаётся придерживаться выбранной стратегии)"""
 
@@ -1050,8 +1086,8 @@ async def handle_question_8(callback: CallbackQuery, state: FSMContext):
     survey_data['changes_stability'] = rating
     await state.update_data(followup_survey_data=survey_data)
 
-    # Переход к вопросу 9
-    text = """🟣 <b>Вопрос 9</b>
+    # Переход к вопросу 16
+    text = """🟣 <b>Вопрос 16 из 20</b>
 С какими трудностями вы столкнулись, когда пытались следовать рекомендациям и менять образ жизни?
 (выберите все подходящие варианты)"""
 
@@ -1142,8 +1178,8 @@ async def handle_question_9_other_text(message: Message, state: FSMContext):
     await ask_question_10(message, state)
 
 async def ask_question_10(message: Message, state: FSMContext):
-    """Переход к вопросу 10"""
-    text = """🟣 <b>Вопрос 10</b>
+    """Переход к вопросу 17"""
+    text = """🟣 <b>Вопрос 17 из 20</b>
 Изменилось ли ваше отношение к профилактике сердечно-сосудистых заболеваний за прошедшие месяцы после вебинара?
 (выберите 1 вариант)"""
 
@@ -1169,8 +1205,8 @@ async def handle_question_10(callback: CallbackQuery, state: FSMContext):
     survey_data['prevention_attitude_change'] = answer_map[callback.data]
     await state.update_data(followup_survey_data=survey_data)
 
-    # Переход к вопросу 11
-    text = """🟣 <b>Вопрос 11</b>
+    # Переход к вопросу 18
+    text = """🟣 <b>Вопрос 18 из 20</b>
 Насколько уверенно вы сейчас чувствуете себя в понимании того, что именно нужно делать, чтобы снижать свой сердечно-сосудистый риск?
 (шкала от 0 до 10, где 0 — совсем не понимаю, 10 — всё ясно и понятно)"""
 
@@ -1192,8 +1228,8 @@ async def handle_question_11(callback: CallbackQuery, state: FSMContext):
     survey_data['understanding_confidence'] = rating
     await state.update_data(followup_survey_data=survey_data)
 
-    # Переход к вопросу 12
-    text = """🟣 <b>Вопрос 12</b>
+    # Переход к вопросу 19
+    text = """🟣 <b>Вопрос 19 из 20</b>
 Чувствуете ли вы потребность в дополнительной информации или поддержке по теме сердца и сосудов?
 (выберите все подходящие варианты)"""
 
@@ -1250,12 +1286,21 @@ async def handle_question_12(callback: CallbackQuery, state: FSMContext):
         "fq12_other": "Другое"
     }
 
+    nothing_option = "Нет, сейчас информации достаточно"
+
     option = option_map.get(callback.data)
     if option:
         if option in selected:
             selected.remove(option)
         else:
-            selected.append(option)
+            # Если выбрали "нет" — сбрасываем все остальные
+            if option == nothing_option:
+                selected = [nothing_option]
+            else:
+                # Если выбрали что-то другое — убираем "нет"
+                if nothing_option in selected:
+                    selected.remove(nothing_option)
+                selected.append(option)
 
         await state.update_data(fq12_selected=selected)
         keyboard = get_question_12_keyboard(selected)
@@ -1285,8 +1330,8 @@ async def handle_question_12_other_text(message: Message, state: FSMContext):
     await ask_question_13(message, state)
 
 async def ask_question_13(message: Message, state: FSMContext):
-    """Переход к вопросу 13 (последний)"""
-    text = """🟣 <b>Вопрос 13 (последний)</b>
+    """Переход к вопросу 20 (последний)"""
+    text = """🟣 <b>Вопрос 20 из 20</b>
 Что для вас оказалось самым главным изменением после вебинара?
 
 ✍️ Напишите свой ответ текстом:"""
@@ -1400,6 +1445,10 @@ async def send_followup_bonus(message: Message, state: FSMContext):
     try:
         import os
 
+        # Получаем абсолютный путь к корню проекта
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.dirname(os.path.dirname(current_dir))
+
         # Приоритет - новый файл, fallback на старый
         bonus_files = [
             ("materials/Руководство_для_женщин_40+.pdf", "Руководство_для_женщин_40+.pdf", "📄 «Руководство для женщин 40+: как защитить сердце в перименопаузе и менопаузе»"),
@@ -1407,7 +1456,8 @@ async def send_followup_bonus(message: Message, state: FSMContext):
         ]
 
         sent = False
-        for file_path, filename, caption in bonus_files:
+        for relative_path, filename, caption in bonus_files:
+            file_path = os.path.join(project_root, relative_path)
             if os.path.exists(file_path):
                 document = FSInputFile(file_path, filename=filename)
                 await message.answer_document(document, caption=caption)
@@ -1416,7 +1466,7 @@ async def send_followup_bonus(message: Message, state: FSMContext):
                 break
 
         if not sent:
-            logger.error("Файлы бонуса не найдены")
+            logger.error(f"Файлы бонуса не найдены. Project root: {project_root}")
             await message.answer("❌ Извините, произошла ошибка при отправке файла. Обратитесь к администратору.")
     except Exception as e:
         logger.error(f"Ошибка отправки бонуса: {e}")

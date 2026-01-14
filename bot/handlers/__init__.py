@@ -11,7 +11,7 @@ Handlers module for cardio bot
 """
 
 from aiogram import Router
-from . import start, registration, tests, score2, fallback
+from . import start, registration, tests, score2, fallback, followup_survey, followup_broadcast, webinar_survey, webinar_broadcast
 from .base import UserStates, setup_bot_commands, StateProtectionMiddleware, DebugStateProtectionMiddleware
 
 def get_handlers_router() -> Router:
@@ -30,6 +30,10 @@ def get_handlers_router() -> Router:
     main_router.include_router(score2.score2_router)    # SCORE2 калькулятор сердечно-сосудистого риска
     main_router.include_router(registration.router)     # Регистрация (имя, email, телефон)
     main_router.include_router(tests.router)            # Психологические тесты
+    main_router.include_router(followup_survey.router)  # Опрос ТОЧКА 3 (20 вопросов)
+    main_router.include_router(followup_broadcast.router)  # Рассылка ТОЧКА 3
+    main_router.include_router(webinar_survey.router)   # Опрос ТОЧКА 2 (9 вопросов)
+    main_router.include_router(webinar_broadcast.router)  # Рассылка ТОЧКА 2
     main_router.include_router(fallback.router)         # ПОСЛЕДНИЙ - неизвестные сообщения
 
     return main_router
