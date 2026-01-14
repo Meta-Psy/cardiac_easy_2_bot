@@ -10,7 +10,10 @@ from .models import Base
 logger = logging.getLogger(__name__)
 
 # Создаем движок базы данных
-DATABASE_URL = "sqlite:///cardio_bot.db"
+# Путь к БД: data/cardio_bot.db для Docker, cardio_bot.db для локальной разработки
+import os
+DB_PATH = os.environ.get("DB_PATH", "data/cardio_bot.db")
+DATABASE_URL = f"sqlite:///{DB_PATH}"
 engine = create_engine(DATABASE_URL, echo=False)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

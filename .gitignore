@@ -121,3 +121,8 @@ data/
 exports/
 .DS_Store
 Thumbs.db
+nul
+
+# IDE / Editor settings
+.claude/
+.vscode/

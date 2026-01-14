@@ -263,31 +263,29 @@ def get_test_selection_keyboard(completed_data=None):
         prefix = "✅ " if completed else "⭕ "
         buttons.append([InlineKeyboardButton(text=prefix + text, callback_data=callback_data)])
     
-    # Фагерстрем (необязательный)
+    # Фагерстрем (необязательный) - кнопка "Не курю" теперь внутри теста на первом вопросе
     fagerstrom_keys = ["fagerstrom_score", "fagerstrom_skipped", "completed_fagerstrom"]
     fagerstrom_completed = any(key in completed_data for key in fagerstrom_keys)
-    
+
     if fagerstrom_completed:
         if completed_data.get("fagerstrom_skipped"):
-            buttons.append([InlineKeyboardButton(text="⏭ 🚬 Тест Фагерстрема (пропущен)", callback_data="test_fagerstrom")])
+            buttons.append([InlineKeyboardButton(text="⏭ 🚬 Тест Фагерстрема (не курю)", callback_data="test_fagerstrom")])
         else:
             buttons.append([InlineKeyboardButton(text="✅ 🚬 Тест Фагерстрема (никотиновая зависимость)", callback_data="test_fagerstrom")])
     else:
         buttons.append([InlineKeyboardButton(text="⭕ 🚬 Тест Фагерстрема (никотиновая зависимость)", callback_data="test_fagerstrom")])
-        buttons.append([InlineKeyboardButton(text="⏭ Я не курю", callback_data="test_fagerstrom_skip")])
-    
-    # AUDIT (необязательный)
+
+    # AUDIT (необязательный) - кнопка "Не пью" теперь внутри теста на первом вопросе
     audit_keys = ["audit_score", "audit_skipped", "completed_audit"]
     audit_completed = any(key in completed_data for key in audit_keys)
-    
+
     if audit_completed:
         if completed_data.get("audit_skipped"):
-            buttons.append([InlineKeyboardButton(text="⏭ 🍷 Тест AUDIT (пропущен)", callback_data="test_audit")])
+            buttons.append([InlineKeyboardButton(text="⏭ 🍷 Тест AUDIT (не употребляю)", callback_data="test_audit")])
         else:
             buttons.append([InlineKeyboardButton(text="✅ 🍷 Тест AUDIT (употребление алкоголя)", callback_data="test_audit")])
     else:
         buttons.append([InlineKeyboardButton(text="⭕ 🍷 Тест AUDIT (употребление алкоголя)", callback_data="test_audit")])
-        buttons.append([InlineKeyboardButton(text="⏭ Я не употребляю алкоголь", callback_data="test_audit_skip")])
     
     # ИСПРАВЛЕННАЯ логика кнопок завершения - минимум 5 тестов + учет пропущенных
     # Считаем общее количество завершенных тестов (включая пропущенные)

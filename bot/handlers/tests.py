@@ -284,6 +284,117 @@ async def handle_test_selection(callback: CallbackQuery, state: FSMContext):
     elif callback.data == "test_complete":
         await complete_all_tests(callback.message, state)
 
+
+@router.callback_query(F.data == "fagerstrom_not_smoking", StateFilter(UserStates.fagerstrom_test))
+async def handle_fagerstrom_not_smoking(callback: CallbackQuery, state: FSMContext):
+    """Обработка ответа 'Я не курю' в тесте Фагерстрема"""
+    await safe_answer_callback(callback)
+    await log_user_interaction(callback.from_user.id, "fagerstrom_not_smoking", "Не курит")
+
+    # Сохраняем информацию в состояние
+    await state.update_data(
+        fagerstrom_score=None,
+        fagerstrom_skipped=True,
+        completed_fagerstrom=True
+    )
+
+    # Сохраняем в базу данных
+    db = get_db_sync()
+    try:
+        test_result = db.query(TestResult).filter(TestResult.telegram_id == callback.from_user.id).first()
+        if not test_result:
+            test_result = TestResult(telegram_id=callback.from_user.id)
+            db.add(test_result)
+        test_result.fagerstrom_score = None
+        test_result.fagerstrom_skipped = True
+        test_result.fagerstrom_level = "не курит"
+        db.commit()
+        logger.info(f"✅ Сохранено: пользователь {callback.from_user.id} не курит")
+    except Exception as e:
+        db.rollback()
+        logger.error(f"❌ Ошибка сохранения статуса 'не курит': {e}")
+    finally:
+        db.close()
+
+    # Показываем сообщение и возвращаемся к меню тестов
+    text = """🚭 <b>Отлично! Вы не курите.</b>
+
+Это значительно снижает ваши сердечно-сосудистые риски!
+
+Тест Фагерстрема пропущен."""
+
+    await safe_edit_message(callback.message, text)
+    await asyncio.sleep(2)
+
+    # Возвращаемся к меню тестов как новое сообщение
+    data = await state.get_data()
+    menu_text = "Выберите следующий тест для прохождения:"
+    keyboard = get_test_selection_keyboard(data)
+
+    await callback.message.bot.send_message(
+        chat_id=callback.message.chat.id,
+        text=menu_text,
+        reply_markup=keyboard,
+        parse_mode="HTML"
+    )
+    await state.set_state(UserStates.test_selection)
+
+
+@router.callback_query(F.data == "audit_not_drinking", StateFilter(UserStates.audit_test))
+async def handle_audit_not_drinking(callback: CallbackQuery, state: FSMContext):
+    """Обработка ответа 'Я не употребляю алкоголь' в тесте AUDIT"""
+    await safe_answer_callback(callback)
+    await log_user_interaction(callback.from_user.id, "audit_not_drinking", "Не пьет")
+
+    # Сохраняем информацию в состояние
+    await state.update_data(
+        audit_score=None,
+        audit_skipped=True,
+        completed_audit=True
+    )
+
+    # Сохраняем в базу данных
+    db = get_db_sync()
+    try:
+        test_result = db.query(TestResult).filter(TestResult.telegram_id == callback.from_user.id).first()
+        if not test_result:
+            test_result = TestResult(telegram_id=callback.from_user.id)
+            db.add(test_result)
+        test_result.audit_score = None
+        test_result.audit_skipped = True
+        test_result.audit_level = "не употребляет"
+        db.commit()
+        logger.info(f"✅ Сохранено: пользователь {callback.from_user.id} не употребляет алкоголь")
+    except Exception as e:
+        db.rollback()
+        logger.error(f"❌ Ошибка сохранения статуса 'не употребляет': {e}")
+    finally:
+        db.close()
+
+    # Показываем сообщение и возвращаемся к меню тестов
+    text = """🚫 <b>Отлично! Вы не употребляете алкоголь.</b>
+
+Это положительно влияет на ваше здоровье!
+
+Тест AUDIT пропущен."""
+
+    await safe_edit_message(callback.message, text)
+    await asyncio.sleep(2)
+
+    # Возвращаемся к меню тестов как новое сообщение
+    data = await state.get_data()
+    menu_text = "Выберите следующий тест для прохождения:"
+    keyboard = get_test_selection_keyboard(data)
+
+    await callback.message.bot.send_message(
+        chat_id=callback.message.chat.id,
+        text=menu_text,
+        reply_markup=keyboard,
+        parse_mode="HTML"
+    )
+    await state.set_state(UserStates.test_selection)
+
+
 async def show_test_menu(message: Message, state: FSMContext):
     """Показать меню выбора тестов"""
     data = await state.get_data()
@@ -403,7 +514,7 @@ async def start_ess_test(message: Message, state: FSMContext):
     await state.set_state(UserStates.ess_test)
 
 async def start_fagerstrom_test(message: Message, state: FSMContext):
-    """Запуск теста Фагерстрема"""
+    """Запуск теста Фагерстрема с опцией 'Не курю' на первом вопросе"""
     questions = get_fagerstrom_questions()
     await state.update_data(
         current_test="fagerstrom",
@@ -411,19 +522,29 @@ async def start_fagerstrom_test(message: Message, state: FSMContext):
         current_question_index=0,
         test_answers=[]
     )
-    
+
     text = """🚬 <b>Тест 6. Никотиновая зависимость — Фагерстрем</b>
 
-Тест для оценки степени никотиновой зависимости у курящих людей."""
-    
-    await safe_edit_message(message, text)
-    await asyncio.sleep(2)
-    
-    await show_current_question(message, state)
+Тест для оценки степени никотиновой зависимости у курящих людей.
+
+<b>Вопрос 1 из 6</b>
+
+Как скоро после пробуждения вы выкуриваете первую сигарету?"""
+
+    # Добавляем опцию "Я не курю" на первый вопрос
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="В течение 5 минут", callback_data="answer_3")],
+        [InlineKeyboardButton(text="6-30 минут", callback_data="answer_2")],
+        [InlineKeyboardButton(text="31-60 минут", callback_data="answer_1")],
+        [InlineKeyboardButton(text="Через час или позже", callback_data="answer_0")],
+        [InlineKeyboardButton(text="🚭 Я не курю", callback_data="fagerstrom_not_smoking")]
+    ])
+
+    await safe_edit_message(message, text, reply_markup=keyboard)
     await state.set_state(UserStates.fagerstrom_test)
 
 async def start_audit_test(message: Message, state: FSMContext):
-    """Запуск теста AUDIT"""
+    """Запуск теста AUDIT с опцией 'Не употребляю алкоголь' на первом вопросе"""
     questions = get_audit_questions()
     await state.update_data(
         current_test="audit",
@@ -431,15 +552,26 @@ async def start_audit_test(message: Message, state: FSMContext):
         current_question_index=0,
         test_answers=[]
     )
-    
+
     text = """🍷 <b>Тест 7. Употребление алкоголя — RUS-AUDIT</b>
 
-Тест AUDIT поможет оценить влияние алкоголя на сосудистое здоровье."""
-    
-    await safe_edit_message(message, text)
-    await asyncio.sleep(2)
-    
-    await show_current_question(message, state)
+Тест AUDIT поможет оценить влияние алкоголя на сосудистое здоровье.
+
+<b>Вопрос 1 из 10</b>
+
+Как часто вы употребляете алкогольные напитки?"""
+
+    # Добавляем опцию "Я не употребляю алкоголь" на первый вопрос
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="Никогда", callback_data="answer_0")],
+        [InlineKeyboardButton(text="Раз в месяц или реже", callback_data="answer_1")],
+        [InlineKeyboardButton(text="2-4 раза в месяц", callback_data="answer_2")],
+        [InlineKeyboardButton(text="2-3 раза в неделю", callback_data="answer_3")],
+        [InlineKeyboardButton(text="4 и более раз в неделю", callback_data="answer_4")],
+        [InlineKeyboardButton(text="🚫 Я не употребляю алкоголь", callback_data="audit_not_drinking")]
+    ])
+
+    await safe_edit_message(message, text, reply_markup=keyboard)
     await state.set_state(UserStates.audit_test)
 
 # ============================================================================

@@ -8,6 +8,8 @@ services:
     environment:
       - BOT_TOKEN=${BOT_TOKEN}
       - ADMIN_IDS=${ADMIN_IDS}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - DB_PATH=data/cardio_bot.db
     volumes:
       - ./data:/app/data
       - ./exports:/app/exports

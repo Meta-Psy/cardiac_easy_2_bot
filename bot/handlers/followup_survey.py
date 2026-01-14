@@ -22,31 +22,148 @@ logger = logging.getLogger(__name__)
 router = Router()
 
 # ============================================================================
-# СОСТОЯНИЯ ДЛЯ ОПРОСА ТОЧКА 3
+# СОСТОЯНИЯ ДЛЯ ОПРОСА ТОЧКА 2 и 3 (20 вопросов согласно new_addition.txt)
 # ============================================================================
 
 class FollowUpSurveyStates(StatesGroup):
-    question_1 = State()   # Обращение к врачу
-    question_2 = State()   # К какому врачу (мультивыбор)
-    question_3 = State()   # Отношение врача
-    question_4 = State()   # Что было сделано на приеме (мультивыбор)
-    question_5 = State()   # Серьезность врача (шкала 1-10)
-    question_6 = State()   # Следование рекомендациям
-    question_6_barriers = State()  # Что мешает (если не полностью соблюдают)
-    question_7 = State()   # Шаги по снижению рисков (мультивыбор)
-    question_8 = State()   # Стабильность изменений (шкала 0-10)
-    question_9 = State()   # Трудности (мультивыбор)
-    question_10 = State()  # Изменение отношения к профилактике
-    question_11 = State()  # Уверенность в понимании (шкала 0-10)
-    question_12 = State()  # Потребность в дополнительной информации (мультивыбор)
-    question_13 = State()  # Главное изменение (текст)
+    # ТОЧКА 2 - Вопросы сразу после вебинара (1-7)
+    q1_understanding = State()    # Понятность кардиочекапа
+    q2_attitude = State()         # Изменение отношения к профилактике
+    q3_problems = State()         # Проблемы при скрининге (мультивыбор)
+    q4_risk = State()             # Оценка СС риска
+    q5_plans = State()            # Планируемые действия (мультивыбор)
+    q6_doctor_plan = State()      # Планы обращения к врачу
+    q7_webinar_influence = State()  # Влияние вебинара
+    # ТОЧКА 3 - Вопросы через 3+ месяца (8-20)
+    q8_doctor_visit = State()     # Обращение к врачу
+    q9_doctor_type = State()      # К какому врачу (мультивыбор)
+    q10_doctor_attitude = State() # Отношение врача
+    q11_visit_actions = State()   # Что было сделано на приеме (мультивыбор)
+    q12_seriousness = State()     # Серьезность врача (шкала 1-10)
+    q13_recommendations = State() # Следование рекомендациям
+    q13_barriers = State()        # Что мешает (если не полностью соблюдают)
+    q14_risk_steps = State()      # Шаги по снижению рисков (мультивыбор)
+    q15_stability = State()       # Стабильность изменений (шкала 0-10)
+    q16_difficulties = State()    # Трудности (мультивыбор)
+    q17_attitude_change = State() # Изменение отношения к профилактике
+    q18_confidence = State()      # Уверенность в понимании (шкала 0-10)
+    q19_info_need = State()       # Потребность в дополнительной информации (мультивыбор)
+    q20_main_change = State()     # Главное изменение (текст)
+    # Обратная совместимость со старыми состояниями
+    question_1 = State()
+    question_2 = State()
+    question_3 = State()
+    question_4 = State()
+    question_5 = State()
+    question_6 = State()
+    question_6_barriers = State()
+    question_7 = State()
+    question_8 = State()
+    question_9 = State()
+    question_10 = State()
+    question_11 = State()
+    question_12 = State()
+    question_13 = State()
 
 # ============================================================================
-# КЛАВИАТУРЫ ДЛЯ ОПРОСА
+# КЛАВИАТУРЫ ДЛЯ ОПРОСА ТОЧКА 2 (Вопросы 1-7)
+# ============================================================================
+
+def get_q1_understanding_keyboard():
+    """Вопрос 1: Понятность кардиочекапа"""
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="Я полностью понял(а), что это и зачем", callback_data="nq1_fully")],
+        [InlineKeyboardButton(text="Стало немного понятнее, чем раньше", callback_data="nq1_clearer")],
+        [InlineKeyboardButton(text="Всё ещё не понимаю", callback_data="nq1_not_clear")]
+    ])
+    return keyboard
+
+def get_q2_attitude_keyboard():
+    """Вопрос 2: Изменение отношения к профилактическому обследованию"""
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="Не изменилось, я и до вебинара планировал(а) пройти кардиочекап", callback_data="nq2_no_change_planned")],
+        [InlineKeyboardButton(text="Не изменилось, по-прежнему не вижу смысла", callback_data="nq2_no_change_no_sense")],
+        [InlineKeyboardButton(text="Стал(а) относиться серьёзнее, но пока не готов(а) действовать", callback_data="nq2_serious_not_ready")],
+        [InlineKeyboardButton(text="Появилось желание пройти обследование", callback_data="nq2_want_exam")],
+        [InlineKeyboardButton(text="Уже принял(а) решение действовать и начать обследование", callback_data="nq2_decided_action")]
+    ])
+    return keyboard
+
+def get_q3_problems_keyboard(selected: List[str]):
+    """Вопрос 3: Проблемы, выявленные при скрининге (множественный выбор)"""
+    options = [
+        ("Семейный анамнез ранних ССЗ", "nq3_family_history"),
+        ("Несбалансированное питание", "nq3_nutrition"),
+        ("Курение", "nq3_smoking"),
+        ("Алкоголь", "nq3_alcohol"),
+        ("Низкий уровень физ. активности", "nq3_low_activity"),
+        ("Высокий уровень стресса", "nq3_stress"),
+        ("Нарушение сна", "nq3_sleep"),
+        ("Избыточный вес / ожирение", "nq3_weight"),
+        ("Повышение артериального давления", "nq3_bp"),
+        ("Повышение липидов", "nq3_lipids"),
+        ("Повышение глюкозы", "nq3_glucose"),
+        ("Ничего не выявил(а)", "nq3_nothing")
+    ]
+    buttons = []
+    for text, callback_data in options:
+        prefix = "✅ " if text in selected else "☐ "
+        buttons.append([InlineKeyboardButton(text=prefix + text, callback_data=callback_data)])
+    buttons.append([InlineKeyboardButton(text="Готово", callback_data="nq3_done")])
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
+
+def get_q4_risk_keyboard():
+    """Вопрос 4: Оценка сердечно-сосудистого риска"""
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="Низкий / умеренный", callback_data="nq4_low_moderate")],
+        [InlineKeyboardButton(text="Высокий", callback_data="nq4_high")],
+        [InlineKeyboardButton(text="Очень высокий", callback_data="nq4_very_high")]
+    ])
+    return keyboard
+
+def get_q5_plans_keyboard(selected: List[str]):
+    """Вопрос 5: Планируемые действия по модификации образа жизни (множественный выбор)"""
+    options = [
+        ("Отказаться от курения", "nq5_quit_smoking"),
+        ("Ограничить / исключить алкоголь", "nq5_limit_alcohol"),
+        ("Скорректировать питание", "nq5_fix_nutrition"),
+        ("Увеличить уровень физ. активности", "nq5_increase_activity"),
+        ("Решить проблемы со сном", "nq5_fix_sleep"),
+        ("Снизить уровень стресса", "nq5_reduce_stress"),
+        ("Пока не планирую ничего делать", "nq5_nothing")
+    ]
+    buttons = []
+    for text, callback_data in options:
+        prefix = "✅ " if text in selected else "☐ "
+        buttons.append([InlineKeyboardButton(text=prefix + text, callback_data=callback_data)])
+    buttons.append([InlineKeyboardButton(text="Готово", callback_data="nq5_done")])
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
+
+def get_q6_doctor_plan_keyboard():
+    """Вопрос 6: Планы обращения к врачу"""
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="Да", callback_data="nq6_yes")],
+        [InlineKeyboardButton(text="Нет", callback_data="nq6_no")],
+        [InlineKeyboardButton(text="Пока не решил(а)", callback_data="nq6_undecided")]
+    ])
+    return keyboard
+
+def get_q7_webinar_influence_keyboard():
+    """Вопрос 7: Влияние вебинара на мотивацию"""
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="Решающее влияние — до него даже не задумывался(ась)", callback_data="nq7_decisive")],
+        [InlineKeyboardButton(text="Существенное влияние — помог систематизировать знания", callback_data="nq7_significant")],
+        [InlineKeyboardButton(text="Незначительное влияние — многое уже было известно", callback_data="nq7_minor")],
+        [InlineKeyboardButton(text="Без влияния — не изменил моего отношения", callback_data="nq7_none")]
+    ])
+    return keyboard
+
+# ============================================================================
+# КЛАВИАТУРЫ ДЛЯ ОПРОСА ТОЧКА 3 (Вопросы 8-20, бывшие 1-13)
 # ============================================================================
 
 def get_question_1_keyboard():
-    """Вопрос 1: Обращение к врачу"""
+    """Вопрос 8 (бывший 1): Обращение к врачу"""
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="Да, специально пошёл(ла) к врачу после вебинара", callback_data="fq1_yes_after_webinar")],
         [InlineKeyboardButton(text="Да, я и раньше наблюдалась, просто обсудил(а) эту тему на приёме", callback_data="fq1_yes_discussed")],
@@ -286,7 +403,251 @@ async def start_followup_survey(callback: CallbackQuery, state: FSMContext):
 
     await asyncio.get_event_loop().run_in_executor(None, _mark_started)
 
-    text = """🟣 <b>Вопрос 1</b>
+    # Начинаем с вопроса 1 (ТОЧКА 2) - понятность кардиочекапа
+    text = """🟣 <b>Вопрос 1 из 20</b>
+
+После прохождения скрининга и вебинара стало ли вам понятнее, что такое «кардиочекап» и зачем он нужен?
+(выберите 1 вариант)"""
+
+    keyboard = get_q1_understanding_keyboard()
+    await safe_edit_message(callback.message, text, reply_markup=keyboard)
+    await state.set_state(FollowUpSurveyStates.q1_understanding)
+
+# ============================================================================
+# ОБРАБОТЧИКИ ВОПРОСОВ ТОЧКА 2 (Вопросы 1-7)
+# ============================================================================
+
+@router.callback_query(F.data.startswith("nq1_"), StateFilter(FollowUpSurveyStates.q1_understanding))
+async def handle_q1_understanding(callback: CallbackQuery, state: FSMContext):
+    """Обработка ответа на вопрос 1 (понятность кардиочекапа)"""
+    await safe_answer_callback(callback)
+
+    answer_map = {
+        "nq1_fully": "Я полностью понял(а), что это и зачем",
+        "nq1_clearer": "Стало немного понятнее, чем раньше",
+        "nq1_not_clear": "Всё ещё не понимаю"
+    }
+
+    data = await state.get_data()
+    survey_data = data.get('followup_survey_data', {})
+    survey_data['understanding_cardio'] = answer_map.get(callback.data, callback.data)
+    await state.update_data(followup_survey_data=survey_data)
+
+    # Переход к вопросу 2
+    text = """🟣 <b>Вопрос 2 из 20</b>
+
+Как изменилось ваше отношение к профилактическому обследованию после вебинара?
+(выберите 1 вариант)"""
+
+    keyboard = get_q2_attitude_keyboard()
+    await safe_edit_message(callback.message, text, reply_markup=keyboard)
+    await state.set_state(FollowUpSurveyStates.q2_attitude)
+
+@router.callback_query(F.data.startswith("nq2_"), StateFilter(FollowUpSurveyStates.q2_attitude))
+async def handle_q2_attitude(callback: CallbackQuery, state: FSMContext):
+    """Обработка ответа на вопрос 2 (изменение отношения)"""
+    await safe_answer_callback(callback)
+
+    answer_map = {
+        "nq2_no_change_planned": "Не изменилось, я и до вебинара планировал(а) пройти кардиочекап",
+        "nq2_no_change_no_sense": "Не изменилось, по-прежнему не вижу смысла",
+        "nq2_serious_not_ready": "Стал(а) относиться серьёзнее, но пока не готов(а) действовать",
+        "nq2_want_exam": "Появилось желание пройти обследование",
+        "nq2_decided_action": "Уже принял(а) решение действовать и начать обследование"
+    }
+
+    data = await state.get_data()
+    survey_data = data.get('followup_survey_data', {})
+    survey_data['attitude_change'] = answer_map.get(callback.data, callback.data)
+    await state.update_data(followup_survey_data=survey_data)
+
+    # Переход к вопросу 3
+    text = """🟣 <b>Вопрос 3 из 20</b>
+
+Какие проблемы вы обнаружили у себя при прохождении скрининга и тестов?
+(выберите все подходящие варианты)"""
+
+    await state.update_data(nq3_selected=[])
+    keyboard = get_q3_problems_keyboard([])
+    await safe_edit_message(callback.message, text, reply_markup=keyboard)
+    await state.set_state(FollowUpSurveyStates.q3_problems)
+
+@router.callback_query(F.data.startswith("nq3_"), StateFilter(FollowUpSurveyStates.q3_problems))
+async def handle_q3_problems(callback: CallbackQuery, state: FSMContext):
+    """Обработка вопроса 3 (проблемы при скрининге)"""
+    await safe_answer_callback(callback)
+
+    data = await state.get_data()
+    selected = data.get('nq3_selected', [])
+
+    if callback.data == "nq3_done":
+        if not selected:
+            await safe_answer_callback(callback, "Выберите хотя бы один вариант", show_alert=True)
+            return
+
+        survey_data = data.get('followup_survey_data', {})
+        survey_data['screening_problems'] = json.dumps(selected, ensure_ascii=False)
+        await state.update_data(followup_survey_data=survey_data)
+
+        # Переход к вопросу 4
+        text = """🟣 <b>Вопрос 4 из 20</b>
+
+Как вы оцениваете свой сердечно-сосудистый риск после получения результатов?
+(выберите 1 вариант)"""
+
+        keyboard = get_q4_risk_keyboard()
+        await safe_edit_message(callback.message, text, reply_markup=keyboard)
+        await state.set_state(FollowUpSurveyStates.q4_risk)
+        return
+
+    option_map = {
+        "nq3_family_history": "Семейный анамнез ранних ССЗ",
+        "nq3_nutrition": "Несбалансированное питание",
+        "nq3_smoking": "Курение",
+        "nq3_alcohol": "Алкоголь",
+        "nq3_low_activity": "Низкий уровень физ. активности",
+        "nq3_stress": "Высокий уровень стресса",
+        "nq3_sleep": "Нарушение сна",
+        "nq3_weight": "Избыточный вес / ожирение",
+        "nq3_bp": "Повышение артериального давления",
+        "nq3_lipids": "Повышение липидов",
+        "nq3_glucose": "Повышение глюкозы",
+        "nq3_nothing": "Ничего не выявил(а)"
+    }
+
+    option = option_map.get(callback.data)
+    if option:
+        if option in selected:
+            selected.remove(option)
+        else:
+            selected.append(option)
+
+        await state.update_data(nq3_selected=selected)
+        keyboard = get_q3_problems_keyboard(selected)
+        await safe_edit_message(callback.message, callback.message.text, reply_markup=keyboard)
+
+@router.callback_query(F.data.startswith("nq4_"), StateFilter(FollowUpSurveyStates.q4_risk))
+async def handle_q4_risk(callback: CallbackQuery, state: FSMContext):
+    """Обработка ответа на вопрос 4 (оценка СС риска)"""
+    await safe_answer_callback(callback)
+
+    answer_map = {
+        "nq4_low_moderate": "Низкий / умеренный",
+        "nq4_high": "Высокий",
+        "nq4_very_high": "Очень высокий"
+    }
+
+    data = await state.get_data()
+    survey_data = data.get('followup_survey_data', {})
+    survey_data['cv_risk_assessment'] = answer_map.get(callback.data, callback.data)
+    await state.update_data(followup_survey_data=survey_data)
+
+    # Переход к вопросу 5
+    text = """🟣 <b>Вопрос 5 из 20</b>
+
+Какие действия вы планируете для модификации образа жизни?
+(выберите все подходящие варианты)"""
+
+    await state.update_data(nq5_selected=[])
+    keyboard = get_q5_plans_keyboard([])
+    await safe_edit_message(callback.message, text, reply_markup=keyboard)
+    await state.set_state(FollowUpSurveyStates.q5_plans)
+
+@router.callback_query(F.data.startswith("nq5_"), StateFilter(FollowUpSurveyStates.q5_plans))
+async def handle_q5_plans(callback: CallbackQuery, state: FSMContext):
+    """Обработка вопроса 5 (планируемые действия)"""
+    await safe_answer_callback(callback)
+
+    data = await state.get_data()
+    selected = data.get('nq5_selected', [])
+
+    if callback.data == "nq5_done":
+        if not selected:
+            await safe_answer_callback(callback, "Выберите хотя бы один вариант", show_alert=True)
+            return
+
+        survey_data = data.get('followup_survey_data', {})
+        survey_data['lifestyle_plans'] = json.dumps(selected, ensure_ascii=False)
+        await state.update_data(followup_survey_data=survey_data)
+
+        # Переход к вопросу 6
+        text = """🟣 <b>Вопрос 6 из 20</b>
+
+Планируете ли вы обратиться к врачу?
+(выберите 1 вариант)"""
+
+        keyboard = get_q6_doctor_plan_keyboard()
+        await safe_edit_message(callback.message, text, reply_markup=keyboard)
+        await state.set_state(FollowUpSurveyStates.q6_doctor_plan)
+        return
+
+    option_map = {
+        "nq5_quit_smoking": "Отказаться от курения",
+        "nq5_limit_alcohol": "Ограничить / исключить алкоголь",
+        "nq5_fix_nutrition": "Скорректировать питание",
+        "nq5_increase_activity": "Увеличить уровень физ. активности",
+        "nq5_fix_sleep": "Решить проблемы со сном",
+        "nq5_reduce_stress": "Снизить уровень стресса",
+        "nq5_nothing": "Пока не планирую ничего делать"
+    }
+
+    option = option_map.get(callback.data)
+    if option:
+        if option in selected:
+            selected.remove(option)
+        else:
+            selected.append(option)
+
+        await state.update_data(nq5_selected=selected)
+        keyboard = get_q5_plans_keyboard(selected)
+        await safe_edit_message(callback.message, callback.message.text, reply_markup=keyboard)
+
+@router.callback_query(F.data.startswith("nq6_"), StateFilter(FollowUpSurveyStates.q6_doctor_plan))
+async def handle_q6_doctor_plan(callback: CallbackQuery, state: FSMContext):
+    """Обработка ответа на вопрос 6 (планы обращения к врачу)"""
+    await safe_answer_callback(callback)
+
+    answer_map = {
+        "nq6_yes": "Да",
+        "nq6_no": "Нет",
+        "nq6_undecided": "Пока не решил(а)"
+    }
+
+    data = await state.get_data()
+    survey_data = data.get('followup_survey_data', {})
+    survey_data['doctor_plan'] = answer_map.get(callback.data, callback.data)
+    await state.update_data(followup_survey_data=survey_data)
+
+    # Переход к вопросу 7
+    text = """🟣 <b>Вопрос 7 из 20</b>
+
+Какое влияние вебинар оказал на вашу мотивацию заниматься профилактикой ССЗ?
+(выберите 1 вариант)"""
+
+    keyboard = get_q7_webinar_influence_keyboard()
+    await safe_edit_message(callback.message, text, reply_markup=keyboard)
+    await state.set_state(FollowUpSurveyStates.q7_webinar_influence)
+
+@router.callback_query(F.data.startswith("nq7_"), StateFilter(FollowUpSurveyStates.q7_webinar_influence))
+async def handle_q7_webinar_influence(callback: CallbackQuery, state: FSMContext):
+    """Обработка ответа на вопрос 7 (влияние вебинара) и переход к ТОЧКА 3"""
+    await safe_answer_callback(callback)
+
+    answer_map = {
+        "nq7_decisive": "Решающее влияние — до него даже не задумывался(ась)",
+        "nq7_significant": "Существенное влияние — помог систематизировать знания",
+        "nq7_minor": "Незначительное влияние — многое уже было известно",
+        "nq7_none": "Без влияния — не изменил моего отношения"
+    }
+
+    data = await state.get_data()
+    survey_data = data.get('followup_survey_data', {})
+    survey_data['webinar_influence'] = answer_map.get(callback.data, callback.data)
+    await state.update_data(followup_survey_data=survey_data)
+
+    # Переход к вопросу 8 (начало ТОЧКА 3) - обращение к врачу
+    text = """🟣 <b>Вопрос 8 из 20</b>
+
 После вебинара обращались ли вы к врачу для оценки сердечно-сосудистых рисков?
 (выберите 1 вариант)"""
 
@@ -295,7 +656,7 @@ async def start_followup_survey(callback: CallbackQuery, state: FSMContext):
     await state.set_state(FollowUpSurveyStates.question_1)
 
 # ============================================================================
-# ОБРАБОТЧИКИ ВОПРОСОВ
+# ОБРАБОТЧИКИ ВОПРОСОВ ТОЧКА 3 (Вопросы 8-20, бывшие 1-13)
 # ============================================================================
 
 @router.callback_query(F.data.startswith("fq1_"), StateFilter(FollowUpSurveyStates.question_1))
@@ -1018,7 +1379,7 @@ async def save_followup_survey(chat_id: int, survey_data: Dict) -> bool:
     return await loop.run_in_executor(None, _save)
 
 async def send_followup_bonus(message: Message, state: FSMContext):
-    """Отправка бонусной методички после завершения опроса ТОЧКА 3"""
+    """Отправка бонусной методички после завершения опроса ТОЧКА 2 и 3"""
     chat_id = message.chat.id
 
     # Отправляем благодарность
@@ -1026,9 +1387,10 @@ async def send_followup_bonus(message: Message, state: FSMContext):
 
 Ваши ответы — это не формальность. Они помогают нам понимать, что реально меняется в вашей жизни после вебинара, и делать наши программы ещё полезнее и точнее для вас.
 
-🎁 Как и обещали, делимся бонусом:
+🎁 Спасибо за участие!
+В знак благодарности — обещанный бонус:
 
-<b>Методичка «Правила ЗОЖ как основа профилактики и лечения сердечно-сосудистых заболеваний (режим • питание • тренировки • гигиена)»</b>
+<b>✅ «Руководство для женщин 40+: как защитить сердце в перименопаузе и менопаузе»</b>
 
 Берегите сердце, а за доказательной профилактикой — приходите к нам. Мы рядом 🫀"""
 
@@ -1038,19 +1400,26 @@ async def send_followup_bonus(message: Message, state: FSMContext):
     try:
         import os
 
-        file_path = os.path.join("materials", "Методичка ЗОЖ.pdf")
-        if os.path.exists(file_path):
-            document = FSInputFile(file_path, filename="Методичка_ЗОЖ.pdf")
-            await message.answer_document(
-                document,
-                caption="📄 Методичка «Правила ЗОЖ как основа профилактики и лечения сердечно-сосудистых заболеваний»"
-            )
-            logger.info(f"Методичка ЗОЖ отправлена пользователю {chat_id}")
-        else:
-            logger.error(f"Файл {file_path} не найден")
+        # Приоритет - новый файл, fallback на старый
+        bonus_files = [
+            ("materials/Руководство_для_женщин_40+.pdf", "Руководство_для_женщин_40+.pdf", "📄 «Руководство для женщин 40+: как защитить сердце в перименопаузе и менопаузе»"),
+            ("materials/Методичка ЗОЖ.pdf", "Методичка_ЗОЖ.pdf", "📄 Методичка «Правила ЗОЖ как основа профилактики и лечения сердечно-сосудистых заболеваний»")
+        ]
+
+        sent = False
+        for file_path, filename, caption in bonus_files:
+            if os.path.exists(file_path):
+                document = FSInputFile(file_path, filename=filename)
+                await message.answer_document(document, caption=caption)
+                logger.info(f"Бонус '{filename}' отправлен пользователю {chat_id}")
+                sent = True
+                break
+
+        if not sent:
+            logger.error("Файлы бонуса не найдены")
             await message.answer("❌ Извините, произошла ошибка при отправке файла. Обратитесь к администратору.")
     except Exception as e:
-        logger.error(f"Ошибка отправки методички: {e}")
+        logger.error(f"Ошибка отправки бонуса: {e}")
         await message.answer("❌ Извините, произошла ошибка при отправке файла. Обратитесь к администратору.")
 
     # Отмечаем отправку бонуса в БД

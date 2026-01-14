@@ -401,7 +401,7 @@ class WebinarSurvey(Base):
 
 
 class FollowUpSurvey(Base):
-    """Опрос ТОЧКА 3 - через 3+ месяца после вебинара (13 вопросов)"""
+    """Опрос ТОЧКА 2 и 3 - после вебинара (20 вопросов согласно new_addition.txt)"""
 
     __tablename__ = "followup_surveys"
 
@@ -410,48 +410,73 @@ class FollowUpSurvey(Base):
         BigInteger, ForeignKey("users.telegram_id"), nullable=False, index=True
     )
 
-    # Вопрос 1: Обращение к врачу
+    # ================== ВОПРОСЫ ТОЧКА 2 (сразу после вебинара) ==================
+
+    # Вопрос 1: Понятность кардиочекапа
+    understanding_cardio = Column(String(255), nullable=True)
+
+    # Вопрос 2: Изменение отношения к профилактическому обследованию
+    attitude_change = Column(String(255), nullable=True)
+
+    # Вопрос 3: Проблемы, выявленные при скрининге (множественный выбор)
+    screening_problems = Column(Text, nullable=True)  # JSON список
+
+    # Вопрос 4: Оценка сердечно-сосудистого риска
+    cv_risk_assessment = Column(String(255), nullable=True)
+
+    # Вопрос 5: Планируемые действия по модификации образа жизни (множественный выбор)
+    lifestyle_plans = Column(Text, nullable=True)  # JSON список
+
+    # Вопрос 6: Планы обращения к врачу
+    doctor_plan = Column(String(255), nullable=True)
+
+    # Вопрос 7: Влияние вебинара на мотивацию
+    webinar_influence = Column(String(255), nullable=True)
+
+    # ================== ВОПРОСЫ ТОЧКА 3 (через 3+ месяца) ==================
+
+    # Вопрос 8: Обращение к врачу
     doctor_visit = Column(String(255), nullable=True)
 
-    # Вопрос 2: К какому врачу обращались (множественный выбор, до 2)
+    # Вопрос 9: К какому врачу обращались (множественный выбор, до 2)
     doctor_type = Column(Text, nullable=True)  # JSON список
 
-    # Вопрос 3: Отношение врача
+    # Вопрос 10: Отношение врача
     doctor_attitude = Column(String(255), nullable=True)
 
-    # Вопрос 4: Что было сделано на приеме (множественный выбор)
+    # Вопрос 11: Что было сделано на приеме (множественный выбор)
     visit_actions = Column(Text, nullable=True)  # JSON список
     visit_actions_other = Column(Text, nullable=True)  # Поле "Другое"
 
-    # Вопрос 5: Серьезность врача (шкала 1-10)
+    # Вопрос 12: Серьезность врача (шкала 1-10)
     doctor_seriousness = Column(Integer, nullable=True)
 
-    # Вопрос 6: Следование рекомендациям
+    # Вопрос 13: Следование рекомендациям
     following_recommendations = Column(String(255), nullable=True)
     following_barriers = Column(Text, nullable=True)  # Свободный ответ
 
-    # Вопрос 7: Шаги по снижению рисков (множественный выбор)
+    # Вопрос 14: Шаги по снижению рисков (множественный выбор)
     risk_reduction_steps = Column(Text, nullable=True)  # JSON список
     risk_reduction_other = Column(Text, nullable=True)  # Поле "Другое"
 
-    # Вопрос 8: Стабильность изменений (шкала 0-10)
+    # Вопрос 15: Стабильность изменений (шкала 0-10)
     changes_stability = Column(Integer, nullable=True)
 
-    # Вопрос 9: Трудности (множественный выбор)
+    # Вопрос 16: Трудности (множественный выбор)
     difficulties = Column(Text, nullable=True)  # JSON список
     difficulties_other = Column(Text, nullable=True)  # Поле "Другое"
 
-    # Вопрос 10: Изменение отношения к профилактике
+    # Вопрос 17: Изменение отношения к профилактике
     prevention_attitude_change = Column(String(255), nullable=True)
 
-    # Вопрос 11: Уверенность в понимании (шкала 0-10)
+    # Вопрос 18: Уверенность в понимании (шкала 0-10)
     understanding_confidence = Column(Integer, nullable=True)
 
-    # Вопрос 12: Потребность в дополнительной информации (множественный выбор)
+    # Вопрос 19: Потребность в дополнительной информации (множественный выбор)
     additional_info_need = Column(Text, nullable=True)  # JSON список
     additional_info_other = Column(Text, nullable=True)  # Поле "Другое"
 
-    # Вопрос 13: Главное изменение (свободный ответ)
+    # Вопрос 20: Главное изменение (свободный ответ)
     main_change = Column(Text, nullable=True)
 
     # Временные метки
