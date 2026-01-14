@@ -377,6 +377,40 @@ async def start_followup_survey(callback: CallbackQuery, state: FSMContext):
     """Запуск опроса ТОЧКА 3"""
     chat_id = callback.from_user.id
     await safe_answer_callback(callback)
+
+    # Проверяем, смотрел ли пользователь вебинар
+    def _check_webinar_watched():
+        db = get_db_sync()
+        try:
+            user = db.query(User).filter(User.telegram_id == chat_id).first()
+            if user and user.webinar_watched:
+                return True
+            return False
+        finally:
+            db.close()
+
+    webinar_watched = await asyncio.get_event_loop().run_in_executor(None, _check_webinar_watched)
+
+    # Если пользователь НЕ смотрел вебинар - показываем приглашение
+    if not webinar_watched:
+        await log_user_interaction(chat_id, "followup_survey_blocked_no_webinar")
+
+        text = """🙏 <b>Спасибо за интерес к опросу!</b>
+
+К сожалению, этот опрос предназначен для тех, кто уже посмотрел наш вебинар о профилактике сердечно-сосудистых заболеваний.
+
+🎥 <b>Приглашаем вас сначала посмотреть вебинар!</b>
+
+После просмотра вебинара вы сможете:
+✅ Пройти скрининг и узнать свои риски
+✅ Получить персональные рекомендации
+✅ Принять участие в опросе и получить бонусные материалы
+
+Напишите /start чтобы начать с регистрации и получить доступ к вебинару."""
+
+        await safe_edit_message(callback.message, text)
+        return
+
     await log_user_interaction(chat_id, "followup_survey_started")
 
     # Инициализируем данные опроса
