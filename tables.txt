@@ -1,0 +1,10 @@
+activity_logs
+broadcast_logs
+followup_status
+followup_surveys
+surveys
+system_stats
+test_results
+users
+webinar_status
+webinar_surveys

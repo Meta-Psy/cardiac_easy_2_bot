@@ -14,7 +14,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 
 from .base import safe_edit_message, safe_answer_callback, log_user_interaction
-from database import get_db_sync, User, FollowUpSurvey, FollowUpStatus
+from database import get_db_sync, User, Survey, FollowUpSurvey, FollowUpStatus
 
 # Настройка логирования
 logger = logging.getLogger(__name__)
@@ -378,12 +378,12 @@ async def start_followup_survey(callback: CallbackQuery, state: FSMContext):
     chat_id = callback.from_user.id
     await safe_answer_callback(callback)
 
-    # Проверяем, проходил ли пользователь основной опрос (gender заполнен = опрос пройден)
+    # Проверяем, проходил ли пользователь основной опрос (gender заполнен в Survey = опрос пройден)
     def _check_survey_completed():
         db = get_db_sync()
         try:
-            user = db.query(User).filter(User.telegram_id == chat_id).first()
-            if user and user.gender:
+            survey = db.query(Survey).filter(Survey.telegram_id == chat_id, Survey.gender.isnot(None)).first()
+            if survey:
                 return True
             return False
         finally:

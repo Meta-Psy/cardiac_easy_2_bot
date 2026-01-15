@@ -1,0 +1,30 @@
+id: 1
+telegram_id: 71353121
+understanding_cardio: Я полностью понял(а), что это и зачем
+attitude_change: Появилось желание пройти обследование
+screening_problems: ["Повышение глюкозы"]
+cv_risk_assessment: Низкий / умеренный
+lifestyle_plans: ["Снизить уровень стресса"]
+doctor_plan: Да
+webinar_influence: Существенное влияние — помог систематизировать знания
+doctor_visit: Да, я и раньше наблюдалась, просто обсудил(а) эту тему на приёме
+doctor_type: ["Терапевт / врач общей практики"]
+doctor_attitude: Врач отнесся нейтрально, без особого интереса
+visit_actions: ["Сказал «всё в норме» без объяснений"]
+visit_actions_other: None
+doctor_seriousness: 2
+following_recommendations: Практически не соблюдаю
+following_barriers: fdfsf
+risk_reduction_steps: ["Нормализовал холестерин/липиды"]
+risk_reduction_other: None
+changes_stability: 8
+difficulties: ["Другое"]
+difficulties_other: sadfasdf
+prevention_attitude_change: В целом отношение не изменилось
+understanding_confidence: 2
+additional_info_need: ["Да, про женское здоровье/менопаузу"]
+additional_info_other: None
+main_change: sdfasdf
+completed_at: 2026-01-14 19:42:22.044400
+created_at: 2026-01-14 14:42:22.065630
+updated_at: 2026-01-14 14:42:22.065630
