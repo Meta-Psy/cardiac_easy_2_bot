@@ -45,6 +45,7 @@ def get_broadcast_menu():
         [InlineKeyboardButton(text="🧪 Тестовая рассылка", callback_data="broadcast_test")],
         [InlineKeyboardButton(text="🫀 РАССЫЛКА ВЕБИНАРА (ТОЧКА 2)", callback_data="broadcast_webinar")],
         [InlineKeyboardButton(text="📅 РАССЫЛКА ОПРОСА 3+ МЕСЯЦА (ТОЧКА 3)", callback_data="broadcast_followup")],
+        [InlineKeyboardButton(text="🔄 НАПОМИНАНИЕ (не прошли ТОЧКА 3)", callback_data="broadcast_followup_reminder")],
         [InlineKeyboardButton(text="📊 История рассылок", callback_data="broadcast_history")],
         [InlineKeyboardButton(text="⬅️ Назад", callback_data="admin_back")]
     ])
@@ -683,6 +684,122 @@ async def confirm_followup_broadcast(callback: CallbackQuery, state: FSMContext,
 
     except Exception as e:
         await callback.message.edit_text(f"❌ Ошибка рассылки опроса ТОЧКА 3: {e}")
+
+@admin_router.callback_query(F.data == "broadcast_followup_reminder")
+async def followup_reminder_broadcast(callback: CallbackQuery, state: FSMContext, is_admin: bool = False):
+    """Рассылка напоминания тем, кто не прошёл опрос ТОЧКА 3"""
+    if not await check_admin_auth(callback, state, is_admin):
+        return
+
+    await callback.answer()
+
+    try:
+        from database import get_db_sync, User, FollowUpStatus, FollowUpSurvey
+
+        def _get_stats():
+            db = get_db_sync()
+            try:
+                # Пользователи, которым отправлено сообщение
+                sent_users = db.query(FollowUpStatus).filter(
+                    FollowUpStatus.initial_message_sent == True
+                ).all()
+                sent_ids = {s.telegram_id for s in sent_users}
+
+                # Пользователи, которые прошли опрос
+                completed_users = db.query(FollowUpSurvey).filter(
+                    FollowUpSurvey.completed_at.isnot(None)
+                ).all()
+                completed_ids = {c.telegram_id for c in completed_users}
+
+                # Те, кому отправлено, но не прошли
+                not_completed_ids = sent_ids - completed_ids
+
+                return len(sent_ids), len(completed_ids), len(not_completed_ids), list(not_completed_ids)
+            finally:
+                db.close()
+
+        total_sent, total_completed, not_completed_count, not_completed_ids = await asyncio.get_event_loop().run_in_executor(None, _get_stats)
+
+        text = f"""🔄 <b>НАПОМИНАНИЕ ДЛЯ НЕ ПРОШЕДШИХ ТОЧКА 3</b>
+
+📊 <b>Статистика:</b>
+• Всего получили приглашение: {total_sent}
+• Прошли опрос: {total_completed}
+• <b>НЕ прошли опрос: {not_completed_count}</b>
+
+⚠️ Будет отправлено напоминание {not_completed_count} пользователям, которые получили приглашение, но ещё не прошли опрос ТОЧКА 3.
+
+Продолжить?"""
+
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="✅ ОТПРАВИТЬ НАПОМИНАНИЕ", callback_data="confirm_followup_reminder")],
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_broadcast_menu")]
+        ])
+
+        # Сохраняем список ID для отправки
+        await state.update_data(followup_reminder_ids=not_completed_ids)
+
+        await callback.message.edit_text(text, parse_mode="HTML", reply_markup=keyboard)
+
+    except Exception as e:
+        await callback.message.edit_text(f"❌ Ошибка получения статистики: {e}")
+
+@admin_router.callback_query(F.data == "confirm_followup_reminder")
+async def confirm_followup_reminder(callback: CallbackQuery, state: FSMContext, is_admin: bool = False):
+    """Подтверждение и выполнение рассылки напоминания"""
+    if not await check_admin_auth(callback, state, is_admin):
+        return
+
+    await callback.answer()
+    await callback.message.edit_text("⏳ Отправляю напоминания...")
+
+    try:
+        from handlers.followup_broadcast import FOLLOWUP_INITIAL_MESSAGE, get_followup_start_keyboard
+
+        state_data = await state.get_data()
+        target_ids = state_data.get('followup_reminder_ids', [])
+
+        if not target_ids:
+            await callback.message.edit_text("❌ Нет пользователей для отправки напоминания")
+            return
+
+        keyboard = get_followup_start_keyboard()
+        sent = 0
+        failed = 0
+
+        for user_id in target_ids:
+            try:
+                await callback.bot.send_message(
+                    user_id,
+                    FOLLOWUP_INITIAL_MESSAGE,
+                    parse_mode="HTML",
+                    reply_markup=keyboard
+                )
+                sent += 1
+            except Exception as e:
+                failed += 1
+
+            await asyncio.sleep(0.05)
+
+        result_text = f"""✅ <b>НАПОМИНАНИЕ ОТПРАВЛЕНО</b>
+
+📊 <b>Результаты:</b>
+• Всего получателей: {len(target_ids)}
+• Успешно отправлено: {sent}
+• Ошибок: {failed}
+• Успешность: {(sent/len(target_ids)*100 if target_ids else 0):.1f}%
+
+Пользователи получили повторное приглашение пройти опрос ТОЧКА 3."""
+
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="📊 Статистика", callback_data="admin_stats")],
+            [InlineKeyboardButton(text="⬅️ В админку", callback_data="admin_back")]
+        ])
+
+        await callback.message.edit_text(result_text, parse_mode="HTML", reply_markup=keyboard)
+
+    except Exception as e:
+        await callback.message.edit_text(f"❌ Ошибка отправки напоминаний: {e}")
 
 # =========================== ПРОВЕРКА АВТОРИЗАЦИИ ===========================
 

@@ -72,8 +72,8 @@ class FollowUpSurveyStates(StatesGroup):
 def get_q1_understanding_keyboard():
     """Вопрос 1: Понятность кардиочекапа"""
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="Я полностью понял(а), что это и зачем", callback_data="nq1_fully")],
-        [InlineKeyboardButton(text="Стало немного понятнее, чем раньше", callback_data="nq1_clearer")],
+        [InlineKeyboardButton(text="Полностью понял(-а), что это и зачем", callback_data="nq1_fully")],
+        [InlineKeyboardButton(text="Стало немного понятнее", callback_data="nq1_clearer")],
         [InlineKeyboardButton(text="Всё ещё не понимаю", callback_data="nq1_not_clear")]
     ])
     return keyboard
@@ -81,11 +81,11 @@ def get_q1_understanding_keyboard():
 def get_q2_attitude_keyboard():
     """Вопрос 2: Изменение отношения к профилактическому обследованию"""
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="Не изменилось, я и до вебинара планировал(а) пройти кардиочекап", callback_data="nq2_no_change_planned")],
-        [InlineKeyboardButton(text="Не изменилось, по-прежнему не вижу смысла", callback_data="nq2_no_change_no_sense")],
-        [InlineKeyboardButton(text="Стал(а) относиться серьёзнее, но пока не готов(а) действовать", callback_data="nq2_serious_not_ready")],
-        [InlineKeyboardButton(text="Появилось желание пройти обследование", callback_data="nq2_want_exam")],
-        [InlineKeyboardButton(text="Уже принял(а) решение действовать и начать обследование", callback_data="nq2_decided_action")]
+        [InlineKeyboardButton(text="Не изменилось, и так планировал(-а)", callback_data="nq2_no_change_planned")],
+        [InlineKeyboardButton(text="Не изменилось, не вижу смысла", callback_data="nq2_no_change_no_sense")],
+        [InlineKeyboardButton(text="Серьёзнее, но не готов(-а) действовать", callback_data="nq2_serious_not_ready")],
+        [InlineKeyboardButton(text="Появилось желание обследоваться", callback_data="nq2_want_exam")],
+        [InlineKeyboardButton(text="Уже решил(-а) начать обследование", callback_data="nq2_decided_action")]
     ])
     return keyboard
 
@@ -103,7 +103,7 @@ def get_q3_problems_keyboard(selected: List[str]):
         ("Повышение артериального давления", "nq3_bp"),
         ("Повышение липидов", "nq3_lipids"),
         ("Повышение глюкозы", "nq3_glucose"),
-        ("Ничего не выявил(а)", "nq3_nothing")
+        ("Ничего не выявил(-а)", "nq3_nothing")
     ]
     buttons = []
     for text, callback_data in options:
@@ -144,17 +144,17 @@ def get_q6_doctor_plan_keyboard():
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="Да", callback_data="nq6_yes")],
         [InlineKeyboardButton(text="Нет", callback_data="nq6_no")],
-        [InlineKeyboardButton(text="Пока не решил(а)", callback_data="nq6_undecided")]
+        [InlineKeyboardButton(text="Пока не решил(-а)", callback_data="nq6_undecided")]
     ])
     return keyboard
 
 def get_q7_webinar_influence_keyboard():
     """Вопрос 7: Влияние вебинара на мотивацию"""
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="Решающее влияние — до него даже не задумывался(ась)", callback_data="nq7_decisive")],
-        [InlineKeyboardButton(text="Существенное влияние — помог систематизировать знания", callback_data="nq7_significant")],
-        [InlineKeyboardButton(text="Незначительное влияние — многое уже было известно", callback_data="nq7_minor")],
-        [InlineKeyboardButton(text="Без влияния — не изменил моего отношения", callback_data="nq7_none")]
+        [InlineKeyboardButton(text="Решающее — раньше не задумывался(-ась)", callback_data="nq7_decisive")],
+        [InlineKeyboardButton(text="Существенное — систематизировал(-а)", callback_data="nq7_significant")],
+        [InlineKeyboardButton(text="Незначительное — многое уже знал(-а)", callback_data="nq7_minor")],
+        [InlineKeyboardButton(text="Без влияния на моё отношение", callback_data="nq7_none")]
     ])
     return keyboard
 
@@ -165,10 +165,10 @@ def get_q7_webinar_influence_keyboard():
 def get_question_1_keyboard():
     """Вопрос 8 (бывший 1): Обращение к врачу"""
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="Да, специально пошёл(ла) к врачу после вебинара", callback_data="fq1_yes_after_webinar")],
-        [InlineKeyboardButton(text="Да, я и раньше наблюдалась, просто обсудил(а) эту тему на приёме", callback_data="fq1_yes_discussed")],
-        [InlineKeyboardButton(text="Нет, не обращался(ась), считаю, что у меня нет серьёзных рисков", callback_data="fq1_no_no_risks")],
-        [InlineKeyboardButton(text="Нет, пока не дошёл(ла), но планирую", callback_data="fq1_no_planning")]
+        [InlineKeyboardButton(text="Да, специально после вебинара", callback_data="fq1_yes_after_webinar")],
+        [InlineKeyboardButton(text="Да, обсудил(-а) на плановом приёме", callback_data="fq1_yes_discussed")],
+        [InlineKeyboardButton(text="Нет, считаю, что нет рисков", callback_data="fq1_no_no_risks")],
+        [InlineKeyboardButton(text="Нет, но планирую", callback_data="fq1_no_planning")]
     ])
     return keyboard
 
@@ -194,10 +194,10 @@ def get_question_2_keyboard(selected: List[str]):
 def get_question_3_keyboard():
     """Вопрос 3: Отношение врача"""
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="Врач поддержал мой интерес к профилактике, всё подробно объяснил(а)", callback_data="fq3_supportive")],
-        [InlineKeyboardButton(text="Врач отнесся нейтрально, без особого интереса", callback_data="fq3_neutral")],
-        [InlineKeyboardButton(text="Врач отнесся скептически / пренебрежительно", callback_data="fq3_skeptical")],
-        [InlineKeyboardButton(text="Не обращался(ась) к врачу после вебинара", callback_data="fq3_no_visit")]
+        [InlineKeyboardButton(text="Поддержал(-а), всё объяснил(-а)", callback_data="fq3_supportive")],
+        [InlineKeyboardButton(text="Нейтрально, без интереса", callback_data="fq3_neutral")],
+        [InlineKeyboardButton(text="Скептически / пренебрежительно", callback_data="fq3_skeptical")],
+        [InlineKeyboardButton(text="Не обращался(-ась) к врачу", callback_data="fq3_no_visit")]
     ])
     return keyboard
 
@@ -241,10 +241,10 @@ def get_question_6_keyboard():
     """Вопрос 6: Следование рекомендациям"""
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="Полностью соблюдаю", callback_data="fq6_fully_compliant")],
-        [InlineKeyboardButton(text="В основном соблюдаю, но иногда отклоняюсь", callback_data="fq6_mostly_compliant")],
+        [InlineKeyboardButton(text="В основном, иногда отклоняюсь", callback_data="fq6_mostly_compliant")],
         [InlineKeyboardButton(text="Следую частично", callback_data="fq6_partially")],
         [InlineKeyboardButton(text="Практически не соблюдаю", callback_data="fq6_non_compliant")],
-        [InlineKeyboardButton(text="Рекомендаций по профилактике почти не было", callback_data="fq6_no_recommendations")]
+        [InlineKeyboardButton(text="Рекомендаций почти не было", callback_data="fq6_no_recommendations")]
     ])
     return keyboard
 
@@ -260,7 +260,7 @@ def get_question_7_keyboard(selected: List[str]):
         ("Начал приём препаратов", "fq7_medications"),
         ("Управляю стрессом/наладил сон", "fq7_stress_sleep"),
         ("Работаю над снижением веса", "fq7_weight_loss"),
-        ("Пока ничего не делал(а)", "fq7_nothing"),
+        ("Пока ничего не делал(-а)", "fq7_nothing"),
         ("Другое", "fq7_other")
     ]
 
@@ -319,10 +319,10 @@ def get_question_9_keyboard(selected: List[str]):
 def get_question_10_keyboard():
     """Вопрос 10: Изменение отношения к профилактике"""
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="Стал(а) относиться серьезнее и уже действую", callback_data="fq10_serious_acting")],
-        [InlineKeyboardButton(text="Стал(а) относиться серьёзнее, но действовать пока трудно", callback_data="fq10_serious_difficult")],
-        [InlineKeyboardButton(text="В целом отношение не изменилось", callback_data="fq10_no_change")],
-        [InlineKeyboardButton(text="Стал(а) спокойнее, потому что лучше понимаю свою ситуацию", callback_data="fq10_calmer")]
+        [InlineKeyboardButton(text="Серьёзнее, уже действую", callback_data="fq10_serious_acting")],
+        [InlineKeyboardButton(text="Серьёзнее, но действовать трудно", callback_data="fq10_serious_difficult")],
+        [InlineKeyboardButton(text="Отношение не изменилось", callback_data="fq10_no_change")],
+        [InlineKeyboardButton(text="Спокойнее, лучше понимаю ситуацию", callback_data="fq10_calmer")]
     ])
     return keyboard
 
@@ -457,8 +457,8 @@ async def handle_q1_understanding(callback: CallbackQuery, state: FSMContext):
     await safe_answer_callback(callback)
 
     answer_map = {
-        "nq1_fully": "Я полностью понял(а), что это и зачем",
-        "nq1_clearer": "Стало немного понятнее, чем раньше",
+        "nq1_fully": "Полностью понял(-а), что это и зачем",
+        "nq1_clearer": "Стало немного понятнее",
         "nq1_not_clear": "Всё ещё не понимаю"
     }
 
@@ -483,11 +483,11 @@ async def handle_q2_attitude(callback: CallbackQuery, state: FSMContext):
     await safe_answer_callback(callback)
 
     answer_map = {
-        "nq2_no_change_planned": "Не изменилось, я и до вебинара планировал(а) пройти кардиочекап",
-        "nq2_no_change_no_sense": "Не изменилось, по-прежнему не вижу смысла",
-        "nq2_serious_not_ready": "Стал(а) относиться серьёзнее, но пока не готов(а) действовать",
-        "nq2_want_exam": "Появилось желание пройти обследование",
-        "nq2_decided_action": "Уже принял(а) решение действовать и начать обследование"
+        "nq2_no_change_planned": "Не изменилось, и так планировал(-а)",
+        "nq2_no_change_no_sense": "Не изменилось, не вижу смысла",
+        "nq2_serious_not_ready": "Серьёзнее, но не готов(-а) действовать",
+        "nq2_want_exam": "Появилось желание обследоваться",
+        "nq2_decided_action": "Уже решил(-а) начать обследование"
     }
 
     data = await state.get_data()
@@ -546,10 +546,10 @@ async def handle_q3_problems(callback: CallbackQuery, state: FSMContext):
         "nq3_bp": "Повышение артериального давления",
         "nq3_lipids": "Повышение липидов",
         "nq3_glucose": "Повышение глюкозы",
-        "nq3_nothing": "Ничего не выявил(а)"
+        "nq3_nothing": "Ничего не выявил(-а)"
     }
 
-    nothing_option = "Ничего не выявил(а)"
+    nothing_option = "Ничего не выявил(-а)"
 
     option = option_map.get(callback.data)
     if option:
@@ -662,7 +662,7 @@ async def handle_q6_doctor_plan(callback: CallbackQuery, state: FSMContext):
     answer_map = {
         "nq6_yes": "Да",
         "nq6_no": "Нет",
-        "nq6_undecided": "Пока не решил(а)"
+        "nq6_undecided": "Пока не решил(-а)"
     }
 
     data = await state.get_data()
@@ -686,10 +686,10 @@ async def handle_q7_webinar_influence(callback: CallbackQuery, state: FSMContext
     await safe_answer_callback(callback)
 
     answer_map = {
-        "nq7_decisive": "Решающее влияние — до него даже не задумывался(ась)",
-        "nq7_significant": "Существенное влияние — помог систематизировать знания",
-        "nq7_minor": "Незначительное влияние — многое уже было известно",
-        "nq7_none": "Без влияния — не изменил моего отношения"
+        "nq7_decisive": "Решающее — раньше не задумывался(-ась)",
+        "nq7_significant": "Существенное — систематизировал(-а) знания",
+        "nq7_minor": "Незначительное — многое уже знал(-а)",
+        "nq7_none": "Без влияния на моё отношение"
     }
 
     data = await state.get_data()
@@ -717,10 +717,10 @@ async def handle_question_1(callback: CallbackQuery, state: FSMContext):
     await safe_answer_callback(callback)
 
     answer_map = {
-        "fq1_yes_after_webinar": "Да, специально пошёл(ла) к врачу после вебинара",
-        "fq1_yes_discussed": "Да, я и раньше наблюдалась, просто обсудил(а) эту тему на приёме",
-        "fq1_no_no_risks": "Нет, не обращался(ась), считаю, что у меня нет серьёзных рисков",
-        "fq1_no_planning": "Нет, пока не дошёл(ла), но планирую"
+        "fq1_yes_after_webinar": "Да, специально после вебинара",
+        "fq1_yes_discussed": "Да, обсудил(-а) на плановом приёме",
+        "fq1_no_no_risks": "Нет, считаю, что нет рисков",
+        "fq1_no_planning": "Нет, но планирую"
     }
 
     # Сохраняем ответ
@@ -811,10 +811,10 @@ async def handle_question_3(callback: CallbackQuery, state: FSMContext):
     await safe_answer_callback(callback)
 
     answer_map = {
-        "fq3_supportive": "Врач поддержал мой интерес к профилактике, всё подробно объяснил(а)",
-        "fq3_neutral": "Врач отнесся нейтрально, без особого интереса",
-        "fq3_skeptical": "Врач отнесся скептически / пренебрежительно",
-        "fq3_no_visit": "Не обращался(ась) к врачу после вебинара"
+        "fq3_supportive": "Поддержал(-а), всё объяснил(-а)",
+        "fq3_neutral": "Нейтрально, без интереса",
+        "fq3_skeptical": "Скептически / пренебрежительно",
+        "fq3_no_visit": "Не обращался(-ась) к врачу"
     }
 
     # Сохраняем ответ
@@ -960,10 +960,10 @@ async def handle_question_6(callback: CallbackQuery, state: FSMContext):
 
     answer_map = {
         "fq6_fully_compliant": "Полностью соблюдаю",
-        "fq6_mostly_compliant": "В основном соблюдаю, но иногда отклоняюсь",
+        "fq6_mostly_compliant": "В основном, иногда отклоняюсь",
         "fq6_partially": "Следую частично",
         "fq6_non_compliant": "Практически не соблюдаю",
-        "fq6_no_recommendations": "Рекомендаций по профилактике почти не было"
+        "fq6_no_recommendations": "Рекомендаций почти не было"
     }
 
     # Сохраняем ответ
@@ -1049,11 +1049,11 @@ async def handle_question_7(callback: CallbackQuery, state: FSMContext):
         "fq7_medications": "Начал приём препаратов",
         "fq7_stress_sleep": "Управляю стрессом/наладил сон",
         "fq7_weight_loss": "Работаю над снижением веса",
-        "fq7_nothing": "Пока ничего не делал(а)",
+        "fq7_nothing": "Пока ничего не делал(-а)",
         "fq7_other": "Другое"
     }
 
-    nothing_option = "Пока ничего не делал(а)"
+    nothing_option = "Пока ничего не делал(-а)"
 
     option = option_map.get(callback.data)
     if option:
@@ -1227,10 +1227,10 @@ async def handle_question_10(callback: CallbackQuery, state: FSMContext):
     await safe_answer_callback(callback)
 
     answer_map = {
-        "fq10_serious_acting": "Стал(а) относиться серьезнее и уже действую",
-        "fq10_serious_difficult": "Стал(а) относиться серьёзнее, но действовать пока трудно",
-        "fq10_no_change": "В целом отношение не изменилось",
-        "fq10_calmer": "Стал(а) спокойнее, потому что лучше понимаю свою ситуацию"
+        "fq10_serious_acting": "Серьёзнее, уже действую",
+        "fq10_serious_difficult": "Серьёзнее, но действовать трудно",
+        "fq10_no_change": "Отношение не изменилось",
+        "fq10_calmer": "Спокойнее, лучше понимаю ситуацию"
     }
 
     # Сохраняем ответ
