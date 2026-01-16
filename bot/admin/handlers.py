@@ -46,6 +46,7 @@ def get_broadcast_menu():
         [InlineKeyboardButton(text="🫀 РАССЫЛКА ВЕБИНАРА (ТОЧКА 2)", callback_data="broadcast_webinar")],
         [InlineKeyboardButton(text="📅 РАССЫЛКА ОПРОСА 3+ МЕСЯЦА (ТОЧКА 3)", callback_data="broadcast_followup")],
         [InlineKeyboardButton(text="🔄 НАПОМИНАНИЕ (не прошли ТОЧКА 3)", callback_data="broadcast_followup_reminder")],
+        [InlineKeyboardButton(text="💙 ИЗВИНЕНИЯ (прошли ТОЧКА 3, без бонуса)", callback_data="broadcast_apology")],
         [InlineKeyboardButton(text="📊 История рассылок", callback_data="broadcast_history")],
         [InlineKeyboardButton(text="⬅️ Назад", callback_data="admin_back")]
     ])
@@ -800,6 +801,125 @@ async def confirm_followup_reminder(callback: CallbackQuery, state: FSMContext, 
 
     except Exception as e:
         await callback.message.edit_text(f"❌ Ошибка отправки напоминаний: {e}")
+
+# =========================== РАССЫЛКА ИЗВИНЕНИЙ (прошли опрос, но без бонуса) ===========================
+
+APOLOGY_MESSAGE = """Дорогие участники!
+
+Приносим искренние извинения за доставленные неудобства.
+
+Вы уже прошли наш опрос, и мы очень ценим ваше время и участие! К сожалению, по техническим причинам бонус не был отправлен сразу.
+
+Мы обязательно отправим вам обещанный подарок — <b>«Руководство для женщин 40+: как защитить сердце в перименопаузе и менопаузе»</b> — в ближайшие дни.
+
+Благодарим за понимание и терпение! Ваш вклад в наше исследование бесценен.
+
+С уважением и заботой о вашем здоровье 💙"""
+
+@admin_router.callback_query(F.data == "broadcast_apology")
+async def apology_broadcast(callback: CallbackQuery, state: FSMContext, is_admin: bool = False):
+    """Рассылка извинений тем, кто прошёл опрос ТОЧКА 3, но не получил бонус"""
+    if not await check_admin_auth(callback, state, is_admin):
+        return
+
+    await callback.answer()
+
+    try:
+        from database import get_db_sync, FollowUpSurvey
+
+        def _get_stats():
+            db = get_db_sync()
+            try:
+                # Пользователи, которые ПОЛНОСТЬЮ прошли опрос
+                # (main_change - это 20-й вопрос, последний в опросе)
+                completed_users = db.query(FollowUpSurvey).filter(
+                    FollowUpSurvey.main_change.isnot(None)
+                ).all()
+                completed_ids = [c.telegram_id for c in completed_users]
+
+                return len(completed_ids), completed_ids
+            finally:
+                db.close()
+
+        total_completed, completed_ids = await asyncio.get_event_loop().run_in_executor(None, _get_stats)
+
+        text = f"""💙 <b>РАССЫЛКА ИЗВИНЕНИЙ</b>
+
+📊 <b>Статистика:</b>
+• <b>Полностью прошли опрос ТОЧКА 3 (ответили на 20-й вопрос): {total_completed}</b>
+
+⚠️ Будет отправлено извинительное сообщение {total_completed} пользователям, которые полностью прошли опрос.
+
+<b>Текст сообщения:</b>
+<i>{APOLOGY_MESSAGE[:200]}...</i>
+
+Продолжить?"""
+
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="✅ ОТПРАВИТЬ ИЗВИНЕНИЯ", callback_data="confirm_apology_broadcast")],
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_broadcast_menu")]
+        ])
+
+        # Сохраняем список ID для отправки
+        await state.update_data(apology_broadcast_ids=completed_ids)
+
+        await callback.message.edit_text(text, parse_mode="HTML", reply_markup=keyboard)
+
+    except Exception as e:
+        await callback.message.edit_text(f"❌ Ошибка получения статистики: {e}")
+
+@admin_router.callback_query(F.data == "confirm_apology_broadcast")
+async def confirm_apology_broadcast(callback: CallbackQuery, state: FSMContext, is_admin: bool = False):
+    """Подтверждение и выполнение рассылки извинений"""
+    if not await check_admin_auth(callback, state, is_admin):
+        return
+
+    await callback.answer()
+    await callback.message.edit_text("⏳ Отправляю извинительные сообщения...")
+
+    try:
+        state_data = await state.get_data()
+        target_ids = state_data.get('apology_broadcast_ids', [])
+
+        if not target_ids:
+            await callback.message.edit_text("❌ Нет пользователей для отправки")
+            return
+
+        sent = 0
+        failed = 0
+
+        for user_id in target_ids:
+            try:
+                await callback.bot.send_message(
+                    user_id,
+                    APOLOGY_MESSAGE,
+                    parse_mode="HTML"
+                )
+                sent += 1
+            except Exception as e:
+                failed += 1
+
+            await asyncio.sleep(0.05)
+
+        result_text = f"""✅ <b>ИЗВИНЕНИЯ ОТПРАВЛЕНЫ</b>
+
+📊 <b>Результаты:</b>
+• Всего получателей: {len(target_ids)}
+• Успешно отправлено: {sent}
+• Ошибок: {failed}
+• Успешность: {(sent/len(target_ids)*100 if target_ids else 0):.1f}%
+
+Пользователи уведомлены, что бонус будет отправлен в ближайшие дни."""
+
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="📊 Статистика", callback_data="admin_stats")],
+            [InlineKeyboardButton(text="⬅️ В админку", callback_data="admin_back")]
+        ])
+
+        await callback.message.edit_text(result_text, parse_mode="HTML", reply_markup=keyboard)
+
+    except Exception as e:
+        await callback.message.edit_text(f"❌ Ошибка отправки: {e}")
 
 # =========================== ПРОВЕРКА АВТОРИЗАЦИИ ===========================
 

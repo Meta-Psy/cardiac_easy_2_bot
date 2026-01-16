@@ -1476,6 +1476,7 @@ async def send_followup_bonus(message: Message, state: FSMContext):
     await message.answer(text, parse_mode="HTML")
 
     # Отправляем файл методички
+    bonus_actually_sent = False
     try:
         import os
 
@@ -1489,38 +1490,48 @@ async def send_followup_bonus(message: Message, state: FSMContext):
             ("materials/Методичка ЗОЖ.pdf", "Методичка_ЗОЖ.pdf", "📄 Методичка «Правила ЗОЖ как основа профилактики и лечения сердечно-сосудистых заболеваний»")
         ]
 
-        sent = False
         for relative_path, filename, caption in bonus_files:
             file_path = os.path.join(project_root, relative_path)
             if os.path.exists(file_path):
                 document = FSInputFile(file_path, filename=filename)
                 await message.answer_document(document, caption=caption)
                 logger.info(f"Бонус '{filename}' отправлен пользователю {chat_id}")
-                sent = True
+                bonus_actually_sent = True
                 break
 
-        if not sent:
+        if not bonus_actually_sent:
             logger.error(f"Файлы бонуса не найдены. Project root: {project_root}")
-            await message.answer("❌ Извините, произошла ошибка при отправке файла. Обратитесь к администратору.")
+            await message.answer(
+                "🎁 Спасибо за прохождение опроса!\n\n"
+                "Ваш бонус будет отправлен вам в ближайшие дни. "
+                "Мы готовим для вас полезные материалы и обязательно пришлём их!\n\n"
+                "Благодарим за терпение и участие 💙"
+            )
     except Exception as e:
         logger.error(f"Ошибка отправки бонуса: {e}")
-        await message.answer("❌ Извините, произошла ошибка при отправке файла. Обратитесь к администратору.")
+        await message.answer(
+            "🎁 Спасибо за прохождение опроса!\n\n"
+            "Ваш бонус будет отправлен вам в ближайшие дни. "
+            "Мы готовим для вас полезные материалы и обязательно пришлём их!\n\n"
+            "Благодарим за терпение и участие 💙"
+        )
 
-    # Отмечаем отправку бонуса в БД
-    def _mark_bonus():
-        db = get_db_sync()
-        try:
-            status = db.query(FollowUpStatus).filter(FollowUpStatus.telegram_id == chat_id).first()
-            if status:
-                status.bonus_sent = True
-                status.bonus_sent_at = datetime.now()
-            db.commit()
-        except Exception as e:
-            logger.error(f"Ошибка отметки отправки бонуса: {e}")
-        finally:
-            db.close()
+    # Отмечаем отправку бонуса в БД ТОЛЬКО если реально отправлен
+    if bonus_actually_sent:
+        def _mark_bonus():
+            db = get_db_sync()
+            try:
+                status = db.query(FollowUpStatus).filter(FollowUpStatus.telegram_id == chat_id).first()
+                if status:
+                    status.bonus_sent = True
+                    status.bonus_sent_at = datetime.now()
+                db.commit()
+            except Exception as e:
+                logger.error(f"Ошибка отметки отправки бонуса: {e}")
+            finally:
+                db.close()
 
-    await asyncio.get_event_loop().run_in_executor(None, _mark_bonus)
+        await asyncio.get_event_loop().run_in_executor(None, _mark_bonus)
 
     await log_user_interaction(chat_id, "followup_survey_completed_bonus_sent")
 
