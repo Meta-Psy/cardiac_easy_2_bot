@@ -47,6 +47,8 @@ def get_broadcast_menu():
         [InlineKeyboardButton(text="📅 РАССЫЛКА ОПРОСА 3+ МЕСЯЦА (ТОЧКА 3)", callback_data="broadcast_followup")],
         [InlineKeyboardButton(text="🔄 НАПОМИНАНИЕ (не прошли ТОЧКА 3)", callback_data="broadcast_followup_reminder")],
         [InlineKeyboardButton(text="💙 ИЗВИНЕНИЯ (прошли ТОЧКА 3, без бонуса)", callback_data="broadcast_apology")],
+        [InlineKeyboardButton(text="📕 МЕТОДИЧКА (прошли ТОЧКА 3)", callback_data="broadcast_methodichka")],
+        [InlineKeyboardButton(text="🔔 МЯГКОЕ НАПОМИНАНИЕ (ТОЧКА 3)", callback_data="broadcast_soft_reminder")],
         [InlineKeyboardButton(text="📊 История рассылок", callback_data="broadcast_history")],
         [InlineKeyboardButton(text="⬅️ Назад", callback_data="admin_back")]
     ])
@@ -910,6 +912,267 @@ async def confirm_apology_broadcast(callback: CallbackQuery, state: FSMContext, 
 • Успешность: {(sent/len(target_ids)*100 if target_ids else 0):.1f}%
 
 Пользователи уведомлены, что бонус будет отправлен в ближайшие дни."""
+
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="📊 Статистика", callback_data="admin_stats")],
+            [InlineKeyboardButton(text="⬅️ В админку", callback_data="admin_back")]
+        ])
+
+        await callback.message.edit_text(result_text, parse_mode="HTML", reply_markup=keyboard)
+
+    except Exception as e:
+        await callback.message.edit_text(f"❌ Ошибка отправки: {e}")
+
+# =========================== РАССЫЛКА МЕТОДИЧКИ (ТОЧКА 3) ===========================
+
+METHODICHKA_MESSAGE = """Здравствуйте! 💚
+
+Как и обещали — отправляем вам <b>«Руководство для женщин 40+: как защитить сердце в перименопаузе и менопаузе»</b>.
+
+Спасибо за ваше участие в нашем исследовании и за то, что прошли опрос! Надеемся, это руководство будет для вас полезным.
+
+Берегите себя и своё сердце 🫀"""
+
+@admin_router.callback_query(F.data == "broadcast_methodichka")
+async def methodichka_broadcast(callback: CallbackQuery, state: FSMContext, is_admin: bool = False):
+    """Рассылка методички тем, кто прошёл опрос ТОЧКА 3"""
+    if not await check_admin_auth(callback, state, is_admin):
+        return
+
+    await callback.answer()
+
+    try:
+        from database import get_db_sync, FollowUpSurvey
+
+        def _get_stats():
+            db = get_db_sync()
+            try:
+                completed_users = db.query(FollowUpSurvey).filter(
+                    FollowUpSurvey.main_change.isnot(None)
+                ).all()
+                completed_ids = [c.telegram_id for c in completed_users]
+                return len(completed_ids), completed_ids
+            finally:
+                db.close()
+
+        total_completed, completed_ids = await asyncio.get_event_loop().run_in_executor(None, _get_stats)
+
+        # Проверяем наличие файла
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.dirname(os.path.dirname(current_dir))
+        file_path = os.path.join(project_root, "materials", "Методичка менопауза 1.pdf")
+        file_exists = os.path.exists(file_path)
+
+        text = f"""📕 <b>РАССЫЛКА МЕТОДИЧКИ</b>
+
+📊 <b>Статистика:</b>
+• <b>Полностью прошли опрос ТОЧКА 3: {total_completed}</b>
+• Файл методички: {"✅ найден" if file_exists else "❌ НЕ НАЙДЕН"}
+
+⚠️ Будет отправлено сообщение с методичкой {total_completed} пользователям.
+
+<b>Текст сообщения:</b>
+<i>{METHODICHKA_MESSAGE[:200]}...</i>
+
+Продолжить?"""
+
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="✅ ОТПРАВИТЬ МЕТОДИЧКУ", callback_data="confirm_methodichka_broadcast")],
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_broadcast_menu")]
+        ])
+
+        await state.update_data(methodichka_broadcast_ids=completed_ids)
+        await callback.message.edit_text(text, parse_mode="HTML", reply_markup=keyboard)
+
+    except Exception as e:
+        await callback.message.edit_text(f"❌ Ошибка получения статистики: {e}")
+
+@admin_router.callback_query(F.data == "confirm_methodichka_broadcast")
+async def confirm_methodichka_broadcast(callback: CallbackQuery, state: FSMContext, is_admin: bool = False):
+    """Подтверждение и выполнение рассылки методички"""
+    if not await check_admin_auth(callback, state, is_admin):
+        return
+
+    await callback.answer()
+    await callback.message.edit_text("⏳ Отправляю методичку...")
+
+    try:
+        state_data = await state.get_data()
+        target_ids = state_data.get('methodichka_broadcast_ids', [])
+
+        if not target_ids:
+            await callback.message.edit_text("❌ Нет пользователей для отправки")
+            return
+
+        # Проверяем файл
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.dirname(os.path.dirname(current_dir))
+        file_path = os.path.join(project_root, "materials", "Методичка менопауза 1.pdf")
+
+        if not os.path.exists(file_path):
+            await callback.message.edit_text("❌ Файл методички не найден: materials/Методичка менопауза 1.pdf")
+            return
+
+        sent = 0
+        failed = 0
+        file_id = None  # Кешируем file_id после первой отправки
+
+        for user_id in target_ids:
+            try:
+                if file_id:
+                    # Используем кешированный file_id для быстрой отправки
+                    await callback.bot.send_document(
+                        user_id,
+                        document=file_id,
+                        caption=METHODICHKA_MESSAGE,
+                        parse_mode="HTML"
+                    )
+                else:
+                    # Первая отправка — загружаем файл
+                    document = FSInputFile(file_path, filename="Руководство_для_женщин_40+.pdf")
+                    result = await callback.bot.send_document(
+                        user_id,
+                        document=document,
+                        caption=METHODICHKA_MESSAGE,
+                        parse_mode="HTML"
+                    )
+                    file_id = result.document.file_id
+                sent += 1
+            except Exception as e:
+                failed += 1
+
+            await asyncio.sleep(0.05)
+
+        result_text = f"""✅ <b>МЕТОДИЧКА ОТПРАВЛЕНА</b>
+
+📊 <b>Результаты:</b>
+• Всего получателей: {len(target_ids)}
+• Успешно отправлено: {sent}
+• Ошибок: {failed}
+• Успешность: {(sent/len(target_ids)*100 if target_ids else 0):.1f}%"""
+
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="📊 Статистика", callback_data="admin_stats")],
+            [InlineKeyboardButton(text="⬅️ В админку", callback_data="admin_back")]
+        ])
+
+        await callback.message.edit_text(result_text, parse_mode="HTML", reply_markup=keyboard)
+
+    except Exception as e:
+        await callback.message.edit_text(f"❌ Ошибка отправки: {e}")
+
+# =========================== МЯГКОЕ НАПОМИНАНИЕ (ТОЧКА 3) ===========================
+
+SOFT_REMINDER_MESSAGE = """Здравствуйте! 💛
+
+Некоторое время назад мы отправляли вам приглашение пройти небольшой опрос — и будем очень рады, если вы найдёте несколько минут, чтобы его заполнить.
+
+Ваши ответы действительно важны для нас — они помогают делать наши программы лучше и полезнее.
+
+🎁 А после прохождения вас ждёт подарок — <b>«Руководство для женщин 40+: как защитить сердце в перименопаузе и менопаузе»</b>.
+
+Спасибо, что вы с нами 🤍"""
+
+@admin_router.callback_query(F.data == "broadcast_soft_reminder")
+async def soft_reminder_broadcast(callback: CallbackQuery, state: FSMContext, is_admin: bool = False):
+    """Мягкое напоминание тем, кто не прошёл опрос ТОЧКА 3"""
+    if not await check_admin_auth(callback, state, is_admin):
+        return
+
+    await callback.answer()
+
+    try:
+        from database import get_db_sync, FollowUpStatus, FollowUpSurvey
+
+        def _get_stats():
+            db = get_db_sync()
+            try:
+                sent_users = db.query(FollowUpStatus).filter(
+                    FollowUpStatus.initial_message_sent == True
+                ).all()
+                sent_ids = {s.telegram_id for s in sent_users}
+
+                completed_users = db.query(FollowUpSurvey).filter(
+                    FollowUpSurvey.completed_at.isnot(None)
+                ).all()
+                completed_ids = {c.telegram_id for c in completed_users}
+
+                not_completed_ids = sent_ids - completed_ids
+                return len(sent_ids), len(completed_ids), len(not_completed_ids), list(not_completed_ids)
+            finally:
+                db.close()
+
+        total_sent, total_completed, not_completed_count, not_completed_ids = await asyncio.get_event_loop().run_in_executor(None, _get_stats)
+
+        text = f"""🔔 <b>МЯГКОЕ НАПОМИНАНИЕ (ТОЧКА 3)</b>
+
+📊 <b>Статистика:</b>
+• Всего получили приглашение: {total_sent}
+• Прошли опрос: {total_completed}
+• <b>НЕ прошли опрос: {not_completed_count}</b>
+
+⚠️ Будет отправлено мягкое напоминание {not_completed_count} пользователям.
+
+<b>Текст сообщения:</b>
+<i>{SOFT_REMINDER_MESSAGE[:200]}...</i>
+
+Продолжить?"""
+
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="✅ ОТПРАВИТЬ НАПОМИНАНИЕ", callback_data="confirm_soft_reminder")],
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_broadcast_menu")]
+        ])
+
+        await state.update_data(soft_reminder_ids=not_completed_ids)
+        await callback.message.edit_text(text, parse_mode="HTML", reply_markup=keyboard)
+
+    except Exception as e:
+        await callback.message.edit_text(f"❌ Ошибка получения статистики: {e}")
+
+@admin_router.callback_query(F.data == "confirm_soft_reminder")
+async def confirm_soft_reminder(callback: CallbackQuery, state: FSMContext, is_admin: bool = False):
+    """Подтверждение и выполнение мягкого напоминания"""
+    if not await check_admin_auth(callback, state, is_admin):
+        return
+
+    await callback.answer()
+    await callback.message.edit_text("⏳ Отправляю напоминания...")
+
+    try:
+        from handlers.followup_broadcast import get_followup_start_keyboard
+
+        state_data = await state.get_data()
+        target_ids = state_data.get('soft_reminder_ids', [])
+
+        if not target_ids:
+            await callback.message.edit_text("❌ Нет пользователей для отправки")
+            return
+
+        keyboard = get_followup_start_keyboard()
+        sent = 0
+        failed = 0
+
+        for user_id in target_ids:
+            try:
+                await callback.bot.send_message(
+                    user_id,
+                    SOFT_REMINDER_MESSAGE,
+                    parse_mode="HTML",
+                    reply_markup=keyboard
+                )
+                sent += 1
+            except Exception as e:
+                failed += 1
+
+            await asyncio.sleep(0.05)
+
+        result_text = f"""✅ <b>МЯГКОЕ НАПОМИНАНИЕ ОТПРАВЛЕНО</b>
+
+📊 <b>Результаты:</b>
+• Всего получателей: {len(target_ids)}
+• Успешно отправлено: {sent}
+• Ошибок: {failed}
+• Успешность: {(sent/len(target_ids)*100 if target_ids else 0):.1f}%"""
 
         keyboard = InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text="📊 Статистика", callback_data="admin_stats")],
